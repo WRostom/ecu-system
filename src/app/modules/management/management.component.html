@@ -1,0 +1,14 @@
+<div class="tui-container tui-container_adaptive">
+  <div class="tui-row tui-row-adaptive">
+    <aside class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
+      <ul>
+        <li (click)="changeComponent('faculty')">Faculty</li>
+        <li (click)="changeComponent('courses')">Courses</li>
+        <li (click)="changeComponent('major')">Major</li>
+      </ul>
+    </aside>
+    <main class="tui-col_xs-12 tui-col_md-10 tui-col_lg-10">
+      <ng-template componentHost></ng-template>
+    </main>
+  </div>
+</div>

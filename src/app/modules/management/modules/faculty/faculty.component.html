@@ -1,0 +1,45 @@
+<section class="heading-part">
+  <div class="left-side">
+    <tui-breadcrumbs>
+      <a *tuiBreadcrumb tuiLink> Management </a>
+    </tui-breadcrumbs>
+    <h5 class="tui-text_h5">Faculty</h5>
+  </div>
+  <div class="right-side">
+    <button tuiButton type="button" icon="tuiIconPlus" class="tui-space_right-3 tui-space_bottom-3">
+      Add
+
+      <div *tuiSidebar="open; direction: 'right'"></div>
+    </button>
+  </div>
+</section>
+
+<section class="content-part">
+  <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield /> </tui-input>
+  <table tuiTable [columns]="columns">
+    <thead>
+      <tr tuiThGroup>
+        <th *tuiHead="'id'" tuiTh>ID</th>
+        <th *tuiHead="'facultyName'" tuiTh>Faculty Name</th>
+      </tr>
+    </thead>
+    <tbody tuiTbody [data]="users">
+      <tr *tuiRow="let item of users; let index = index" tuiTr>
+        <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
+        <td *tuiCell="'facultyName'" tuiTd>{{ item.facultyName }}</td>
+        <td *tuiCell="'actions'" tuiTd>
+          <button
+            tuiIconButton
+            appearance="flat"
+            size="s"
+            icon="tuiIconTrash"
+            title="Remove"
+            shape="rounded"
+            class="remove"
+            (click)="remove(item)"
+          ></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

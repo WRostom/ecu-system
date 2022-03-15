@@ -1,0 +1,32 @@
+@use "../page-heading.scss";
+
+td,
+th {
+  white-space: nowrap;
+  //   border-color: transparent;
+  border-right-color: var(--tui-base-04);
+
+  &:last-child {
+    // border-right-color: transparent;
+  }
+}
+
+tbody {
+  //   border-color: transparent;
+}
+
+tr:nth-child(even) td {
+  background: var(--tui-base-02);
+}
+
+.content-part {
+  margin-top: 20px;
+
+  .table-search {
+    margin-bottom: 25px;
+  }
+
+  table {
+    width: 100%;
+  }
+}
