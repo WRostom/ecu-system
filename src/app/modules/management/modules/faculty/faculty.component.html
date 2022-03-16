@@ -6,10 +6,36 @@
     <h5 class="tui-text_h5">Faculty</h5>
   </div>
   <div class="right-side">
-    <button tuiButton type="button" icon="tuiIconPlus" class="tui-space_right-3 tui-space_bottom-3">
+    <button
+      tuiButton
+      type="button"
+      icon="tuiIconPlus"
+      size="m"
+      class="tui-space_right-3 tui-space_bottom-3"
+      (click)="toggle(true)"
+      (tuiActiveZoneChange)="toggle($event)"
+    >
       Add
 
-      <div *tuiSidebar="open; direction: 'right'"></div>
+      <div class="sidebar" *tuiSidebar="open; direction: 'right'">
+        <h5 class="tui-text_h5">Create New Faculty</h5>
+        <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
+          <label tuiLabel label="Identifier">
+            <tui-input tuiTextfieldSize="m" formControlName="id" [tuiTextfieldLabelOutside]="true">
+              Enter ID
+              <input tuiTextfield type="id" />
+            </tui-input>
+          </label>
+          <label tuiLabel label="Title">
+            <tui-input tuiTextfieldSize="m" formControlName="facultyName" [tuiTextfieldLabelOutside]="true">
+              Enter Title
+              <input tuiTextfield type="title" />
+            </tui-input>
+          </label>
+          <div class="divider"></div>
+          <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
+        </form>
+      </div>
     </button>
   </div>
 </section>
@@ -27,18 +53,6 @@
       <tr *tuiRow="let item of users; let index = index" tuiTr>
         <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
         <td *tuiCell="'facultyName'" tuiTd>{{ item.facultyName }}</td>
-        <td *tuiCell="'actions'" tuiTd>
-          <button
-            tuiIconButton
-            appearance="flat"
-            size="s"
-            icon="tuiIconTrash"
-            title="Remove"
-            shape="rounded"
-            class="remove"
-            (click)="remove(item)"
-          ></button>
-        </td>
       </tr>
     </tbody>
   </table>

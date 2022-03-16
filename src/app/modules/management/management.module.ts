@@ -2,10 +2,13 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
+import { TuiSidebarModule } from "@taiga-ui/addon-mobile";
 import { TuiTableModule } from "@taiga-ui/addon-table";
+import { TuiActiveZoneModule } from "@taiga-ui/cdk";
 import { TuiTextfieldControllerModule } from "@taiga-ui/core";
 import { TuiButtonModule } from "@taiga-ui/core";
 import { TUI_BUTTON_OPTIONS } from "@taiga-ui/core";
+import { TuiLabelModule } from "@taiga-ui/core";
 import { TuiBreadcrumbsModule } from "@taiga-ui/kit";
 import { TuiTabsModule } from "@taiga-ui/kit";
 import { TuiInputModule } from "@taiga-ui/kit";
@@ -31,6 +34,9 @@ import { MajorComponent } from "./modules/major/major.component";
     FormsModule,
     ReactiveFormsModule,
     TuiTextfieldControllerModule,
+    TuiSidebarModule,
+    TuiActiveZoneModule,
+    TuiLabelModule,
   ],
   providers: [
     {
@@ -41,6 +47,14 @@ import { MajorComponent } from "./modules/major/major.component";
       },
     },
   ],
-  exports: [TuiBreadcrumbsModule, ComponentSectionDirective],
+  exports: [
+    TuiBreadcrumbsModule,
+    ComponentSectionDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    TuiSidebarModule,
+    TuiActiveZoneModule,
+    TuiLabelModule,
+  ],
 })
 export class ManagementModule {}

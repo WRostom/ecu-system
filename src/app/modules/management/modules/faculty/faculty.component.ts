@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
+import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
 import { Faculty } from "src/app/shared/models/faculty.model";
 
 @Component({
@@ -9,40 +11,44 @@ import { Faculty } from "src/app/shared/models/faculty.model";
 })
 export class FacultyComponent implements OnInit {
   searchTerm!: string;
-  readonly columns = ["id", "facultyName"];
+  columns = ["id", "facultyName"];
   open = false;
+  createNew = new FormGroup({
+    id: new FormControl("", Validators.required),
+    facultyName: new FormControl("", Validators.required),
+  });
 
-  toggle(open: boolean) {
-    this.open = open;
-  }
-
-  users: readonly Faculty[] = [
+  users: Faculty[] = [
     {
       id: "1",
       facultyName: "Informatics and Computer Science",
     },
-    {
-      id: "2",
-      facultyName: "Informatics and Computer Science",
-    },
-    {
-      id: "3",
-      facultyName: "Informatics and Computer Science",
-    },
-    {
-      id: "4",
-      facultyName: "Informatics and Computer Science",
-    },
-    {
-      id: "5",
-      facultyName: "Informatics and Computer Science",
-    },
   ];
-  constructor() {}
+  createLoading: boolean = false;
+  constructor(private facultyDAO: FacultyDAOService) {}
+
+  ngOnInit(): void {
+    // this.facultyDAO.getAll().subscribe((res) => {
+    //   console.log("hello");
+    // });
+  }
 
   remove(item: Faculty) {
     this.users = this.users.filter((faculty) => faculty !== item);
   }
 
-  ngOnInit(): void {}
+  toggle(open: boolean) {
+    this.open = open;
+  }
+
+  onSubmit() {
+    this.createLoading = true;
+    setTimeout(() => {
+      let us = this.users;
+      us.push(this.createNew.value);
+      this.users = us.map((val) => val);
+      this.toggle(false);
+      this.createLoading = false;
+    }, 3000);
+  }
 }
