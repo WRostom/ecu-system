@@ -27,11 +27,7 @@ export class FacultyComponent implements OnInit {
   createLoading: boolean = false;
   constructor(private facultyDAO: FacultyDAOService) {}
 
-  ngOnInit(): void {
-    // this.facultyDAO.getAll().subscribe((res) => {
-    //   console.log("hello");
-    // });
-  }
+  ngOnInit(): void {}
 
   remove(item: Faculty) {
     this.users = this.users.filter((faculty) => faculty !== item);
