@@ -27,10 +27,30 @@
             </tui-input>
           </label>
           <label tuiLabel label="Title">
-            <tui-input tuiTextfieldSize="m" formControlName="facultyName" [tuiTextfieldLabelOutside]="true">
+            <tui-input tuiTextfieldSize="m" formControlName="majorName" [tuiTextfieldLabelOutside]="true">
               Enter Title
               <input tuiTextfield type="title" />
             </tui-input>
+          </label>
+          <label tuiLabel label="Faculty">
+            <tui-select
+              tuiTextfieldSize="m"
+              [tuiTextfieldLabelOutside]="true"
+              formControlName="facultyID"
+              [valueContent]="stringify(faculty)"
+            >
+              <ng-template tuiDataList>
+                <tui-data-list *ngIf="faculty">
+                  <button *ngFor="let item of faculty" tuiOption [value]="item.id">
+                    {{ item.facultyName }}
+                  </button>
+                </tui-data-list>
+              </ng-template>
+            </tui-select>
+            <!-- <tui-input  [tuiTextfieldLabelOutside]="true">
+              Enter Title
+              <input tuiTextfield type="title" />
+            </tui-input> -->
           </label>
           <div class="divider"></div>
           <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
@@ -49,8 +69,8 @@
         <th *tuiHead="'facultyName'" tuiTh>Faculty Name</th>
       </tr>
     </thead>
-    <tbody tuiTbody [data]="users">
-      <tr *tuiRow="let item of users; let index = index" tuiTr>
+    <tbody tuiTbody [data]="data">
+      <tr *tuiRow="let item of data; let index = index" tuiTr>
         <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
         <td *tuiCell="'facultyName'" tuiTd>{{ item.facultyName }}</td>
       </tr>

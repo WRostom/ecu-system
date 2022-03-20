@@ -9,9 +9,11 @@ import { TuiTextfieldControllerModule } from "@taiga-ui/core";
 import { TuiButtonModule } from "@taiga-ui/core";
 import { TUI_BUTTON_OPTIONS } from "@taiga-ui/core";
 import { TuiLabelModule } from "@taiga-ui/core";
+import { TuiDataListModule } from "@taiga-ui/core";
 import { TuiBreadcrumbsModule } from "@taiga-ui/kit";
 import { TuiTabsModule } from "@taiga-ui/kit";
 import { TuiInputModule } from "@taiga-ui/kit";
+import { TuiDataListWrapperModule, TuiSelectModule } from "@taiga-ui/kit";
 
 import { ComponentSectionDirective } from "./directive/component-section.directive";
 import { ManagementRoutingModule } from "./management-routing.module";
@@ -37,6 +39,9 @@ import { MajorComponent } from "./modules/major/major.component";
     TuiSidebarModule,
     TuiActiveZoneModule,
     TuiLabelModule,
+    TuiSelectModule,
+    TuiDataListModule,
+    TuiDataListWrapperModule,
   ],
   providers: [
     {
@@ -55,6 +60,9 @@ import { MajorComponent } from "./modules/major/major.component";
     TuiSidebarModule,
     TuiActiveZoneModule,
     TuiLabelModule,
+    TuiSelectModule,
+    TuiDataListModule,
+    TuiDataListWrapperModule,
   ],
 })
 export class ManagementModule {}
