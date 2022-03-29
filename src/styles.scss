@@ -425,4 +425,22 @@ h6 {
   tui-root {
     background: var(--md-sys-color-background);
   }
+
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--tui-text-01);
+
+    &:visited {
+      color: var(--tui-text-01);
+    }
+
+    &:hover {
+      color: var(--tui-primary);
+    }
+  }
+
+  .router-link-active {
+    color: var(--tui-primary) !important;
+  }
 }

@@ -90,8 +90,15 @@ export class CoursesComponent implements OnInit {
   }
 
   @tuiPure
-  stringify(faculty: any[]): any {
+  stringifyFaculty(faculty: any[]): any {
     const map = new Map(faculty.map(({ id, facultyName }) => [id, facultyName] as [string, string]));
+
+    return ({ $implicit }: TuiContextWithImplicit<string>) => map.get($implicit) || "";
+  }
+
+  @tuiPure
+  stringifyMajor(faculty: any[]): any {
+    const map = new Map(faculty.map(({ id, majorName }) => [id, majorName] as [string, string]));
 
     return ({ $implicit }: TuiContextWithImplicit<string>) => map.get($implicit) || "";
   }

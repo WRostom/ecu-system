@@ -9,6 +9,12 @@ header {
   align-items: center;
 
   nav {
+    margin-inline-start: 150px;
     display: flex;
+    flex-direction: row;
+
+    a {
+      margin-inline-end: 50px;
+    }
   }
 }

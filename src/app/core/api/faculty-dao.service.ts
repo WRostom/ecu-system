@@ -7,7 +7,6 @@ import { GlobalDAOService } from "./global-dao.service";
   providedIn: "root",
 })
 export class FacultyDAOService extends GlobalDAOService<any> {
-  // tslint:disable: ban-types
   constructor(api: ApiService) {
     super("faculty", api);
   }

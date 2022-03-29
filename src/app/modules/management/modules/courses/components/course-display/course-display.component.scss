@@ -1,0 +1,38 @@
+@use "../../../page-heading.scss";
+.section-title {
+  margin-top: 3rem;
+  font-size: 1rem;
+}
+
+.content-part {
+  padding: 25px;
+  background-color: white;
+  border-radius: var(--tui-radius-m);
+  p {
+    margin: 0;
+  }
+
+  .section-title {
+    margin-bottom: 2rem;
+  }
+
+  .info-box-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 3rem;
+
+    .info-box {
+      .info-subheading {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: bold;
+      }
+
+      .info-content {
+        font-size: 1rem;
+      }
+    }
+  }
+}

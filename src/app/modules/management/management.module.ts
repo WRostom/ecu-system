@@ -14,17 +14,27 @@ import { TuiBreadcrumbsModule } from "@taiga-ui/kit";
 import { TuiTabsModule } from "@taiga-ui/kit";
 import { TuiInputModule } from "@taiga-ui/kit";
 import { TuiDataListWrapperModule, TuiSelectModule } from "@taiga-ui/kit";
+import { TuiInputCountModule } from "@taiga-ui/kit";
 
 import { ComponentSectionDirective } from "./directive/component-section.directive";
 import { ManagementRoutingModule } from "./management-routing.module";
 import { ManagementComponent } from "./management.component";
+import { CourseDisplayComponent } from "./modules/courses/components/course-display/course-display.component";
 import { CoursesComponent } from "./modules/courses/courses.component";
 import { DepartmentComponent } from "./modules/department/department.component";
 import { FacultyComponent } from "./modules/faculty/faculty.component";
 import { MajorComponent } from "./modules/major/major.component";
 
 @NgModule({
-  declarations: [ManagementComponent, DepartmentComponent, CoursesComponent, FacultyComponent, ComponentSectionDirective, MajorComponent],
+  declarations: [
+    ManagementComponent,
+    DepartmentComponent,
+    CoursesComponent,
+    FacultyComponent,
+    ComponentSectionDirective,
+    MajorComponent,
+    CourseDisplayComponent,
+  ],
   imports: [
     CommonModule,
     ManagementRoutingModule,
@@ -42,6 +52,7 @@ import { MajorComponent } from "./modules/major/major.component";
     TuiSelectModule,
     TuiDataListModule,
     TuiDataListWrapperModule,
+    TuiInputCountModule,
   ],
   providers: [
     {
@@ -53,6 +64,7 @@ import { MajorComponent } from "./modules/major/major.component";
     },
   ],
   exports: [
+    ManagementRoutingModule,
     TuiBreadcrumbsModule,
     ComponentSectionDirective,
     FormsModule,
@@ -63,6 +75,7 @@ import { MajorComponent } from "./modules/major/major.component";
     TuiSelectModule,
     TuiDataListModule,
     TuiDataListWrapperModule,
+    TuiInputCountModule,
   ],
 })
 export class ManagementModule {}

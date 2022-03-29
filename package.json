@@ -36,6 +36,7 @@
     "@taiga-ui/icons": "^2.37.1",
     "@taiga-ui/kit": "^2.37.1",
     "@tinkoff/ng-dompurify": "3.0.0",
+    "angular-calendar": "^0.29.0",
     "dompurify": "2.2.9",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

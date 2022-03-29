@@ -6,7 +6,7 @@ import { Person, personType } from "./person.model";
 export class Student extends Person {
   id: string;
   faculty: Faculty;
-  registrations: CourseStudent[];
+  registrations?: CourseStudent[];
 
   constructor(
     firstName: string,
@@ -17,7 +17,7 @@ export class Student extends Person {
     mobileNumber: string,
     id: string,
     faculty: Faculty,
-    registrations: CourseStudent[]
+    registrations?: CourseStudent[]
   ) {
     super(firstName, lastName, type, email, countryCode, mobileNumber);
     this.id = id;

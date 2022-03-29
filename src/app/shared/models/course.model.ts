@@ -12,7 +12,7 @@ export class Course {
   maxNoStudents: number;
   currentNoStudents: number;
   courseRoom: string;
-  registrations: CourseStudent[];
+  registrations?: CourseStudent[];
 
   constructor(
     id: string,
@@ -24,7 +24,7 @@ export class Course {
     maxNoStudents: number,
     currentNoStudents: number,
     courseRoom: string,
-    registrations: CourseStudent[]
+    registrations?: CourseStudent[]
   ) {
     this.id = id;
     this.courseName = courseName;

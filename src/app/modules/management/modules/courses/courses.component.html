@@ -37,7 +37,7 @@
               tuiTextfieldSize="m"
               [tuiTextfieldLabelOutside]="true"
               formControlName="facultyID"
-              [valueContent]="stringify(faculty)"
+              [valueContent]="stringifyFaculty(faculty)"
             >
               <ng-template tuiDataList>
                 <tui-data-list *ngIf="faculty">
@@ -49,7 +49,12 @@
             </tui-select>
           </label>
           <label tuiLabel label="Major">
-            <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="majorID" [valueContent]="stringify(major)">
+            <tui-select
+              tuiTextfieldSize="m"
+              [tuiTextfieldLabelOutside]="true"
+              formControlName="majorID"
+              [valueContent]="stringifyMajor(major)"
+            >
               <ng-template tuiDataList>
                 <tui-data-list *ngIf="major">
                   <button *ngFor="let onemajor of major" tuiOption [value]="onemajor.id">
@@ -58,6 +63,22 @@
                 </tui-data-list>
               </ng-template>
             </tui-select>
+          </label>
+          <label tuiLabel label="Max No. Students (optional)">
+            <tui-input-count tuiTextfieldSize="m" formControlName="maxNoStudents" [tuiTextfieldLabelOutside]="true">
+              <input tuiTextfield type="maxnostudents" />
+            </tui-input-count>
+          </label>
+          <label tuiLabel label="Current No. Students (optional)">
+            <tui-input-count tuiTextfieldSize="m" formControlName="currentNoStudents" [tuiTextfieldLabelOutside]="true">
+              <input tuiTextfield type="title" />
+            </tui-input-count>
+          </label>
+          <label tuiLabel label="Course Room">
+            <tui-input tuiTextfieldSize="m" formControlName="courseRoom" [tuiTextfieldLabelOutside]="true">
+              Enter Room ID
+              <input tuiTextfield type="title" />
+            </tui-input>
           </label>
           <div class="divider"></div>
           <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
