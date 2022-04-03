@@ -1,0 +1,40 @@
+<div class="tui-container tui-container_adaptive">
+    <div class="tui-row tui-row-adaptive">
+        <section class="heading-part">
+            <div class="left-side">
+                <h5 class="tui-text_h5">Students</h5>
+            </div>
+            <div class="right-side">
+                <button tuiButton type="button" icon="tuiIconPlus" size="m" class="tui-space_right-3 tui-space_bottom-3"
+                    (click)="toggle(true)" (tuiActiveZoneChange)="toggle($event)">
+                    Add
+                    <div class="sidebar" *tuiSidebar="open; direction: 'right'">
+                        <app-add-student (openSidebar)="addStudent($event)"></app-add-student>
+                    </div>
+                </button>
+            </div>
+        </section>
+        <section class="content-part">
+            <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield />
+            </tui-input>
+            <table tuiTable [columns]="columns">
+                <thead>
+                    <tr tuiThGroup>
+                        <th *tuiHead="'fullName'" tuiTh>Full Name</th>
+                        <th *tuiHead="'mobile'" tuiTh>Mobile</th>
+                        <th *tuiHead="'email'" tuiTh>Email</th>
+                        <th *tuiHead="'faculty'" tuiTh>Faculty</th>
+                        <th *tuiHead="'courses'" tuiTh>Courses</th>
+                    </tr>
+                </thead>
+                <tbody tuiTbody [data]="student">
+                    <tr *tuiRow="let item of student; let index = index" tuiTr>
+                        <td *tuiCell="'fullName'" tuiTd>{{ item.firstName }} {{ item.lastName }}</td>
+                        <td *tuiCell="'mobile'" tuiTd>{{ item.mobileNumber }}</td>
+                        <td *tuiCell="'email'" tuiTd>{{ item.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
