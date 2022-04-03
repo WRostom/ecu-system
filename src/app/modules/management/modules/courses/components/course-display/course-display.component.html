@@ -1,15 +1,5 @@
 <section class="heading-part">
   <div class="left-side">
-    <button
-      tuiButton
-      type="button"
-      class="tui-space_right-3 tui-space_bottom-3"
-      icon="tuiIconArrowLeft"
-      appearance="flat"
-      (click)="goBack()"
-    >
-      Back
-    </button>
     <tui-breadcrumbs>
       <a *tuiBreadcrumb tuiLink> Courses </a>
     </tui-breadcrumbs>
@@ -50,12 +40,47 @@
   </div>
 </section>
 
-<p class="section-title">Groups</p>
-<section class="content-part">
-  <div class="info-box-wrapper">
-    <div class="info-box">
-      <p class="info-subheading">ID</p>
-      <p class="info-content">1</p>
-    </div>
+<p class="section-title">Schedule</p>
+<section class="content-part group-section">
+  <div class="title-button-wrapper">
+    <p class="section-title">Groups</p>
+    <button
+      tuiButton
+      type="button"
+      icon="tuiIconPlus"
+      size="s"
+      class="tui-space_right-3 tui-space_bottom-3"
+      (click)="toggle(true)"
+      (tuiActiveZoneChange)="toggle($event)"
+    >
+      Add
+      <div class="sidebar" *tuiSidebar="open; direction: 'right'">
+        <app-add-group [groupID]="data.length + 1" (openSidebar)="addGroup($event)"></app-add-group>
+      </div>
+    </button>
   </div>
+  <table tuiTable [columns]="columns">
+    <thead>
+      <tr tuiThGroup>
+        <th *tuiHead="'groupName'" tuiTh>Group No.</th>
+        <th *tuiHead="'startDate'" tuiTh>Start Date</th>
+        <th *tuiHead="'startTime'" tuiTh>Start Time</th>
+        <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
+      </tr>
+    </thead>
+    <tbody tuiTbody [data]="data">
+      <tr *tuiRow="let item of data" tuiTr>
+        <td *tuiCell="'groupName'" tuiTd>
+          <span class="group-color" [style]="{ color: item.color }">⬤</span>
+          Group {{ item.groupID }}
+        </td>
+        <td *tuiCell="'startDate'" tuiTd>{{ item.startDate }}</td>
+        <td *tuiCell="'startTime'" tuiTd>{{ item.startTime }}</td>
+        <td *tuiCell="'action'" tuiTd>
+          <button tuiIconButton appearance="flat" size="s" icon="tuiIconTrash" title="Remove" shape="rounded" class="remove"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <app-calendar> </app-calendar>
 </section>

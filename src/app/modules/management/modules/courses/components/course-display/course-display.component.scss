@@ -12,8 +12,15 @@
     margin: 0;
   }
 
-  .section-title {
-    margin-bottom: 2rem;
+  .title-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .section-title {
+    }
   }
 
   .info-box-wrapper {
@@ -33,6 +40,17 @@
       .info-content {
         font-size: 1rem;
       }
+    }
+  }
+}
+
+.group-section {
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+
+    .group-color {
+      margin-inline-end: 15px;
     }
   }
 }

@@ -1,3 +1,5 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
 :root {
   --header-height: 60px;
   --footer-height: 60px;
@@ -10,7 +12,7 @@
 html,
 body,
 tui-root {
-  height: 100%;
+  min-height: 100%;
 }
 
 aside.ng-trigger-tuiSlideIn {
@@ -421,7 +423,12 @@ h6 {
 .material-theme {
   --tui-primary: var(--md-sys-color-primary);
   --tui-primary-hover: var(--md-sys-color-on-primary-container);
+  --tui-primary-active: var(--md-sys-color-on-primary-container);
   --tui-secondary: var(--md-sys-color-secondary);
+  --tui-secondary-hover: var(--md-sys-color-secondary-container);
+  --tui-link: var(--md-sys-color-primary);
+  --tui-link-hover: var(--md-sys-color-primary);
+
   tui-root {
     background: var(--md-sys-color-background);
   }
@@ -442,5 +449,36 @@ h6 {
 
   .router-link-active {
     color: var(--tui-primary) !important;
+  }
+
+  .sidebar {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    h5 {
+      margin-bottom: 2rem;
+    }
+
+    label {
+      margin-bottom: 1rem;
+
+      & > span {
+        margin-bottom: 10px;
+
+        label {
+          margin: 0;
+        }
+      }
+    }
+
+    .divider {
+      flex: 1;
+    }
+
+    button {
+      width: 100%;
+    }
   }
 }

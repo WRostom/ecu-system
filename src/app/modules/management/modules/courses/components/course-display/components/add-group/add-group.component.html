@@ -1,0 +1,33 @@
+<h5 class="tui-text_h5">Add New Group</h5>
+<form [formGroup]="createNew" (ngSubmit)="onSubmit()">
+  <label tuiLabel label="Identifier">
+    <p class="auto-id">
+      <span [style]="{ color: identifier.color }">⬤</span>
+      Group {{ identifier.groupID }}
+    </p>
+  </label>
+  <label tuiLabel label="Start Date">
+    <tui-input-date tuiTextfieldSize="m" formControlName="startDate" [tuiTextfieldLabelOutside]="true">
+      Choose a date
+      <input tuiTextfield />
+    </tui-input-date>
+  </label>
+  <label tuiLabel label="Start Time">
+    <tui-input-time tuiTextfieldSize="m" formControlName="startTime" [tuiTextfieldLabelOutside]="true" [items]="timeItems">
+      Choose Time
+    </tui-input-time>
+  </label>
+  <label tuiLabel label="Instructor">
+    <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="instructor" [valueContent]="stringify(instructor)">
+      <ng-template tuiDataList>
+        <tui-data-list *ngIf="instructor">
+          <button *ngFor="let item of instructor" tuiOption [value]="item.id">
+            {{ item.name }}
+          </button>
+        </tui-data-list>
+      </ng-template>
+    </tui-select>
+  </label>
+  <div class="divider"></div>
+  <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
+</form>

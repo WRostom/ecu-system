@@ -1,11 +1,8 @@
-import { Location } from "@angular/common";
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from "angular-calendar";
 import { addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from "date-fns";
 import { Subject } from "rxjs";
-import { CoursesDaoService } from "src/app/core/api/courses-dao.service";
 
 const colors: any = {
   red: {
@@ -21,16 +18,16 @@ const colors: any = {
     secondary: "#FDF1BA",
   },
 };
+
 @Component({
-  selector: "app-course-display",
-  templateUrl: "./course-display.component.html",
-  styleUrls: ["./course-display.component.scss"],
+  selector: "app-calendar",
+  templateUrl: "./calendar.component.html",
+  styleUrls: ["./calendar.component.scss"],
 })
-export class CourseDisplayComponent implements OnInit {
+export class CalendarComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-  open = false;
   modalData!: {
     action: string;
     event: CalendarEvent;
@@ -98,50 +95,9 @@ export class CourseDisplayComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
-  // Table Vars
+  constructor() {}
 
-  columns = ["groupName", "startDate", "startTime", "action"];
-
-  data: any[] = [
-    {
-      groupID: 1,
-      color: "#ff0000",
-      startDate: "03/04/2022",
-      startTime: "3:36",
-      instructor: 1,
-    },
-  ];
-
-  constructor(
-    private location: Location,
-    private activatedRoute: ActivatedRoute,
-    private courseDAO: CoursesDaoService,
-    private changeDetectionRef: ChangeDetectorRef
-  ) {}
-
-  toggle(open: any) {
-    this.open = open;
-  }
-
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe((val) => {
-      if (val && val["id"]) {
-        this.getCourseData(val["id"]);
-      } else {
-        this.goBack();
-      }
-    });
-  }
-
-  getCourseData(id: string) {
-    this.courseDAO.getOne(id).subscribe((res) => {
-      console.log(res, "data");
-    });
-  }
-
-  goBack() {
-    this.location.back();
-  }
+  ngOnInit(): void {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -200,10 +156,5 @@ export class CourseDisplayComponent implements OnInit {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
-  }
-
-  addGroup(groupData: any) {
-    this.data = [...this.data, groupData];
-    this.toggle(false);
   }
 }
