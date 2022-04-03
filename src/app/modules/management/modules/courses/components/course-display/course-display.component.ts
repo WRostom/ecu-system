@@ -112,12 +112,7 @@ export class CourseDisplayComponent implements OnInit {
     },
   ];
 
-  constructor(
-    private location: Location,
-    private activatedRoute: ActivatedRoute,
-    private courseDAO: CoursesDaoService,
-    private changeDetectionRef: ChangeDetectorRef
-  ) {}
+  constructor(private location: Location, private activatedRoute: ActivatedRoute, private courseDAO: CoursesDaoService) {}
 
   toggle(open: any) {
     this.open = open;

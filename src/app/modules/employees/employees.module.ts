@@ -1,21 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { EmployeesRoutingModule } from './employees-routing.module';
-import { EmployeesComponent } from './employees.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { SharedModule } from "src/app/shared/shared.module";
 
+import { AddEmployeeComponent } from "./components/add-employee/add-employee.component";
+import { EmployeesRoutingModule } from "./employees-routing.module";
+import { EmployeesComponent } from "./employees.component";
 
 @NgModule({
-  declarations: [
-    EmployeesComponent,
-    AddEmployeeComponent
-  ],
-  imports: [
-    CommonModule,
-    EmployeesRoutingModule,
-    SharedModule
-  ]
+  declarations: [EmployeesComponent, AddEmployeeComponent],
+  imports: [CommonModule, EmployeesRoutingModule, SharedModule],
 })
-export class EmployeesModule { }
+export class EmployeesModule {}

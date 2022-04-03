@@ -1,35 +1,34 @@
-
 @use "../../../page-heading.scss";
 td,
 th {
-    white-space: nowrap;
-    //   border-color: transparent;
-    border-right-color: var(--tui-base-04);
+  white-space: nowrap;
+  //   border-color: transparent;
+  border-right-color: var(--tui-base-04);
 
-    &:last-child {
-        // border-right-color: transparent;
-    }
+  &:last-child {
+    // border-right-color: transparent;
+  }
 }
 
 tbody {
-    //   border-color: transparent;
+  //   border-color: transparent;
 }
 
 tr:nth-child(even) td {
-    background: var(--tui-base-02);
+  background: var(--tui-base-02);
 }
-.heading-part{
-    width: 100%;
-    align-items: center;
+.heading-part {
+  width: 100%;
+  align-items: center;
 }
 .content-part {
-    margin-top: 20px;
-    width: 100%;
-    .table-search {
-        margin-bottom: 25px;
-    }
+  margin-top: 20px;
+  width: 100%;
+  .table-search {
+    margin-bottom: 25px;
+  }
 
-    table {
-        width: 100%;
-    }
+  table {
+    width: 100%;
+  }
 }

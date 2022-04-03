@@ -24,11 +24,8 @@ export class EmployeesComponent implements OnInit {
     this.open = open;
   }
 
-  addEmployee(employee:any) {
-    this.users = [
-      ...this.users,
-      employee
-    ]
-    this.toggle(false)
+  addEmployee(employee: any) {
+    this.users = [...this.users, employee];
+    this.toggle(false);
   }
 }
