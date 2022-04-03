@@ -1,41 +1,44 @@
 <h5 class="tui-text_h5">Add New Group</h5>
 <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
-    <label tuiLabel label="First Name">
-        <tui-input tuiTextfieldSize="m" formControlName="firstName" [tuiTextfieldLabelOutside]="true">
-            Enter First Name
-            <input tuiTextfield />
-        </tui-input>
-    </label>
-    <label tuiLabel label="Last Name">
-        <tui-input tuiTextfieldSize="m" formControlName="lastName" [tuiTextfieldLabelOutside]="true">
-            Enter Last Name
-            <input tuiTextfield />
-        </tui-input>
-    </label>
-    <label tuiLabel label="Type">
-        <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="type"
-            [valueContent]="stringify(types)">
-            <ng-template tuiDataList>
-                <tui-data-list *ngIf="types">
-                    <button *ngFor="let item of types" tuiOption [value]="item.id">
-                        {{ item.name }}
-                    </button>
-                </tui-data-list>
-            </ng-template>
-        </tui-select>
-    </label>
-    <label tuiLabel label="Email">
-        <tui-input tuiTextfieldSize="m" formControlName="email" [tuiTextfieldLabelOutside]="true">
-            exmaple@example.com
-            <input tuiTextfield />
-        </tui-input>
-    </label>
-    <label tuiLabel label="Mobile Number">
-        <tui-input-phone-international tuiTextfieldSize="m" formControlName="mobileNumber" [countries]="countries"
-            [(countryIsoCode)]="countryIsoCode">
-            Type your number
-        </tui-input-phone-international>
-    </label>
-    <div class="divider"></div>
-    <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
+  <label tuiLabel label="First Name">
+    <tui-input tuiTextfieldSize="m" formControlName="firstName" [tuiTextfieldLabelOutside]="true">
+      Enter First Name
+      <input tuiTextfield />
+    </tui-input>
+  </label>
+  <label tuiLabel label="Last Name">
+    <tui-input tuiTextfieldSize="m" formControlName="lastName" [tuiTextfieldLabelOutside]="true">
+      Enter Last Name
+      <input tuiTextfield />
+    </tui-input>
+  </label>
+  <label tuiLabel label="Type">
+    <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="type" [valueContent]="stringify(types)">
+      <ng-template tuiDataList>
+        <tui-data-list *ngIf="types">
+          <button *ngFor="let item of types" tuiOption [value]="item.id">
+            {{ item.name }}
+          </button>
+        </tui-data-list>
+      </ng-template>
+    </tui-select>
+  </label>
+  <label tuiLabel label="Email">
+    <tui-input tuiTextfieldSize="m" formControlName="email" [tuiTextfieldLabelOutside]="true">
+      exmaple@example.com
+      <input tuiTextfield />
+    </tui-input>
+  </label>
+  <label tuiLabel label="Mobile Number">
+    <tui-input-phone-international
+      tuiTextfieldSize="m"
+      formControlName="mobileNumber"
+      [countries]="countries"
+      [(countryIsoCode)]="countryIsoCode"
+    >
+      Type your number
+    </tui-input-phone-international>
+  </label>
+  <div class="divider"></div>
+  <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
 </form>
