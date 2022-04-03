@@ -45,23 +45,7 @@ import { MajorComponent } from "./modules/major/major.component";
     SharedModule,
     CalendarECLModule,
     ManagementRoutingModule,
-    TuiBreadcrumbsModule,
-    TuiTabsModule,
-    TuiTableModule,
-    TuiInputModule,
-    TuiButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TuiTextfieldControllerModule,
-    TuiSidebarModule,
-    TuiActiveZoneModule,
-    TuiLabelModule,
-    TuiSelectModule,
-    TuiDataListModule,
-    TuiDataListWrapperModule,
-    TuiInputCountModule,
-    TuiInputDateModule,
-    TuiInputTimeModule,
+  
   ],
   providers: [
     {
@@ -74,17 +58,7 @@ import { MajorComponent } from "./modules/major/major.component";
   ],
   exports: [
     ManagementRoutingModule,
-    TuiBreadcrumbsModule,
-    ComponentSectionDirective,
-    FormsModule,
-    ReactiveFormsModule,
-    TuiSidebarModule,
-    TuiActiveZoneModule,
-    TuiLabelModule,
-    TuiSelectModule,
-    TuiDataListModule,
-    TuiDataListWrapperModule,
-    TuiInputCountModule,
+    
   ],
 })
 export class ManagementModule {}
