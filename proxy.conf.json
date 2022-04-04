@@ -1,0 +1,12 @@
+{
+  "/local/*": {
+    "target": "http://41.128.185.62:8060",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info",
+    "timeout": 600000,
+    "pathRewrite": {
+      "^/local": ""
+    }
+  }
+}

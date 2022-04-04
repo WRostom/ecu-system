@@ -1,4 +1,10 @@
 [[redirects]]
+  from = "/local/*"
+  to = "http://41.128.185.62:8060/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
