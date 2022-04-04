@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { TuiContextWithImplicit, tuiPure } from "@taiga-ui/cdk";
@@ -15,7 +15,24 @@ import { Major } from "src/app/shared/models/major.model";
   styleUrls: ["./add-course.component.scss"],
 })
 export class AddCourseComponent implements OnInit, AfterViewInit {
+  @Input("editMode") set editMode(data: string) {
+    this.isEditMode = true;
+    this.courseDAO.getOne({ id: data }).subscribe((res) => {
+      this.createNew.patchValue({
+        id: res.id,
+        courseName: res.courseName,
+        credits: res.credits,
+        prerequisiteList: res.prerequisteList,
+        majorID: res.major.id,
+        facultyID: res.faculty.id,
+        maxNoStudents: res.maxNoStudents,
+        currentNoStudents: res.currentNoStudents,
+        courseRoom: res.courseRoom,
+      });
+    });
+  }
   @Output() openSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
+  isEditMode: boolean = false;
   createNew = new FormGroup({
     id: new FormControl("", Validators.required),
     courseName: new FormControl("", Validators.required),
@@ -54,16 +71,27 @@ export class AddCourseComponent implements OnInit, AfterViewInit {
     serverData.major = this.majorData.find((major) => major.id === this.createNew.value.majorID);
     delete serverData.facultyID;
     delete serverData.majorID;
-
-    this.courseDAO.create(serverData).subscribe(
-      (res) => {
-        this.openSidebar.emit(false);
-        this.createLoading = false;
-      },
-      (err) => {
-        console.log(err, "error response");
-      }
-    );
+    if (this.isEditMode) {
+      this.courseDAO.update(serverData).subscribe(
+        (res) => {
+          this.openSidebar.emit(false);
+          this.createLoading = false;
+        },
+        (err) => {
+          console.log(err, "error response");
+        }
+      );
+    } else {
+      this.courseDAO.create(serverData).subscribe(
+        (res) => {
+          this.openSidebar.emit(false);
+          this.createLoading = false;
+        },
+        (err) => {
+          console.log(err, "error response");
+        }
+      );
+    }
   }
 
   @tuiPure

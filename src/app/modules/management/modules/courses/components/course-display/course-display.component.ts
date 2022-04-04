@@ -115,6 +115,8 @@ export class CourseDisplayComponent implements OnInit {
 
   courseDataRequest$: Observable<Course>;
   loading$: any = of(true);
+  openEdit: boolean;
+  pageID: string;
 
   constructor(private location: Location, private activatedRoute: ActivatedRoute, private courseDAO: CoursesDaoService) {}
 
@@ -125,6 +127,7 @@ export class CourseDisplayComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((val) => {
       if (val && val["id"]) {
+        this.pageID = val["id"];
         this.courseDataRequest$ = this.courseDAO.getOne({ id: val["id"] });
         this.loading$ = this.courseDataRequest$.pipe(map((value) => !value));
       } else {
@@ -205,5 +208,12 @@ export class CourseDisplayComponent implements OnInit {
   addGroup(groupData: any) {
     this.data = [...this.data, groupData];
     this.toggle(false);
+  }
+
+  toggleEdit(open: boolean, refresh?: boolean) {
+    this.openEdit = open;
+    if (refresh) {
+      this.courseDataRequest$ = this.courseDAO.getOne({ id: this.pageID });
+    }
   }
 }
