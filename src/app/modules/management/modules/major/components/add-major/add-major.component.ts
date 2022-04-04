@@ -1,7 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { TuiContextWithImplicit, tuiPure } from "@taiga-ui/cdk";
+import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
+import { MajorDaoService } from "src/app/core/api/major-dao.service";
 import { Faculty } from "src/app/shared/models/faculty.model";
 
 @Component({
@@ -9,14 +11,17 @@ import { Faculty } from "src/app/shared/models/faculty.model";
   templateUrl: "./add-major.component.html",
   styleUrls: ["./add-major.component.scss"],
 })
-export class AddMajorComponent implements OnInit {
+export class AddMajorComponent implements OnInit, AfterViewInit {
   @Output() openSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
   createLoading: boolean = false;
   createNew = new FormGroup({
     id: new FormControl("", Validators.required),
     majorName: new FormControl("", Validators.required),
-    facultyID: new FormControl("1", Validators.required),
+    facultyID: new FormControl(null, Validators.required),
   });
+
+  facultyDataRequest$ = this.facultyDAO.getAll();
+  facultyData: Faculty[];
 
   faculty: Faculty[] = [
     {
@@ -24,16 +29,25 @@ export class AddMajorComponent implements OnInit {
       facultyName: "Informatics and Computer Science",
     },
   ];
-  constructor() {}
+  constructor(private majorDAO: MajorDaoService, private facultyDAO: FacultyDAOService) {}
 
   ngOnInit(): void {}
 
+  ngAfterViewInit() {
+    this.facultyDataRequest$.subscribe((faculty: Faculty[]) => {
+      this.facultyData = faculty;
+    });
+  }
+
   onSubmit() {
     this.createLoading = true;
-    setTimeout(() => {
+    const serverData = Object.assign(this.createNew.value, {});
+    serverData.faculty = this.facultyData.find((faculty) => faculty.id === this.createNew.value.facultyID);
+    delete serverData.facultyID;
+    this.majorDAO.create(serverData).subscribe((res) => {
       this.openSidebar.emit(false);
       this.createLoading = false;
-    }, 3000);
+    });
   }
 
   @tuiPure

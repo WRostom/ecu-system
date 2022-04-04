@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
+import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
+
 @Component({
   selector: "app-add-faculty",
   templateUrl: "./add-faculty.component.html",
@@ -15,15 +17,15 @@ export class AddFacultyComponent implements OnInit {
   });
   createLoading: boolean = false;
 
-  constructor() {}
+  constructor(private facultyDAO: FacultyDAOService) {}
 
   ngOnInit(): void {}
 
   onSubmit() {
     this.createLoading = true;
-    setTimeout(() => {
-      this.openSidebar.emit(false);
+    this.facultyDAO.create(this.createNew.value).subscribe((res) => {
       this.createLoading = false;
-    }, 3000);
+      this.openSidebar.emit(false);
+    });
   }
 }
