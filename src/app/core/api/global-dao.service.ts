@@ -18,6 +18,10 @@ export class GlobalDAOService<T> {
     return this.api.postRequest<T>(`${this.pageName}/getOne/`, newData);
   }
 
+  create(data: T): Observable<T> {
+    return this.api.postRequest<T>(`${this.pageName}/create`, data);
+  }
+
   find(data: any, pageSize: number, pageNumber: number, sortedBy: string, order: string, filter: any): Observable<Object> {
     data = Object.assign({}, data);
     data["filter"] = filter;

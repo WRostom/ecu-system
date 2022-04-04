@@ -14,30 +14,51 @@
   </label>
   <label tuiLabel label="Faculty">
     <tui-select
+      *tuiLet="facultyDataRequest$ | async as facultyItems"
       tuiTextfieldSize="m"
       [tuiTextfieldLabelOutside]="true"
       formControlName="facultyID"
-      [valueContent]="stringifyFaculty(faculty)"
+      [valueContent]="facultyItems ? stringifyFaculty(facultyItems) : loading"
     >
+      Choose A Faculty
       <ng-template tuiDataList>
-        <tui-data-list *ngIf="faculty">
-          <button *ngFor="let item of faculty" tuiOption [value]="item.id">
+        <tui-data-list *ngIf="facultyItems; else loading">
+          <button *ngFor="let item of facultyItems" tuiOption [value]="item.id">
             {{ item.facultyName }}
           </button>
         </tui-data-list>
       </ng-template>
+      <ng-template #loading>
+        <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+      </ng-template>
     </tui-select>
   </label>
   <label tuiLabel label="Major">
-    <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="majorID" [valueContent]="stringifyMajor(major)">
+    <tui-select
+      *tuiLet="majorDataRequest$ | async as majorItems"
+      tuiTextfieldSize="m"
+      [tuiTextfieldLabelOutside]="true"
+      formControlName="majorID"
+      [valueContent]="majorItems ? stringifyMajor(majorItems) : loading"
+    >
+      Choose A Major
       <ng-template tuiDataList>
-        <tui-data-list *ngIf="major">
-          <button *ngFor="let onemajor of major" tuiOption [value]="onemajor.id">
-            {{ onemajor.majorName }}
+        <tui-data-list *ngIf="majorItems; else loading">
+          <button *ngFor="let major of majorItems" tuiOption [value]="major.id">
+            {{ major.majorName }}
           </button>
         </tui-data-list>
       </ng-template>
+      <ng-template #loading>
+        <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+      </ng-template>
     </tui-select>
+  </label>
+  <label tuiLabel label="Credits">
+    <tui-input tuiTextfieldSize="m" formControlName="credits" [tuiTextfieldLabelOutside]="true">
+      Enter Credits
+      <input tuiTextfield />
+    </tui-input>
   </label>
   <label tuiLabel label="Max No. Students (optional)">
     <tui-input-count tuiTextfieldSize="m" formControlName="maxNoStudents" [tuiTextfieldLabelOutside]="true">

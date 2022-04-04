@@ -27,8 +27,11 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  toggle(open: boolean) {
+  toggle(open: boolean, refresh?: boolean) {
     this.open = open;
+    if (refresh) {
+      this.coursesDataRequest$ = this.courseDAO.getAll();
+    }
   }
 
   goToCourse(courseID: string) {
