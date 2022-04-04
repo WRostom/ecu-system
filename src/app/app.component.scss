@@ -1,5 +1,5 @@
 .content-wrapper {
   // min-height: calc(100vh - (var(--header-height) + var(--footer-height))); //with footer
-  min-height: calc(100vh - (var(--header-height)));
+  min-height: calc(100vh - (var(--header-height)) - 50px);
   padding-top: 50px;
 }
