@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 
+import { map } from "rxjs";
+import { EmployeeDAOService } from "src/app/core/api/employee-dao.service";
+
 @Component({
   selector: "app-employees",
   templateUrl: "./employees.component.html",
@@ -7,25 +10,19 @@ import { Component, OnInit } from "@angular/core";
 })
 export class EmployeesComponent implements OnInit {
   searchTerm!: string;
-  columns = ["fullName", "mobile", "email"];
+  columns = ["fullName", "type", "mobile", "email"];
   open = false;
-  users: any[] = [
-    {
-      firstName: "Ahmed",
-      lastName: "Hisham",
-      mobileNumber: "+201100781855",
-      email: "localhosta@localhost.com",
-    },
-  ];
-  constructor() {}
+  employeeDataRequest$ = this.employeeDAO.getAll();
+  readonly loading$ = this.employeeDataRequest$.pipe(map((value) => !value));
+
+  constructor(private employeeDAO: EmployeeDAOService) {}
 
   ngOnInit(): void {}
-  toggle(open: any) {
+  toggle(open: any, refresh?: boolean) {
     this.open = open;
-  }
 
-  addEmployee(employee: any) {
-    this.users = [...this.users, employee];
-    this.toggle(false);
+    if (refresh) {
+      this.employeeDataRequest$ = this.employeeDAO.getAll();
+    }
   }
 }

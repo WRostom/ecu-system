@@ -16,29 +16,33 @@
         >
           Add
           <div class="sidebar" *tuiSidebar="open; direction: 'right'">
-            <app-add-employee (openSidebar)="addEmployee($event)"></app-add-employee>
+            <app-add-employee (openSidebar)="toggle($event, true)"></app-add-employee>
           </div>
         </button>
       </div>
     </section>
     <section class="content-part">
       <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield /> </tui-input>
-      <table tuiTable [columns]="columns">
-        <thead>
-          <tr tuiThGroup>
-            <th *tuiHead="'fullName'" tuiTh>Full Name</th>
-            <th *tuiHead="'mobile'" tuiTh>Mobile</th>
-            <th *tuiHead="'email'" tuiTh>Email</th>
-          </tr>
-        </thead>
-        <tbody tuiTbody [data]="users">
-          <tr *tuiRow="let item of users; let index = index" tuiTr>
-            <td *tuiCell="'fullName'" tuiTd>{{ item.firstName }} {{ item.lastName }}</td>
-            <td *tuiCell="'mobile'" tuiTd>{{ item.mobileNumber }}</td>
-            <td *tuiCell="'email'" tuiTd>{{ item.email }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <tui-loader [overlay]="true" [showLoader]="loading$ | async">
+        <table tuiTable [columns]="columns" *tuiLet="employeeDataRequest$ | async as data">
+          <thead>
+            <tr tuiThGroup>
+              <th *tuiHead="'fullName'" tuiTh>Full Name</th>
+              <th *tuiHead="'type'" tuiTh>Type</th>
+              <th *tuiHead="'mobile'" tuiTh>Mobile</th>
+              <th *tuiHead="'email'" tuiTh>Email</th>
+            </tr>
+          </thead>
+          <tbody tuiTbody [data]="data">
+            <tr *tuiRow="let item of data; let index = index" tuiTr>
+              <td *tuiCell="'fullName'" tuiTd>{{ item.firstName }} {{ item.lastName }}</td>
+              <td *tuiCell="'type'" tuiTd>{{ item.type }}</td>
+              <td *tuiCell="'mobile'" tuiTd>{{ item.mobileNumber }}</td>
+              <td *tuiCell="'email'" tuiTd>{{ item.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </tui-loader>
     </section>
   </div>
 </div>
