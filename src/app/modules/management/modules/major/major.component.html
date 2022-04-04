@@ -18,43 +18,7 @@
       Add
 
       <div class="sidebar" *tuiSidebar="open; direction: 'right'">
-        <h5 class="tui-text_h5">Create New Major</h5>
-        <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
-          <label tuiLabel label="Identifier">
-            <tui-input tuiTextfieldSize="m" formControlName="id" [tuiTextfieldLabelOutside]="true">
-              Enter ID
-              <input tuiTextfield type="id" />
-            </tui-input>
-          </label>
-          <label tuiLabel label="Title">
-            <tui-input tuiTextfieldSize="m" formControlName="majorName" [tuiTextfieldLabelOutside]="true">
-              Enter Title
-              <input tuiTextfield type="title" />
-            </tui-input>
-          </label>
-          <label tuiLabel label="Faculty">
-            <tui-select
-              tuiTextfieldSize="m"
-              [tuiTextfieldLabelOutside]="true"
-              formControlName="facultyID"
-              [valueContent]="stringify(faculty)"
-            >
-              <ng-template tuiDataList>
-                <tui-data-list *ngIf="faculty">
-                  <button *ngFor="let item of faculty" tuiOption [value]="item.id">
-                    {{ item.facultyName }}
-                  </button>
-                </tui-data-list>
-              </ng-template>
-            </tui-select>
-            <!-- <tui-input  [tuiTextfieldLabelOutside]="true">
-              Enter Title
-              <input tuiTextfield type="title" />
-            </tui-input> -->
-          </label>
-          <div class="divider"></div>
-          <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
-        </form>
+        <app-add-major (openSidebar)="toggle($event)"></app-add-major>
       </div>
     </button>
   </div>
@@ -62,18 +26,22 @@
 
 <section class="content-part">
   <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield /> </tui-input>
-  <table tuiTable [columns]="columns">
-    <thead>
-      <tr tuiThGroup>
-        <th *tuiHead="'id'" tuiTh>ID</th>
-        <th *tuiHead="'facultyName'" tuiTh>Faculty Name</th>
-      </tr>
-    </thead>
-    <tbody tuiTbody [data]="data">
-      <tr *tuiRow="let item of data; let index = index" tuiTr>
-        <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
-        <td *tuiCell="'facultyName'" tuiTd>{{ item.facultyName }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <tui-loader [overlay]="true" [showLoader]="loading$ | async">
+    <table tuiTable [columns]="columns" *tuiLet="majorDataRequest$ | async as data">
+      <thead>
+        <tr tuiThGroup>
+          <th *tuiHead="'id'" tuiTh>ID</th>
+          <th *tuiHead="'majorName'" tuiTh>Name</th>
+          <th *tuiHead="'facultyName'" tuiTh>Faculty</th>
+        </tr>
+      </thead>
+      <tbody tuiTbody [data]="data">
+        <tr *tuiRow="let item of data; let index = index" tuiTr>
+          <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
+          <td *tuiCell="'majorName'" tuiTd>{{ item.majorName }}</td>
+          <td *tuiCell="'facultyName'" tuiTd>{{ item.faculty.facultyName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </tui-loader>
 </section>

@@ -19,21 +19,18 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   postRequest<T>(path: string, data: any): Observable<T> {
-    return this.http
-      .post<T>(`${environment.backendUrl}/${path}`, data, this.httpOption)
-      .pipe(
-        map((res) => {
-          // if (res["type"] === "F") {
-          //   throw new HttpErrorResponse({
-          //     error: res["msg1"],
-          //     statusText: "F",
-          //     status: 2000,
-          //   });
-          // }
-          return res;
-        })
-      )
-      .pipe(timeout(600000));
+    return this.http.post<any>(`${environment.backendUrl}/${path}`, data, this.httpOption).pipe(
+      map((res: responseObj) => {
+        // if (res["type"] === "F") {
+        //   throw new HttpErrorResponse({
+        //     error: res["msg1"],
+        //     statusText: "F",
+        //     status: 2000,
+        //   });
+        // }
+        return res.data;
+      })
+    );
   }
 
   // tslint:disable-next-line: variable-name
@@ -56,9 +53,9 @@ export class ApiService {
   //   });
   // }
 
-  getRequest<T>(path: string): Observable<T> {
-    return this.http.get<T>(`${environment.backendUrl}/${path}`, this.httpOption).pipe(
-      map((res) => {
+  getRequest<T>(path: string): Observable<any> {
+    return this.http.get<any>(`${environment.backendUrl}/${path}`, this.httpOption).pipe(
+      map((res: responseObj) => {
         // if (res["type"] === "F") {
         //   throw new HttpErrorResponse({
         //     error: res["msg1"],
@@ -66,7 +63,7 @@ export class ApiService {
         //     status: 2000,
         //   });
         // }
-        return res;
+        return res.data;
       })
     );
   }
@@ -74,4 +71,12 @@ export class ApiService {
   getRequestPDF<T>(path: string) {
     return `${environment.backendUrl}/${path}`;
   }
+}
+
+export interface responseObj {
+  currentTime: string;
+  data: any;
+  msg1: string;
+  msg2: string;
+  status: string;
 }

@@ -14,17 +14,8 @@ import { GlobalDAOService } from "./global-dao.service";
 @Injectable({
   providedIn: "root",
 })
-export class CoursesDaoService extends GlobalDAOService<any> {
+export class CoursesDaoService extends GlobalDAOService<Course> {
   constructor(api: ApiService) {
-    super("courses", api);
-  }
-
-  override getOne(id: string): Observable<any> {
-    let faculty = new Faculty("1", "hello");
-    let major = new Major("1", "hello", faculty);
-    // let student = new new Student("Waleed", "rostom", personType.STUDENT, "waleedrostom@", "1", "1", "id", faculty);
-    return new Observable((observer) => {
-      observer.next(new Course("1", "hello1", "1", ["1"], major, faculty, 1, 1, "hello"));
-    });
+    super("course", api);
   }
 }

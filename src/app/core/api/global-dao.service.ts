@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 
 import { ApiService } from "./api.service";
 
-export class GlobalDAOService<Object> {
+export class GlobalDAOService<T> {
   // tslint:disable: ban-types
   pageName: string;
 
@@ -10,12 +10,12 @@ export class GlobalDAOService<Object> {
     this.pageName = pageName;
   }
 
-  getAll(): Observable<any> {
-    return this.api.postRequest<any>(`${this.pageName}/getall/`, {});
+  getAll(): Observable<T[]> {
+    return this.api.postRequest<T[]>(`${this.pageName}/getAll/`, {});
   }
 
-  getOne(newData: any): Observable<Object> {
-    return this.api.postRequest<Object>(`${this.pageName}/getone/`, newData);
+  getOne(newData: any): Observable<T> {
+    return this.api.postRequest<T>(`${this.pageName}/getOne/`, newData);
   }
 
   find(data: any, pageSize: number, pageNumber: number, sortedBy: string, order: string, filter: any): Observable<Object> {

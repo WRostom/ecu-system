@@ -4,8 +4,9 @@ import { ActivatedRoute } from "@angular/router";
 
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from "angular-calendar";
 import { addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from "date-fns";
-import { Subject } from "rxjs";
+import { map, Observable, of, Subject } from "rxjs";
 import { CoursesDaoService } from "src/app/core/api/courses-dao.service";
+import { Course } from "src/app/shared/models/course.model";
 
 const colors: any = {
   red: {
@@ -112,6 +113,9 @@ export class CourseDisplayComponent implements OnInit {
     },
   ];
 
+  courseDataRequest$: Observable<Course>;
+  loading$: any = of(true);
+
   constructor(private location: Location, private activatedRoute: ActivatedRoute, private courseDAO: CoursesDaoService) {}
 
   toggle(open: any) {
@@ -121,7 +125,8 @@ export class CourseDisplayComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((val) => {
       if (val && val["id"]) {
-        this.getCourseData(val["id"]);
+        this.courseDataRequest$ = this.courseDAO.getOne({ id: val["id"] });
+        this.loading$ = this.courseDataRequest$.pipe(map((value) => !value));
       } else {
         this.goBack();
       }
@@ -129,7 +134,7 @@ export class CourseDisplayComponent implements OnInit {
   }
 
   getCourseData(id: string) {
-    this.courseDAO.getOne(id).subscribe((res) => {
+    this.courseDAO.getOne({ id }).subscribe((res) => {
       console.log(res, "data");
     });
   }

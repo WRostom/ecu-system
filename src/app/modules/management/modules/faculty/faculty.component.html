@@ -18,23 +18,7 @@
       Add
 
       <div class="sidebar" *tuiSidebar="open; direction: 'right'">
-        <h5 class="tui-text_h5">Create New Faculty</h5>
-        <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
-          <label tuiLabel label="Identifier">
-            <tui-input tuiTextfieldSize="m" formControlName="id" [tuiTextfieldLabelOutside]="true">
-              Enter ID
-              <input tuiTextfield type="id" />
-            </tui-input>
-          </label>
-          <label tuiLabel label="Title">
-            <tui-input tuiTextfieldSize="m" formControlName="facultyName" [tuiTextfieldLabelOutside]="true">
-              Enter Title
-              <input tuiTextfield type="title" />
-            </tui-input>
-          </label>
-          <div class="divider"></div>
-          <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
-        </form>
+        <app-add-faculty (openSidebar)="toggle($event)"></app-add-faculty>
       </div>
     </button>
   </div>
@@ -42,18 +26,20 @@
 
 <section class="content-part">
   <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield /> </tui-input>
-  <table tuiTable [columns]="columns">
-    <thead>
-      <tr tuiThGroup>
-        <th *tuiHead="'id'" tuiTh>ID</th>
-        <th *tuiHead="'facultyName'" tuiTh>Faculty Name</th>
-      </tr>
-    </thead>
-    <tbody tuiTbody [data]="users">
-      <tr *tuiRow="let item of users; let index = index" tuiTr>
-        <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
-        <td *tuiCell="'facultyName'" tuiTd>{{ item.facultyName }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <tui-loader [overlay]="true" [showLoader]="loading$ | async">
+    <table tuiTable [columns]="columns" *tuiLet="facultyDataRequest$ | async as data">
+      <thead>
+        <tr tuiThGroup>
+          <th *tuiHead="'id'" tuiTh>ID</th>
+          <th *tuiHead="'facultyName'" tuiTh>Faculty Name</th>
+        </tr>
+      </thead>
+      <tbody tuiTbody [data]="data">
+        <tr *tuiRow="let item of data" tuiTr>
+          <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
+          <td *tuiCell="'facultyName'" tuiTd>{{ item.facultyName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </tui-loader>
 </section>

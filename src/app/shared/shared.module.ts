@@ -1,14 +1,26 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 import { TuiSidebarModule } from "@taiga-ui/addon-mobile";
 import { TuiTableModule } from "@taiga-ui/addon-table";
-import { TuiActiveZoneModule } from "@taiga-ui/cdk";
-import { TuiButtonModule, TuiTextfieldControllerModule, TuiLabelModule, TuiDataListModule } from "@taiga-ui/core";
-import { TuiBreadcrumbsModule, TuiTabsModule, TuiInputModule, TuiSelectModule, TuiDataListWrapperModule, TuiInputCountModule, TuiInputDateModule, TuiInputTimeModule, TuiInputPhoneInternationalModule } from "@taiga-ui/kit";
+import { TuiActiveZoneModule, TuiLetModule } from "@taiga-ui/cdk";
+import { TuiButtonModule, TuiDataListModule, TuiLabelModule, TuiLoaderModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
+import {
+  TuiBreadcrumbsModule,
+  TuiDataListWrapperModule,
+  TuiInputCountModule,
+  TuiInputDateModule,
+  TuiInputModule,
+  TuiInputPhoneInternationalModule,
+  TuiInputTimeModule,
+  TuiSelectModule,
+  TuiTabsModule,
+} from "@taiga-ui/kit";
+
 @NgModule({
   declarations: [],
-  imports:  [
+  imports: [
     CommonModule,
     TuiBreadcrumbsModule,
     TuiTabsModule,
@@ -28,8 +40,10 @@ import { TuiBreadcrumbsModule, TuiTabsModule, TuiInputModule, TuiSelectModule, T
     TuiInputDateModule,
     TuiInputTimeModule,
     TuiInputPhoneInternationalModule,
+    TuiLetModule,
+    TuiLoaderModule,
   ],
-  exports:[
+  exports: [
     TuiBreadcrumbsModule,
     TuiTabsModule,
     TuiTableModule,
@@ -48,6 +62,8 @@ import { TuiBreadcrumbsModule, TuiTabsModule, TuiInputModule, TuiSelectModule, T
     TuiInputDateModule,
     TuiInputTimeModule,
     TuiInputPhoneInternationalModule,
-  ]
+    TuiLetModule,
+    TuiLoaderModule,
+  ],
 })
 export class SharedModule {}
