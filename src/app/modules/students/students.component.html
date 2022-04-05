@@ -5,15 +5,8 @@
         <h5 class="tui-text_h5">Students</h5>
       </div>
       <div class="right-side">
-        <button
-          tuiButton
-          type="button"
-          icon="tuiIconPlus"
-          size="m"
-          class="tui-space_right-3 tui-space_bottom-3"
-          (click)="toggle(true)"
-          (tuiActiveZoneChange)="toggle($event)"
-        >
+        <button tuiButton type="button" icon="tuiIconPlus" size="m" class="tui-space_right-3 tui-space_bottom-3"
+          (click)="toggle(true)" (tuiActiveZoneChange)="toggle($event)">
           Add
           <div class="sidebar" *tuiSidebar="open; direction: 'right'">
             <app-add-student (openSidebar)="toggle($event, true)"></app-add-student>
@@ -22,7 +15,8 @@
       </div>
     </section>
     <section class="content-part">
-      <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield /> </tui-input>
+      <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield />
+      </tui-input>
       <tui-loader [overlay]="true" [showLoader]="loading$ | async">
         <table tuiTable [columns]="columns" *tuiLet="studentDataRequest$ | async as data">
           <thead>
@@ -35,7 +29,7 @@
             </tr>
           </thead>
           <tbody tuiTbody [data]="data">
-            <tr *tuiRow="let item of data; let index = index" tuiTr>
+            <tr *tuiRow="let item of data; let index = index" tuiTr [routerLink]="[item.id]">
               <td *tuiCell="'fullName'" tuiTd>{{ item.firstName }} {{ item.lastName }}</td>
               <td *tuiCell="'mobile'" tuiTd>{{ item.mobileNumber }}</td>
               <td *tuiCell="'email'" tuiTd>{{ item.email }}</td>

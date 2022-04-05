@@ -1,22 +1,46 @@
 <div class="tui-container tui-container_adaptive">
     <div class="tui-row tui-row-adaptive">
-        <section class="heading-part">
-            <div class="left-side">
-                <tui-breadcrumbs>
-                    <a *tuiBreadcrumb tuiLink> Students </a>
-                </tui-breadcrumbs>
-                <h5 class="tui-text_h5">Waleed Soroor</h5>
-            </div>
-            <div class="right-side">
-                <button tuiButton type="button" icon="tuiIconDraft" size="m"
-                    class="tui-space_right-3 tui-space_bottom-3" (click)="toggle(true)"
-                    (tuiActiveZoneChange)="toggle($event)">
-                    Edit
-                    <div class="sidebar" *tuiSidebar="open; direction: 'right'">
-                        <app-add-student (openSidebar)="editStudent($event)"></app-add-student>
+        <tui-loader [overlay]="true" *tuiLet="studentDataRequest$ | async as data" [showLoader]="!data">
+            <section class="heading-part">
+                <div class="left-side">
+                    <tui-breadcrumbs>
+                        <a *tuiBreadcrumb tuiLink> Students </a>
+                    </tui-breadcrumbs>
+                    <h5 class="tui-text_h5">{{ data.firstName }} {{data.lastName}}</h5>
+                </div>
+                <div class="right-side">
+                    <button tuiButton type="button" icon="tuiIconDraft" size="m"
+                        class="tui-space_right-3 tui-space_bottom-3" (click)="toggleEdit(true)"
+                        (tuiActiveZoneChange)="toggleEdit($event)">
+                        Edit
+                        <div class="sidebar" *tuiSidebar="openEdit; direction: 'right'">
+                            <!-- <app-add-course (openSidebar)="toggleEdit($event, true)" [editMode]="pageID"></app-add-course> -->
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <p class="section-title">Basic Information</p>
+            <section class="content-part">
+                <div class="info-box-wrapper">
+                    <div class="info-box">
+                        <p class="info-subheading">ID</p>
+                        <p class="info-content">{{ data.id }}</p>
                     </div>
-                </button>
-            </div>
-        </section>
+                    <div class="info-box">
+                        <p class="info-subheading">Email</p>
+                        <p class="info-content">{{ data.email }}</p>
+                    </div>
+                    <div class="info-box">
+                        <p class="info-subheading">Faculty</p>
+                        <p class="info-content">{{ data.faculty.facultyName }}</p>
+                    </div>
+                    <div class="info-box">
+                        <p class="info-subheading">Mobile</p>
+                        <p class="info-content">{{ data.mobileNumber || 0 }}</p>
+                    </div>
+                </div>
+            </section>
+        </tui-loader>
     </div>
 </div>

@@ -3,3 +3,47 @@
 .heading-part{
     width: 100%;
 }
+
+tui-loader{
+    width: 100%;
+}
+.content-part {
+    width: 100%;
+    padding: 25px;
+    background-color: white;
+    border-radius: var(--tui-radius-m);
+
+    p {
+        margin: 0;
+    }
+
+    .title-button-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        .section-title {}
+    }
+
+    .info-box-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 3rem;
+
+        .info-box {
+            .info-subheading {
+                font-size: 0.8rem;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: bold;
+            }
+
+            .info-content {
+                font-size: 1rem;
+            }
+        }
+    }
+}
