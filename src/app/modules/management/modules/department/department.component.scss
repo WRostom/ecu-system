@@ -3,16 +3,19 @@
 td,
 th {
   white-space: nowrap;
-  //   border-color: transparent;
   border-right-color: var(--tui-base-04);
-
-  &:last-child {
-    // border-right-color: transparent;
-  }
 }
 
-tr:nth-child(even) td {
-  background: var(--tui-base-02);
+tr {
+  cursor: pointer;
+
+  &:nth-child(even) td {
+    background: var(--tui-base-02);
+  }
+
+  &:hover {
+    background-color: var(--tui-link-hover);
+  }
 }
 
 .content-part {

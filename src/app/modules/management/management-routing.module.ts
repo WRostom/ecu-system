@@ -4,6 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { ManagementComponent } from "./management.component";
 import { CourseDisplayComponent } from "./modules/courses/components/course-display/course-display.component";
 import { CoursesComponent } from "./modules/courses/courses.component";
+import { ViewDepartmentComponent } from "./modules/department/components/view-department/view-department.component";
 import { DepartmentComponent } from "./modules/department/department.component";
 import { ViewFacultyComponent } from "./modules/faculty/components/view-faculty/view-faculty.component";
 import { FacultyComponent } from "./modules/faculty/faculty.component";
@@ -43,6 +44,10 @@ const routes: Routes = [
       {
         path: "department",
         component: DepartmentComponent,
+      },
+      {
+        path: "department/:id",
+        component: ViewDepartmentComponent,
       },
     ],
   },

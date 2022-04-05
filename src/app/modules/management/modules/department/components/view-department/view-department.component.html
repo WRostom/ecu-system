@@ -1,0 +1,36 @@
+<tui-loader [overlay]="true" *tuiLet="departmentDataRequest$ | async as data" [showLoader]="!data">
+  <section class="heading-part">
+    <div class="left-side">
+      <tui-breadcrumbs>
+        <a *tuiBreadcrumb tuiLink> Department </a>
+      </tui-breadcrumbs>
+      <h5 class="tui-text_h5">{{ data.departName }}</h5>
+    </div>
+    <div class="right-side">
+      <button
+        tuiButton
+        type="button"
+        icon="tuiIconDraft"
+        size="m"
+        class="tui-space_right-3 tui-space_bottom-3"
+        (click)="toggleEdit(true)"
+        (tuiActiveZoneChange)="toggleEdit($event)"
+      >
+        Edit
+        <div class="sidebar" *tuiSidebar="openEdit; direction: 'right'">
+          <app-add-department (openSidebar)="toggleEdit($event, true)" [editMode]="pageID"></app-add-department>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <p class="section-title">Basic Information</p>
+  <section class="content-part">
+    <div class="info-box-wrapper">
+      <div class="info-box">
+        <p class="info-subheading">ID</p>
+        <p class="info-content">{{ data.id }}</p>
+      </div>
+    </div>
+  </section>
+</tui-loader>

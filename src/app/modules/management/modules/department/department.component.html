@@ -35,7 +35,7 @@
         </tr>
       </thead>
       <tbody tuiTbody [data]="data">
-        <tr *tuiRow="let item of data" tuiTr>
+        <tr *tuiRow="let item of data" tuiTr [routerLink]="[item.id]">
           <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
           <td *tuiCell="'departmentName'" tuiTd>{{ item.departName }}</td>
         </tr>

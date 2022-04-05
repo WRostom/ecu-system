@@ -15,7 +15,7 @@ export class AddDepartmentComponent implements OnInit {
     this.departmentDAO.getOne({ id: data }).subscribe((res) => {
       this.createNew.patchValue({
         id: res.id,
-        departmentName: res.departName,
+        departName: res.departName,
       });
     });
   }
