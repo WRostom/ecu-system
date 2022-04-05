@@ -50,7 +50,7 @@ export class CalendarComponent implements OnInit {
       console.log(new Date(...concatInitalDateTime));
 
       return {
-        title: `Group ${res.groupID}`,
+        title: `Group ${res.groupID} (${res.startTime.toString()} - ${res.endTime.toString()})`,
         start: new Date(...concatInitalDateTime),
         end: new Date(...concatEndDateTime),
         color: colors[Object.keys(colors)[Math.random() * 3]],
