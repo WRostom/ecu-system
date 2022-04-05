@@ -15,8 +15,9 @@ export class AddGroupComponent implements OnInit {
   @Input("groupID") set groupIdentifier(data: any) {
     this.identifier.groupID = data;
   }
+  todaysDate: TuiDay = new TuiDay(new Date().getFullYear(), new Date().getMonth(), new Date().getDay());
   createNew = new FormGroup({
-    date: new FormControl(new TuiDay(new Date().getFullYear(), new Date().getMonth(), new Date().getDay()), Validators.required),
+    date: new FormControl(null, Validators.required),
     startTime: new FormControl(new TuiTime(2, 44), Validators.required),
     endTime: new FormControl(new TuiTime(3, 44), Validators.required),
     instructor: new FormControl(1, Validators.required),

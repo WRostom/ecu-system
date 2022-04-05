@@ -7,7 +7,7 @@
     </p>
   </label>
   <label tuiLabel label="Date">
-    <tui-input-date tuiTextfieldSize="m" formControlName="date" [tuiTextfieldLabelOutside]="true">
+    <tui-input-date [min]="todaysDate" tuiTextfieldSize="m" formControlName="date" [tuiTextfieldLabelOutside]="true">
       Choose a date
       <input tuiTextfield />
     </tui-input-date>
