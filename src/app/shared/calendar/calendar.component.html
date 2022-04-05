@@ -1,3 +1,35 @@
+<div class="calendar-button-header">
+  <h5 class="tui-text_h5">{{ viewDate | calendarDate: view + "ViewTitle":"en" }}</h5>
+  <div class="calendar-button-wrapper">
+    <div tuiGroup class="group" [collapsed]="true">
+      <button
+        tuiButton
+        type="button"
+        appearance="outline"
+        size="s"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+      >
+        Previous
+      </button>
+      <button tuiButton type="button" appearance="outline" size="s" mwlCalendarToday [(viewDate)]="viewDate">Today</button>
+      <button
+        tuiButton
+        type="button"
+        appearance="outline"
+        size="s"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
 <div [ngSwitch]="view">
   <mwl-calendar-month-view
     *ngSwitchCase="CalendarView.Month"
