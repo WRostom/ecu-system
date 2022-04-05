@@ -1,18 +1,13 @@
-@use "../../../../../page-heading.scss";
-
-.heading-part {
-  width: 100%;
+@use "../../../../../../../page-heading.scss";
+.section-title {
+  margin-top: 3rem;
+  font-size: 1rem;
 }
 
-tui-loader {
-  width: 100%;
-}
 .content-part {
-  width: 100%;
   padding: 25px;
   background-color: white;
   border-radius: var(--tui-radius-m);
-  box-sizing: border-box;
   p {
     margin: 0;
   }

@@ -1,22 +1,23 @@
 @use "../../../page-heading.scss";
+
 td,
 th {
   white-space: nowrap;
-  //   border-color: transparent;
   border-right-color: var(--tui-base-04);
+}
 
-  &:last-child {
-    // border-right-color: transparent;
+tr {
+  cursor: pointer;
+
+  &:nth-child(even) td {
+    background: var(--tui-base-02);
+  }
+
+  &:hover {
+    background-color: var(--tui-link-hover);
   }
 }
 
-tbody {
-  //   border-color: transparent;
-}
-
-tr:nth-child(even) td {
-  background: var(--tui-base-02);
-}
 .heading-part {
   width: 100%;
   align-items: center;

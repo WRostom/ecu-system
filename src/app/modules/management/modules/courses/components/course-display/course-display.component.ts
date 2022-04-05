@@ -136,11 +136,7 @@ export class CourseDisplayComponent implements OnInit {
     });
   }
 
-  getCourseData(id: string) {
-    this.courseDAO.getOne({ id }).subscribe((res) => {
-      console.log(res, "data");
-    });
-  }
+  getCourseData(id: string) {}
 
   goBack() {
     this.location.back();

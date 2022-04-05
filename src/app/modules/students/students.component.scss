@@ -2,37 +2,36 @@
 
 td,
 th {
-    white-space: nowrap;
-    //   border-color: transparent;
-    border-right-color: var(--tui-base-04);
-
-    &:last-child {
-        // border-right-color: transparent;
-    }
+  white-space: nowrap;
+  border-right-color: var(--tui-base-04);
 }
 
-tbody {
-    //   border-color: transparent;
-}
+tr {
+  cursor: pointer;
 
-tr:nth-child(even) td {
+  &:nth-child(even) td {
     background: var(--tui-base-02);
+  }
+
+  &:hover {
+    background-color: var(--tui-link-hover);
+  }
 }
 
 .heading-part {
-    width: 100%;
-    align-items: center;
+  width: 100%;
+  align-items: center;
 }
 
 .content-part {
-    margin-top: 20px;
+  margin-top: 20px;
+  width: 100%;
+
+  .table-search {
+    margin-bottom: 25px;
+  }
+
+  table {
     width: 100%;
-
-    .table-search {
-        margin-bottom: 25px;
-    }
-
-    table {
-        width: 100%;
-    }
+  }
 }

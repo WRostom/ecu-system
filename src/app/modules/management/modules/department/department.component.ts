@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 
+import { map } from "rxjs";
+import { DepartmentDAOService } from "src/app/core/api/department-dao.service";
+
 @Component({
   selector: "app-department",
   templateUrl: "./department.component.html",
@@ -7,19 +10,21 @@ import { Component, OnInit } from "@angular/core";
 })
 export class DepartmentComponent implements OnInit {
   searchTerm!: string;
-  readonly data = [
-    {
-      name: "Alex Inkin",
-      balance: 1323525,
-    },
-    {
-      name: "Roman Sedov",
-      balance: 423242,
-    },
-  ] as const;
+  columns = ["id", "departmentName"];
+  open = false;
 
-  readonly columns = Object.keys(this.data[0]);
-  constructor() {}
+  departmentDataRequest$ = this.departmentDAO.getAll();
+  readonly loading$ = this.departmentDataRequest$.pipe(map((value) => !value));
+
+  constructor(private departmentDAO: DepartmentDAOService) {}
 
   ngOnInit(): void {}
+
+  toggle(open: boolean, refresh?: boolean) {
+    this.open = open;
+
+    if (refresh) {
+      this.departmentDataRequest$ = this.departmentDAO.getAll();
+    }
+  }
 }

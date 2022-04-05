@@ -1,26 +1,26 @@
-.heading-part {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 2rem;
+@use "../../../../../page-heading.scss";
 
-  .left-side {
-    flex: 0.3;
-  }
+td,
+th {
+  white-space: nowrap;
+  //   border-color: transparent;
+  border-right-color: var(--tui-base-04);
 
-  .right-side {
-    flex: 0.7;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-
-    tui-input {
-      width: 100%;
-    }
+  &:last-child {
+    // border-right-color: transparent;
   }
 }
+
+tr:nth-child(even) td {
+  background: var(--tui-base-02);
+}
+
 .content-part {
   margin-top: 20px;
+
+  .table-search {
+    margin-bottom: 25px;
+  }
 
   table {
     width: 100%;

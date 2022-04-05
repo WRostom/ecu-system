@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { TuiContextWithImplicit, tuiPure } from "@taiga-ui/cdk";
@@ -12,6 +12,17 @@ import { Faculty } from "src/app/shared/models/faculty.model";
   styleUrls: ["./add-major.component.scss"],
 })
 export class AddMajorComponent implements OnInit, AfterViewInit {
+  isEditMode: boolean = false;
+  @Input("editMode") set editMode(data: string) {
+    this.isEditMode = true;
+    this.majorDAO.getOne({ id: data }).subscribe((res) => {
+      this.createNew.patchValue({
+        id: res.id,
+        majorName: res.majorName,
+        facultyID: res.faculty.id,
+      });
+    });
+  }
   @Output() openSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
   createLoading: boolean = false;
   createNew = new FormGroup({
@@ -23,12 +34,6 @@ export class AddMajorComponent implements OnInit, AfterViewInit {
   facultyDataRequest$ = this.facultyDAO.getAll();
   facultyData: Faculty[];
 
-  faculty: Faculty[] = [
-    {
-      id: "1",
-      facultyName: "Informatics and Computer Science",
-    },
-  ];
   constructor(private majorDAO: MajorDaoService, private facultyDAO: FacultyDAOService) {}
 
   ngOnInit(): void {}
@@ -44,10 +49,17 @@ export class AddMajorComponent implements OnInit, AfterViewInit {
     const serverData = Object.assign(this.createNew.value, {});
     serverData.faculty = this.facultyData.find((faculty) => faculty.id === this.createNew.value.facultyID);
     delete serverData.facultyID;
-    this.majorDAO.create(serverData).subscribe((res) => {
-      this.openSidebar.emit(false);
-      this.createLoading = false;
-    });
+    if (this.isEditMode) {
+      this.majorDAO.update(serverData).subscribe(() => {
+        this.createLoading = false;
+        this.openSidebar.emit(false);
+      });
+    } else {
+      this.majorDAO.create(serverData).subscribe((res) => {
+        this.openSidebar.emit(false);
+        this.createLoading = false;
+      });
+    }
   }
 
   @tuiPure

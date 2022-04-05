@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
@@ -9,6 +9,16 @@ import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
   styleUrls: ["./add-faculty.component.scss"],
 })
 export class AddFacultyComponent implements OnInit {
+  isEditMode: boolean = false;
+  @Input("editMode") set editMode(data: string) {
+    this.isEditMode = true;
+    this.facultyDAO.getOne({ id: data }).subscribe((res) => {
+      this.createNew.patchValue({
+        id: res.id,
+        facultyName: res.facultyName,
+      });
+    });
+  }
   @Output() openSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   createNew = new FormGroup({
@@ -23,9 +33,16 @@ export class AddFacultyComponent implements OnInit {
 
   onSubmit() {
     this.createLoading = true;
-    this.facultyDAO.create(this.createNew.value).subscribe((res) => {
-      this.createLoading = false;
-      this.openSidebar.emit(false);
-    });
+    if (this.isEditMode) {
+      this.facultyDAO.update(this.createNew.value).subscribe((res) => {
+        this.createLoading = false;
+        this.openSidebar.emit(false);
+      });
+    } else {
+      this.facultyDAO.create(this.createNew.value).subscribe((res) => {
+        this.createLoading = false;
+        this.openSidebar.emit(false);
+      });
+    }
   }
 }

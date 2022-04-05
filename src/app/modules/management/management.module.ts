@@ -12,11 +12,14 @@ import { AddCourseComponent } from "./modules/courses/components/add-course/add-
 import { AddGroupComponent } from "./modules/courses/components/course-display/components/add-group/add-group.component";
 import { CourseDisplayComponent } from "./modules/courses/components/course-display/course-display.component";
 import { CoursesComponent } from "./modules/courses/courses.component";
+import { AddDepartmentComponent } from "./modules/department/components/add-department/add-department.component";
 import { DepartmentComponent } from "./modules/department/department.component";
+import { AddFacultyComponent } from "./modules/faculty/components/add-faculty/add-faculty.component";
 import { FacultyComponent } from "./modules/faculty/faculty.component";
+import { AddMajorComponent } from "./modules/major/components/add-major/add-major.component";
 import { MajorComponent } from "./modules/major/major.component";
-import { AddMajorComponent } from './modules/major/components/add-major/add-major.component';
-import { AddFacultyComponent } from './modules/faculty/components/add-faculty/add-faculty.component';
+import { ViewFacultyComponent } from './modules/faculty/components/view-faculty/view-faculty.component';
+import { ViewMajorComponent } from './modules/major/components/view-major/view-major.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { AddFacultyComponent } from './modules/faculty/components/add-faculty/ad
     AddCourseComponent,
     AddMajorComponent,
     AddFacultyComponent,
+    AddDepartmentComponent,
+    ViewFacultyComponent,
+    ViewMajorComponent,
   ],
   imports: [CommonModule, SharedModule, CalendarECLModule, ManagementRoutingModule],
   providers: [
