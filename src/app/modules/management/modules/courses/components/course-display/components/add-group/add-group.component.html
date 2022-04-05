@@ -6,15 +6,20 @@
       Group {{ identifier.groupID }}
     </p>
   </label>
-  <label tuiLabel label="Start Date">
-    <tui-input-date tuiTextfieldSize="m" formControlName="startDate" [tuiTextfieldLabelOutside]="true">
+  <label tuiLabel label="Date">
+    <tui-input-date tuiTextfieldSize="m" formControlName="date" [tuiTextfieldLabelOutside]="true">
       Choose a date
       <input tuiTextfield />
     </tui-input-date>
   </label>
   <label tuiLabel label="Start Time">
     <tui-input-time tuiTextfieldSize="m" formControlName="startTime" [tuiTextfieldLabelOutside]="true" [items]="timeItems">
-      Choose Time
+      Choose Start Time
+    </tui-input-time>
+  </label>
+  <label tuiLabel label="End Time">
+    <tui-input-time tuiTextfieldSize="m" formControlName="endTime" [tuiTextfieldLabelOutside]="true" [items]="timeItems">
+      Choose End Time
     </tui-input-time>
   </label>
   <label tuiLabel label="Instructor">

@@ -86,8 +86,9 @@
     <thead>
       <tr tuiThGroup>
         <th *tuiHead="'groupName'" tuiTh>Group No.</th>
-        <th *tuiHead="'startDate'" tuiTh>Start Date</th>
+        <th *tuiHead="'date'" tuiTh>Start Date</th>
         <th *tuiHead="'startTime'" tuiTh>Start Time</th>
+        <th *tuiHead="'endTime'" tuiTh>End Time</th>
         <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
       </tr>
     </thead>
@@ -97,13 +98,14 @@
           <span class="group-color" [style]="{ color: item.color }">⬤</span>
           Group {{ item.groupID }}
         </td>
-        <td *tuiCell="'startDate'" tuiTd>{{ item.startDate }}</td>
+        <td *tuiCell="'date'" tuiTd>{{ item.date }}</td>
         <td *tuiCell="'startTime'" tuiTd>{{ item.startTime }}</td>
+        <td *tuiCell="'endTime'" tuiTd>{{ item.endTime }}</td>
         <td *tuiCell="'action'" tuiTd>
           <button tuiIconButton appearance="flat" size="s" icon="tuiIconTrash" title="Remove" shape="rounded" class="remove"></button>
         </td>
       </tr>
     </tbody>
   </table>
-  <app-calendar> </app-calendar>
+  <app-calendar [groupData]="data"> </app-calendar>
 </section>

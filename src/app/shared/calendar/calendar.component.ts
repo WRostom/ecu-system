@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef, ViewChild } from "@angular/core";
 
+import { TuiDay } from "@taiga-ui/cdk";
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from "angular-calendar";
 import { addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from "date-fns";
 import { Subject } from "rxjs";
+import { GroupData } from "src/app/modules/management/modules/courses/components/course-display/course-display.component";
 
 const colors: any = {
   red: {
@@ -25,6 +27,42 @@ const colors: any = {
   styleUrls: ["./calendar.component.scss"],
 })
 export class CalendarComponent implements OnInit {
+  @Input("groupData") set groupData(data: GroupData[]) {
+    console.log(data);
+    console.log(new TuiDay(2022, 3, 4).toUtcNativeDate());
+
+    let calendarNewEvents: CalendarEvent[] = data.map((res) => {
+      let concatInitalDateTime: [number, number, number, number, number] = [
+        res.date.year,
+        res.date.month,
+        res.date.day,
+        res.startTime.hours,
+        res.startTime.minutes,
+      ];
+      let concatEndDateTime: [number, number, number, number, number] = [
+        res.date.year,
+        res.date.month,
+        res.date.day,
+        res.endTime.hours,
+        res.endTime.minutes,
+      ];
+
+      console.log(new Date(...concatInitalDateTime));
+
+      return {
+        title: `Group ${res.groupID}`,
+        start: new Date(...concatInitalDateTime),
+        end: new Date(...concatEndDateTime),
+        color: colors[Object.keys(colors)[Math.random() * 3]],
+        draggable: true,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true,
+        },
+      };
+    });
+    this.events = calendarNewEvents;
+  }
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
@@ -32,68 +70,24 @@ export class CalendarComponent implements OnInit {
     action: string;
     event: CalendarEvent;
   };
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: "Edit",
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent("Edited", event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: "Delete",
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent("Deleted", event);
-      },
-    },
-  ];
 
   refresh = new Subject<void>();
 
   events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: "A 3 day event",
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: "An event with no end date",
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: "A long event that spans 2 months",
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: "A draggable and resizable event",
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
+    // {
+    //   start: addHours(startOfDay(new Date()), 2),
+    //   end: addHours(new Date(), 2),
+    //   title: "A draggable and resizable event",
+    //   color: colors.yellow,
+    //   resizable: {
+    //     beforeStart: true,
+    //     afterEnd: true,
+    //   },
+    //   draggable: true,
+    // },
   ];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
   constructor() {}
 

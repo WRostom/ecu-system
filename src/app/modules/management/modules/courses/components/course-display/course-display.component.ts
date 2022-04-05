@@ -2,6 +2,7 @@ import { Location } from "@angular/common";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
+import { TuiDay, TuiTime } from "@taiga-ui/cdk";
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from "angular-calendar";
 import { addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from "date-fns";
 import { map, Observable, of, Subject } from "rxjs";
@@ -33,14 +34,15 @@ export class CourseDisplayComponent implements OnInit {
 
   refresh = new Subject<void>();
 
-  columns = ["groupName", "startDate", "startTime", "action"];
+  columns = ["groupName", "date", "startTime", "endTime", "action"];
 
   data: any[] = [
     {
       groupID: 1,
       color: "#ff0000",
-      startDate: "03/04/2022",
-      startTime: "3:36",
+      date: new TuiDay(2022, 3, 6),
+      startTime: new TuiTime(3, 45),
+      endTime: new TuiTime(4, 30),
       instructor: 1,
     },
   ];
@@ -85,4 +87,13 @@ export class CourseDisplayComponent implements OnInit {
       this.courseDataRequest$ = this.courseDAO.getOne({ id: this.pageID });
     }
   }
+}
+
+export interface GroupData {
+  groupID: number;
+  color: string;
+  date: TuiDay;
+  startTime: TuiTime;
+  endTime: TuiTime;
+  instructor: number;
 }
