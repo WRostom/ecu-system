@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { DepartmentDAOService } from "src/app/core/api/department-dao.service";
@@ -9,6 +9,16 @@ import { DepartmentDAOService } from "src/app/core/api/department-dao.service";
   styleUrls: ["./add-department.component.scss"],
 })
 export class AddDepartmentComponent implements OnInit {
+  isEditMode: boolean = false;
+  @Input("editMode") set editMode(data: string) {
+    this.isEditMode = true;
+    this.departmentDAO.getOne({ id: data }).subscribe((res) => {
+      this.createNew.patchValue({
+        id: res.id,
+        departmentName: res.departName,
+      });
+    });
+  }
   @Output() openSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   createNew = new FormGroup({

@@ -10,7 +10,7 @@ import { StudentDAOService } from "src/app/core/api/student-dao.service";
 })
 export class StudentsComponent implements OnInit {
   searchTerm!: string;
-  columns = ["fullName", "mobile", "email", "faculty"];
+  columns = ["id", "fullName", "mobile", "email", "faculty"];
   open = false;
 
   studentDataRequest$ = this.studentDAO.getAll();

@@ -1,4 +1,4 @@
-<h5 class="tui-text_h5">Create New Department</h5>
+<h5 class="tui-text_h5">{{ isEditMode ? "Edit" : "Create" }} Department</h5>
 <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
   <label tuiLabel label="Identifier">
     <tui-input tuiTextfieldSize="m" formControlName="id" [tuiTextfieldLabelOutside]="true">
