@@ -13,7 +13,7 @@ export class AddDepartmentComponent implements OnInit {
 
   createNew = new FormGroup({
     id: new FormControl("", Validators.required),
-    departmentName: new FormControl("", Validators.required),
+    departName: new FormControl("", Validators.required),
   });
   createLoading: boolean = false;
   constructor(private departmentDAO: DepartmentDAOService) {}

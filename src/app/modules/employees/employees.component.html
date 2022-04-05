@@ -5,8 +5,15 @@
         <h5 class="tui-text_h5">Employees</h5>
       </div>
       <div class="right-side">
-        <button tuiButton type="button" icon="tuiIconPlus" size="m" class="tui-space_right-3 tui-space_bottom-3"
-          (click)="toggle(true)" (tuiActiveZoneChange)="toggle($event)">
+        <button
+          tuiButton
+          type="button"
+          icon="tuiIconPlus"
+          size="m"
+          class="tui-space_right-3 tui-space_bottom-3"
+          (click)="toggle(true)"
+          (tuiActiveZoneChange)="toggle($event)"
+        >
           Add
           <div class="sidebar" *tuiSidebar="open; direction: 'right'">
             <app-add-employee (openSidebar)="toggle($event, true)"></app-add-employee>
@@ -15,23 +22,24 @@
       </div>
     </section>
     <section class="content-part">
-      <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield />
-      </tui-input>
+      <tui-input [(ngModel)]="searchTerm" tuiTextfieldSize="m" class="table-search"> Search <input tuiTextfield /> </tui-input>
       <tui-loader [overlay]="true" [showLoader]="loading$ | async">
         <table tuiTable [columns]="columns" *tuiLet="employeeDataRequest$ | async as data">
           <thead>
             <tr tuiThGroup>
+              <th *tuiHead="'id'" tuiTh>ID</th>
               <th *tuiHead="'fullName'" tuiTh>Full Name</th>
               <th *tuiHead="'type'" tuiTh>Type</th>
-              <th *tuiHead="'mobile'" tuiTh>Mobile</th>
+              <th *tuiHead="'department'" tuiTh>Department</th>
               <th *tuiHead="'email'" tuiTh>Email</th>
             </tr>
           </thead>
           <tbody tuiTbody [data]="data">
             <tr *tuiRow="let item of data; let index = index" tuiTr [routerLink]="[item.id]">
+              <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
               <td *tuiCell="'fullName'" tuiTd>{{ item.firstName }} {{ item.lastName }}</td>
               <td *tuiCell="'type'" tuiTd>{{ item.type }}</td>
-              <td *tuiCell="'mobile'" tuiTd>{{ item.mobileNumber }}</td>
+              <td *tuiCell="'department'" tuiTd>{{ item?.department?.departName }}</td>
               <td *tuiCell="'email'" tuiTd>{{ item.email }}</td>
             </tr>
           </tbody>

@@ -1,5 +1,11 @@
-<h5 class="tui-text_h5">Add New Group</h5>
+<h5 class="tui-text_h5">Add New Employee</h5>
 <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
+  <label tuiLabel label="Identifier">
+    <tui-input tuiTextfieldSize="m" formControlName="id" [tuiTextfieldLabelOutside]="true">
+      Enter ID
+      <input tuiTextfield type="id" />
+    </tui-input>
+  </label>
   <label tuiLabel label="First Name">
     <tui-input tuiTextfieldSize="m" formControlName="firstName" [tuiTextfieldLabelOutside]="true">
       Enter First Name
@@ -20,6 +26,27 @@
             {{ item.name }}
           </button>
         </tui-data-list>
+      </ng-template>
+    </tui-select>
+  </label>
+  <label tuiLabel label="Department">
+    <tui-select
+      *tuiLet="departmentDataRequest$ | async as departmentItems"
+      tuiTextfieldSize="m"
+      [tuiTextfieldLabelOutside]="true"
+      formControlName="departmentID"
+      [valueContent]="departmentItems ? stringifyDept(departmentItems) : loading"
+    >
+      Choose A Department
+      <ng-template tuiDataList>
+        <tui-data-list *ngIf="departmentItems; else loading">
+          <button *ngFor="let item of departmentItems" tuiOption [value]="item.id">
+            {{ item.departName }}
+          </button>
+        </tui-data-list>
+      </ng-template>
+      <ng-template #loading>
+        <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
       </ng-template>
     </tui-select>
   </label>

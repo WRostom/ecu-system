@@ -10,7 +10,7 @@ import { EmployeeDAOService } from "src/app/core/api/employee-dao.service";
 })
 export class EmployeesComponent implements OnInit {
   searchTerm!: string;
-  columns = ["fullName", "type", "mobile", "email"];
+  columns = ["id", "fullName", "type", "department", "email"];
   open = false;
   employeeDataRequest$ = this.employeeDAO.getAll();
   readonly loading$ = this.employeeDataRequest$.pipe(map((value) => !value));

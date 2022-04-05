@@ -18,7 +18,7 @@
       Add
 
       <div class="sidebar" *tuiSidebar="open; direction: 'right'">
-        <app-add-faculty (openSidebar)="toggle($event, true)"></app-add-faculty>
+        <app-add-department (openSidebar)="toggle($event, true)"></app-add-department>
       </div>
     </button>
   </div>
@@ -37,7 +37,7 @@
       <tbody tuiTbody [data]="data">
         <tr *tuiRow="let item of data" tuiTr>
           <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
-          <td *tuiCell="'departmentName'" tuiTd>{{ item.departmentName }}</td>
+          <td *tuiCell="'departmentName'" tuiTd>{{ item.departName }}</td>
         </tr>
       </tbody>
     </table>
