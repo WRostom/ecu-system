@@ -44,6 +44,7 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
   courseDataRequest$: Observable<Course>;
   courseGroupDataRequest$: Observable<CourseGroup[]>;
   loading$: any = of(true);
+  loadingGroups: boolean = true;
   openEdit: boolean;
   pageID: string;
 
@@ -75,9 +76,10 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
     this.courseGroupDataRequest$.subscribe((val: CourseGroup[]) => {
       let tempCourseGroupData: DisplayCourseGroupData[] = val;
       for (let i = 0; i < tempCourseGroupData.length; i++) {
-        tempCourseGroupData[i].color = makeColorIterator().next();
+        tempCourseGroupData[i].color = { primary: `hsl(${Math.random() * (359 - 0) + 0}, 83%, 40%)` };
       }
       this.courseGroupData = tempCourseGroupData;
+      this.loadingGroups = false;
     });
   }
 

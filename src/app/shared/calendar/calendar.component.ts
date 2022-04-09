@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 
+import { dayOfTheWeek, dayOfTheWeekNumberEquivalent } from "@config/dateItems";
 import { Schedule } from "@config/rschedule";
 import { CalendarEvent, CalendarEventTimesChangedEvent, CalendarEventTitleFormatter, CalendarView } from "angular-calendar";
 import { addDays, endOfDay, getDay, isSameDay, isSameMonth, startOfDay } from "date-fns";
@@ -7,26 +8,6 @@ import { Subject } from "rxjs";
 import { DisplayCourseGroupData } from "src/app/modules/management/modules/courses/components/course-display/course-display.component";
 
 import { CustomEventTitleFormatter } from "./provider/custom-title-formatter";
-
-export enum dayOfTheWeek {
-  SUNDAY = "SU",
-  MONDAY = "MO",
-  TUESDAY = "TU",
-  WEDNESDAY = "WE",
-  THURSDAY = "TH",
-  FRIDAY = "FR",
-  SATURDAY = "SA",
-}
-
-export enum dayOfTheWeekNumberEquivalent {
-  SUNDAY = 0,
-  MONDAY = 1,
-  TUESDAY = 2,
-  WEDNESDAY = 3,
-  THURSDAY = 4,
-  FRIDAY = 5,
-  SATURDAY = 6,
-}
 
 @Component({
   selector: "app-calendar",

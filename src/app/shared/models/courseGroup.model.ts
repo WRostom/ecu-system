@@ -3,13 +3,13 @@ import { Employee } from "./employee.model";
 
 export class CourseGroup {
   id: string;
-  maxNoStudent: number;
   course: Course;
   startTime: Date;
   endTime: Date;
   room: string;
   day: string;
   instructors: Employee[];
+  maxNoStudents: number;
 
   constructor(
     id: string,
@@ -17,16 +17,16 @@ export class CourseGroup {
     endTime: Date,
     room: string,
     day: string,
-    maxNoStudent: number,
     course: Course,
-    instructors: Employee[]
+    instructors: Employee[],
+    maxNoStudents: number
   ) {
     this.id = id;
     this.startTime = startTime;
     this.endTime = endTime;
     this.room = room;
     this.day = day;
-    this.maxNoStudent = maxNoStudent;
+    this.maxNoStudents = maxNoStudents;
     this.course = course;
     this.instructors = instructors;
   }

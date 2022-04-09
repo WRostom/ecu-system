@@ -14,6 +14,7 @@ import {
   TuiInputModule,
   TuiInputPhoneInternationalModule,
   TuiInputTimeModule,
+  TuiMultiSelectModule,
   TuiSelectModule,
   TuiTabsModule,
 } from "@taiga-ui/kit";
@@ -42,6 +43,7 @@ import {
     TuiInputPhoneInternationalModule,
     TuiLetModule,
     TuiLoaderModule,
+    TuiMultiSelectModule,
   ],
   exports: [
     TuiBreadcrumbsModule,
@@ -64,6 +66,7 @@ import {
     TuiInputPhoneInternationalModule,
     TuiLetModule,
     TuiLoaderModule,
+    TuiMultiSelectModule,
   ],
 })
 export class SharedModule {}

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { TuiContextWithImplicit, tuiPure } from "@taiga-ui/cdk";
 import { TuiCountryIsoCode } from "@taiga-ui/i18n";
+import { share } from "rxjs";
 import { DepartmentDAOService } from "src/app/core/api/department-dao.service";
 import { EmployeeDAOService } from "src/app/core/api/employee-dao.service";
 import { Department } from "src/app/shared/models/department.model";
@@ -56,7 +57,7 @@ export class AddEmployeeComponent implements OnInit {
     },
   ];
 
-  departmentDataRequest$ = this.departmentDAO.getAll();
+  departmentDataRequest$ = this.departmentDAO.getAll().pipe(share());
   departmentData: Department[];
 
   constructor(private employeeDAO: EmployeeDAOService, private departmentDAO: DepartmentDAOService) {}

@@ -61,53 +61,55 @@
       </section>
     </tui-loader>
 
-    <p class="section-title">Schedule</p>
-    <section class="content-part group-section">
-      <div class="title-button-wrapper">
-        <p class="section-title">Groups</p>
-        <button
-          tuiButton
-          type="button"
-          icon="tuiIconPlus"
-          size="s"
-          class="tui-space_right-3 tui-space_bottom-3"
-          (click)="toggleGroupAdd(true)"
-          (tuiActiveZoneChange)="toggleGroupAdd($event)"
-        >
-          Add
-          <div class="sidebar" *tuiSidebar="open; direction: 'right'">
-            <app-add-group [groupID]="courseGroupData.length + 1" (openSidebar)="toggleGroupAdd($event, true)"></app-add-group>
-          </div>
-        </button>
-      </div>
-      <table tuiTable [columns]="columns">
-        <thead>
-          <tr tuiThGroup>
-            <th *tuiHead="'groupName'" tuiTh>Group No.</th>
-            <th *tuiHead="'day'" tuiTh>Day</th>
-            <th *tuiHead="'startTime'" tuiTh>Start Time</th>
-            <th *tuiHead="'endTime'" tuiTh>End Time</th>
-            <th *tuiHead="'instructor'" tuiTh>Instructor</th>
-            <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
-          </tr>
-        </thead>
-        <tbody tuiTbody [data]="courseGroupData">
-          <tr *tuiRow="let item of courseGroupData" tuiTr>
-            <td *tuiCell="'groupName'" tuiTd>
-              <span class="group-color" [style]="{ color: item.color.primary }">⬤</span>
-              Group {{ item.id }}
-            </td>
-            <td *tuiCell="'day'" tuiTd>{{ item.day }}</td>
-            <td *tuiCell="'startTime'" tuiTd>{{ item.startTime | date: "shortTime" }}</td>
-            <td *tuiCell="'endTime'" tuiTd>{{ item.endTime | date: "shortTime" }}</td>
-            <td *tuiCell="'instructor'" tuiTd>{{ item.instructors[0]?.firstName }} {{ item.instructors[0]?.lastName }}</td>
-            <td *tuiCell="'action'" tuiTd>
-              <button tuiIconButton appearance="flat" size="s" icon="tuiIconTrash" title="Remove" shape="rounded" class="remove"></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <app-calendar [groupData]="courseGroupData"> </app-calendar>
-    </section>
+    <tui-loader [overlay]="true" [showLoader]="loadingGroups">
+      <p class="section-title">Schedule</p>
+      <section class="content-part group-section">
+        <div class="title-button-wrapper">
+          <p class="section-title">Groups</p>
+          <button
+            tuiButton
+            type="button"
+            icon="tuiIconPlus"
+            size="s"
+            class="tui-space_right-3 tui-space_bottom-3"
+            (click)="toggleGroupAdd(true)"
+            (tuiActiveZoneChange)="toggleGroupAdd($event)"
+          >
+            Add
+            <div class="sidebar" *tuiSidebar="open; direction: 'right'">
+              <app-add-group [courseID]="pageID" (openSidebar)="toggleGroupAdd($event, true)"></app-add-group>
+            </div>
+          </button>
+        </div>
+        <table tuiTable [columns]="columns">
+          <thead>
+            <tr tuiThGroup>
+              <th *tuiHead="'groupName'" tuiTh>Group No.</th>
+              <th *tuiHead="'day'" tuiTh>Day</th>
+              <th *tuiHead="'startTime'" tuiTh>Start Time</th>
+              <th *tuiHead="'endTime'" tuiTh>End Time</th>
+              <th *tuiHead="'instructor'" tuiTh>Instructor</th>
+              <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
+            </tr>
+          </thead>
+          <tbody tuiTbody [data]="courseGroupData">
+            <tr *tuiRow="let item of courseGroupData" tuiTr>
+              <td *tuiCell="'groupName'" tuiTd>
+                <span class="group-color" [style]="{ color: item.color.primary }">⬤</span>
+                Group {{ item.id }}
+              </td>
+              <td *tuiCell="'day'" tuiTd>{{ item.day }}</td>
+              <td *tuiCell="'startTime'" tuiTd>{{ item.startTime | date: "shortTime" }}</td>
+              <td *tuiCell="'endTime'" tuiTd>{{ item.endTime | date: "shortTime" }}</td>
+              <td *tuiCell="'instructor'" tuiTd>{{ item.instructors[0]?.firstName }} {{ item.instructors[0]?.lastName }}</td>
+              <td *tuiCell="'action'" tuiTd>
+                <button tuiIconButton appearance="flat" size="s" icon="tuiIconTrash" title="Remove" shape="rounded" class="remove"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <app-calendar [groupData]="courseGroupData"> </app-calendar>
+      </section>
+    </tui-loader>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from "@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { TuiContextWithImplicit, tuiPure } from "@taiga-ui/cdk";
+import { share } from "rxjs";
 import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
 import { MajorDaoService } from "src/app/core/api/major-dao.service";
 import { Faculty } from "src/app/shared/models/faculty.model";
@@ -31,7 +32,7 @@ export class AddMajorComponent implements OnInit, AfterViewInit {
     facultyID: new FormControl(null, Validators.required),
   });
 
-  facultyDataRequest$ = this.facultyDAO.getAll();
+  facultyDataRequest$ = this.facultyDAO.getAll().pipe(share());
   facultyData: Faculty[];
 
   constructor(private majorDAO: MajorDaoService, private facultyDAO: FacultyDAOService) {}

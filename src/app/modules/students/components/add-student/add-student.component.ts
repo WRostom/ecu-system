@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { EMPTY_ARRAY, TuiContextWithImplicit, tuiPure, TuiStringHandler } from "@taiga-ui/cdk";
 import { TuiValueContentContext } from "@taiga-ui/core";
 import { TuiCountryIsoCode } from "@taiga-ui/i18n";
+import { share } from "rxjs";
 import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
 import { StudentDAOService } from "src/app/core/api/student-dao.service";
 import { Faculty } from "src/app/shared/models/faculty.model";
@@ -42,7 +43,7 @@ export class AddStudentComponent implements OnInit {
 
   countryIsoCode = TuiCountryIsoCode.EG;
   createLoading: boolean = false;
-  facultyDataRequest$ = this.facultyDAO.getAll();
+  facultyDataRequest$ = this.facultyDAO.getAll().pipe(share());
   facultyData: Faculty[];
 
   constructor(private facultyDAO: FacultyDAOService, private studentDAO: StudentDAOService) {}

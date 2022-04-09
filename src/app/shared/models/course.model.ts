@@ -11,7 +11,6 @@ export class Course {
   faculty: Faculty;
   maxNoStudents: number;
   currentNoStudents: number;
-  courseRoom: string;
   registrations?: CourseStudent[];
 
   constructor(
@@ -23,7 +22,6 @@ export class Course {
     faculty: Faculty,
     maxNoStudents: number,
     currentNoStudents: number,
-    courseRoom: string,
     registrations?: CourseStudent[]
   ) {
     this.id = id;
@@ -34,7 +32,6 @@ export class Course {
     this.faculty = faculty;
     this.maxNoStudents = maxNoStudents;
     this.currentNoStudents = currentNoStudents;
-    this.courseRoom = courseRoom;
     this.registrations = registrations;
   }
 }
