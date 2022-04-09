@@ -1,107 +1,113 @@
-<tui-loader [overlay]="true" *tuiLet="courseDataRequest$ | async as data" [showLoader]="!data">
-  <section class="heading-part">
-    <div class="left-side">
-      <tui-breadcrumbs>
-        <a *tuiBreadcrumb tuiLink> Courses </a>
-      </tui-breadcrumbs>
-      <h5 class="tui-text_h5">{{ data.courseName }}</h5>
-    </div>
-    <div class="right-side">
-      <button
-        tuiButton
-        type="button"
-        icon="tuiIconDraft"
-        size="m"
-        class="tui-space_right-3 tui-space_bottom-3"
-        (click)="toggleEdit(true)"
-        (tuiActiveZoneChange)="toggleEdit($event)"
-      >
-        Edit
-        <div class="sidebar" *tuiSidebar="openEdit; direction: 'right'">
-          <app-add-course (openSidebar)="toggleEdit($event, true)" [editMode]="pageID"></app-add-course>
+<div class="tui-container tui-container_adaptive">
+  <div class="tui-row tui-row-adaptive">
+    <tui-loader [overlay]="true" *tuiLet="courseDataRequest$ | async as data" [showLoader]="!data">
+      <section class="heading-part">
+        <div class="left-side">
+          <tui-breadcrumbs routerLinka="/management/courses">
+            <a *tuiBreadcrumb tuiLink> Courses </a>
+          </tui-breadcrumbs>
+          <h5 class="tui-text_h5">{{ data?.courseName }}</h5>
         </div>
-      </button>
-    </div>
-  </section>
+        <div class="right-side">
+          <button
+            tuiButton
+            type="button"
+            icon="tuiIconDraft"
+            size="m"
+            class="tui-space_right-3 tui-space_bottom-3"
+            (click)="toggleEdit(true)"
+            (tuiActiveZoneChange)="toggleEdit($event)"
+          >
+            Edit
+            <div class="sidebar" *tuiSidebar="openEdit; direction: 'right'">
+              <app-add-course (openSidebar)="toggleEdit($event, true)" [editMode]="pageID"></app-add-course>
+            </div>
+          </button>
+        </div>
+      </section>
 
-  <p class="section-title">Basic Information</p>
-  <section class="content-part">
-    <div class="info-box-wrapper">
-      <div class="info-box">
-        <p class="info-subheading">ID</p>
-        <p class="info-content">{{ data.id }}</p>
-      </div>
-      <div class="info-box">
-        <p class="info-subheading">Faculty</p>
-        <p class="info-content">{{ data.faculty.facultyName }}</p>
-      </div>
-      <div class="info-box">
-        <p class="info-subheading">Major</p>
-        <p class="info-content">{{ data.major.majorName }}</p>
-      </div>
-      <div class="info-box">
-        <p class="info-subheading">Max No. of Students</p>
-        <p class="info-content">{{ data.maxNoStudents || 0 }}</p>
-      </div>
-      <div class="info-box">
-        <p class="info-subheading">Current No. of Students</p>
-        <p class="info-content">{{ data.currentNoStudents || 0 }}</p>
-      </div>
-      <div class="info-box">
-        <p class="info-subheading">Credits</p>
-        <p class="info-content">{{ data.credits || 0 }}</p>
-      </div>
-      <div class="info-box">
-        <p class="info-subheading">Prerequisites</p>
-        <p class="info-content">{{ data.prerequisteList || "-" }}</p>
-      </div>
-    </div>
-  </section>
-</tui-loader>
+      <p class="section-title">Basic Information</p>
+      <section class="content-part">
+        <div class="info-box-wrapper">
+          <div class="info-box">
+            <p class="info-subheading">ID</p>
+            <p class="info-content">{{ data?.id }}</p>
+          </div>
+          <div class="info-box">
+            <p class="info-subheading">Faculty</p>
+            <p class="info-content">{{ data?.faculty.facultyName }}</p>
+          </div>
+          <div class="info-box">
+            <p class="info-subheading">Major</p>
+            <p class="info-content">{{ data?.major.majorName }}</p>
+          </div>
+          <div class="info-box">
+            <p class="info-subheading">Max No. of Students</p>
+            <p class="info-content">{{ data?.maxNoStudents || 0 }}</p>
+          </div>
+          <div class="info-box">
+            <p class="info-subheading">Current No. of Students</p>
+            <p class="info-content">{{ data?.currentNoStudents || 0 }}</p>
+          </div>
+          <div class="info-box">
+            <p class="info-subheading">Credits</p>
+            <p class="info-content">{{ data?.credits || 0 }}</p>
+          </div>
+          <div class="info-box">
+            <p class="info-subheading">Prerequisites</p>
+            <p class="info-content">{{ data?.prerequisteList || "-" }}</p>
+          </div>
+        </div>
+      </section>
+    </tui-loader>
 
-<p class="section-title">Schedule</p>
-<section class="content-part group-section">
-  <div class="title-button-wrapper">
-    <p class="section-title">Groups</p>
-    <button
-      tuiButton
-      type="button"
-      icon="tuiIconPlus"
-      size="s"
-      class="tui-space_right-3 tui-space_bottom-3"
-      (click)="toggle(true)"
-      (tuiActiveZoneChange)="toggle($event)"
-    >
-      Add
-      <div class="sidebar" *tuiSidebar="open; direction: 'right'">
-        <app-add-group [groupID]="data.length + 1" (openSidebar)="addGroup($event)"></app-add-group>
+    <p class="section-title">Schedule</p>
+    <section class="content-part group-section">
+      <div class="title-button-wrapper">
+        <p class="section-title">Groups</p>
+        <button
+          tuiButton
+          type="button"
+          icon="tuiIconPlus"
+          size="s"
+          class="tui-space_right-3 tui-space_bottom-3"
+          (click)="toggleGroupAdd(true)"
+          (tuiActiveZoneChange)="toggleGroupAdd($event)"
+        >
+          Add
+          <div class="sidebar" *tuiSidebar="open; direction: 'right'">
+            <app-add-group [groupID]="courseGroupData.length + 1" (openSidebar)="toggleGroupAdd($event, true)"></app-add-group>
+          </div>
+        </button>
       </div>
-    </button>
+      <table tuiTable [columns]="columns">
+        <thead>
+          <tr tuiThGroup>
+            <th *tuiHead="'groupName'" tuiTh>Group No.</th>
+            <th *tuiHead="'day'" tuiTh>Day</th>
+            <th *tuiHead="'startTime'" tuiTh>Start Time</th>
+            <th *tuiHead="'endTime'" tuiTh>End Time</th>
+            <th *tuiHead="'instructor'" tuiTh>Instructor</th>
+            <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
+          </tr>
+        </thead>
+        <tbody tuiTbody [data]="courseGroupData">
+          <tr *tuiRow="let item of courseGroupData" tuiTr>
+            <td *tuiCell="'groupName'" tuiTd>
+              <span class="group-color" [style]="{ color: item.color.primary }">⬤</span>
+              Group {{ item.id }}
+            </td>
+            <td *tuiCell="'day'" tuiTd>{{ item.day }}</td>
+            <td *tuiCell="'startTime'" tuiTd>{{ item.startTime | date: "shortTime" }}</td>
+            <td *tuiCell="'endTime'" tuiTd>{{ item.endTime | date: "shortTime" }}</td>
+            <td *tuiCell="'instructor'" tuiTd>{{ item.instructors[0]?.firstName }} {{ item.instructors[0]?.lastName }}</td>
+            <td *tuiCell="'action'" tuiTd>
+              <button tuiIconButton appearance="flat" size="s" icon="tuiIconTrash" title="Remove" shape="rounded" class="remove"></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <app-calendar [groupData]="courseGroupData"> </app-calendar>
+    </section>
   </div>
-  <table tuiTable [columns]="columns">
-    <thead>
-      <tr tuiThGroup>
-        <th *tuiHead="'groupName'" tuiTh>Group No.</th>
-        <th *tuiHead="'date'" tuiTh>Start Date</th>
-        <th *tuiHead="'startTime'" tuiTh>Start Time</th>
-        <th *tuiHead="'endTime'" tuiTh>End Time</th>
-        <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
-      </tr>
-    </thead>
-    <tbody tuiTbody [data]="data">
-      <tr *tuiRow="let item of data" tuiTr>
-        <td *tuiCell="'groupName'" tuiTd>
-          <span class="group-color" [style]="{ color: item.color }">⬤</span>
-          Group {{ item.groupID }}
-        </td>
-        <td *tuiCell="'date'" tuiTd>{{ item.date }}</td>
-        <td *tuiCell="'startTime'" tuiTd>{{ item.startTime }}</td>
-        <td *tuiCell="'endTime'" tuiTd>{{ item.endTime }}</td>
-        <td *tuiCell="'action'" tuiTd>
-          <button tuiIconButton appearance="flat" size="s" icon="tuiIconTrash" title="Remove" shape="rounded" class="remove"></button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <app-calendar [groupData]="data"> </app-calendar>
-</section>
+</div>

@@ -26,6 +26,8 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "@rschedule/core": "^1.2.3",
+    "@rschedule/standard-date-adapter": "^1.2.3",
     "@taiga-ui/addon-charts": "^2.37.1",
     "@taiga-ui/addon-commerce": "^2.37.1",
     "@taiga-ui/addon-editor": "^2.37.1",

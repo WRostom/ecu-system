@@ -1,65 +1,75 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 
-import { TuiDay } from "@taiga-ui/cdk";
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from "angular-calendar";
-import { addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from "date-fns";
+import { Schedule } from "@config/rschedule";
+import { CalendarEvent, CalendarEventTimesChangedEvent, CalendarEventTitleFormatter, CalendarView } from "angular-calendar";
+import { addDays, endOfDay, getDay, isSameDay, isSameMonth, startOfDay } from "date-fns";
 import { Subject } from "rxjs";
-import { GroupData } from "src/app/modules/management/modules/courses/components/course-display/course-display.component";
+import { DisplayCourseGroupData } from "src/app/modules/management/modules/courses/components/course-display/course-display.component";
 
-const colors: any = {
-  red: {
-    primary: "#ad2121",
-    secondary: "#FAE3E3",
-  },
-  blue: {
-    primary: "#1e90ff",
-    secondary: "#D1E8FF",
-  },
-  yellow: {
-    primary: "#e3bc08",
-    secondary: "#FDF1BA",
-  },
-};
+import { CustomEventTitleFormatter } from "./provider/custom-title-formatter";
+
+export enum dayOfTheWeek {
+  SUNDAY = "SU",
+  MONDAY = "MO",
+  TUESDAY = "TU",
+  WEDNESDAY = "WE",
+  THURSDAY = "TH",
+  FRIDAY = "FR",
+  SATURDAY = "SA",
+}
+
+export enum dayOfTheWeekNumberEquivalent {
+  SUNDAY = 0,
+  MONDAY = 1,
+  TUESDAY = 2,
+  WEDNESDAY = 3,
+  THURSDAY = 4,
+  FRIDAY = 5,
+  SATURDAY = 6,
+}
 
 @Component({
   selector: "app-calendar",
   templateUrl: "./calendar.component.html",
   styleUrls: ["./calendar.component.scss"],
+  providers: [
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter,
+    },
+  ],
 })
 export class CalendarComponent implements OnInit {
-  @Input("groupData") set groupData(data: GroupData[]) {
+  @Input("groupData") set groupData(data: DisplayCourseGroupData[]) {
     console.log(data);
-    console.log(new TuiDay(2022, 3, 4).toUtcNativeDate());
+    let calendarNewEvents: CalendarEvent[] = [];
+    data.forEach((res) => {
+      const schedule = new Schedule({
+        rrules: [
+          {
+            frequency: "WEEKLY",
+            byDayOfWeek: [dayOfTheWeek[res.day as keyof typeof dayOfTheWeek]],
+            start: this.getFirstDayOfMonthThatMatchesDay(res.day),
+          },
+        ],
+      });
+      let dates = schedule
+        .occurrences({ take: 15 })
+        .toArray()
+        .map((date) => date.toISOString());
 
-    let calendarNewEvents: CalendarEvent[] = data.map((res) => {
-      let concatInitalDateTime: [number, number, number, number, number] = [
-        res.date.year,
-        res.date.month,
-        res.date.day,
-        res.startTime.hours,
-        res.startTime.minutes,
-      ];
-      let concatEndDateTime: [number, number, number, number, number] = [
-        res.date.year,
-        res.date.month,
-        res.date.day,
-        res.endTime.hours,
-        res.endTime.minutes,
-      ];
-
-      console.log(new Date(...concatInitalDateTime));
-
-      return {
-        title: `Group ${res.groupID} (${res.startTime.toString()} - ${res.endTime.toString()})`,
-        start: new Date(...concatInitalDateTime),
-        end: new Date(...concatEndDateTime),
-        color: colors[Object.keys(colors)[Math.random() * 3]],
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      };
+      dates.forEach((date) => {
+        calendarNewEvents.push({
+          title: `Group ${res.id}`,
+          start: new Date(date),
+          color: res.color,
+          draggable: false,
+          meta: {
+            startTime: res.startTime,
+            endTime: res.endTime,
+          },
+        });
+      });
     });
     this.events = calendarNewEvents;
   }
@@ -71,27 +81,29 @@ export class CalendarComponent implements OnInit {
     event: CalendarEvent;
   };
 
-  refresh = new Subject<void>();
-
-  events: CalendarEvent[] = [
-    // {
-    //   start: addHours(startOfDay(new Date()), 2),
-    //   end: addHours(new Date(), 2),
-    //   title: "A draggable and resizable event",
-    //   color: colors.yellow,
-    //   resizable: {
-    //     beforeStart: true,
-    //     afterEnd: true,
-    //   },
-    //   draggable: true,
-    // },
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = false;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  getFirstDayOfMonthThatMatchesDay(dayOfTheWeek: string): Date {
+    let initialDay = 0;
+    let firstDay: Date;
+    while (dayOfTheWeekNumberEquivalent[dayOfTheWeek as keyof typeof dayOfTheWeekNumberEquivalent] != getDay(firstDay)) {
+      initialDay += 1;
+      firstDay = addDays(this.viewDate, initialDay);
+    }
+
+    return firstDay;
+  }
+
+  stringifyDay(day: any) {
+    console.log(day);
+    return "Hello";
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -102,42 +114,6 @@ export class CalendarComponent implements OnInit {
       }
       this.viewDate = date;
     }
-  }
-
-  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent("Dropped or resized", event);
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    // this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: "New event",
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {

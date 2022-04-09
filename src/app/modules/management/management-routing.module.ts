@@ -22,10 +22,6 @@ const routes: Routes = [
         component: CoursesComponent,
       },
       {
-        path: "courses/:id",
-        component: CourseDisplayComponent,
-      },
-      {
         path: "faculty",
         component: FacultyComponent,
       },
@@ -50,6 +46,10 @@ const routes: Routes = [
         component: ViewDepartmentComponent,
       },
     ],
+  },
+  {
+    path: "courses/:id",
+    component: CourseDisplayComponent,
   },
 ];
 

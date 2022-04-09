@@ -35,10 +35,21 @@
     *ngSwitchCase="CalendarView.Month"
     [viewDate]="viewDate"
     [events]="events"
-    [refresh]="refresh"
     [activeDayIsOpen]="activeDayIsOpen"
+    [cellTemplate]="customCellTemplate"
     (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Cliscked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
   ></mwl-calendar-month-view>
 </div>
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+  <div class="cal-cell-top">
+    <p class="day-number">{{ day.date | calendarDate: "monthViewDayNumber":locale }}</p>
+    <div class="group-banner-wrapper">
+      <div class="group-banner" *ngFor="let group of day.events" [ngStyle]="{ background: group.color.primary }">
+        <span
+          >{{ group.meta.startTime | date: "shortTime" }} <b>{{ group.title }}</b></span
+        >
+      </div>
+    </div>
+  </div>
+</ng-template>

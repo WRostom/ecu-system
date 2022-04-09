@@ -9,3 +9,38 @@
     flex-direction: row;
   }
 }
+
+.day-number {
+  width: 100%;
+  font-size: 1.2em;
+  font-weight: 400;
+  opacity: 0.5;
+  position: relative;
+  margin: 0;
+  text-align: right;
+  padding: 5px 10px 0px 10px;
+  box-sizing: border-box;
+}
+
+.group-banner-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 0px;
+  box-sizing: border-box;
+
+  .group-banner {
+    min-height: 20px;
+    width: 95%;
+    border-radius: var(--tui-radius-m);
+    color: white;
+    font-size: 12px;
+    padding: 0px 10px;
+    box-sizing: border-box;
+    border-bottom: 4px;
+
+    b {
+      margin-left: 5px;
+    }
+  }
+}
