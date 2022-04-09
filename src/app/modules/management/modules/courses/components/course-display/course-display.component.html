@@ -102,10 +102,19 @@
               <td *tuiCell="'day'" tuiTd>{{ item.day }}</td>
               <td *tuiCell="'startTime'" tuiTd>{{ item.startTime | date: "shortTime" }}</td>
               <td *tuiCell="'endTime'" tuiTd>{{ item.endTime | date: "shortTime" }}</td>
-              <td *tuiCell="'instructor'" tuiTd>{{ item.instructors[0]?.firstName }} {{ item.instructors[0]?.lastName }}</td>
+              <td *tuiCell="'instructor'" tuiTd>{{ displayInstructors(item.instructors) }}</td>
               <td *tuiCell="'room'" tuiTd>{{ item.room }}</td>
               <td *tuiCell="'action'" tuiTd>
-                <button tuiIconButton appearance="flat" size="s" icon="tuiIconTrash" title="Remove" shape="rounded" class="remove"></button>
+                <button
+                  tuiIconButton
+                  appearance="flat"
+                  size="s"
+                  icon="tuiIconTrash"
+                  title="Remove"
+                  shape="rounded"
+                  class="remove"
+                  (click)="deleteGroup(item.id)"
+                ></button>
               </td>
             </tr>
           </tbody>

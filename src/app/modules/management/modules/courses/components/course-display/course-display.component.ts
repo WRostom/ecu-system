@@ -11,6 +11,7 @@ import { CoursesDaoService } from "src/app/core/api/courses-dao.service";
 import { makeColorIterator } from "src/app/shared/functions/iterators";
 import { Course } from "src/app/shared/models/course.model";
 import { CourseGroup } from "src/app/shared/models/courseGroup.model";
+import { Employee } from "src/app/shared/models/employee.model";
 
 const colors: any = {
   red: {
@@ -73,6 +74,7 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
   }
 
   getCourseGroupData() {
+    this.courseGroupData = [];
     this.courseGroupDataRequest$.subscribe((val: CourseGroup[]) => {
       let tempCourseGroupData: DisplayCourseGroupData[] = val;
       for (let i = 0; i < tempCourseGroupData.length; i++) {
@@ -80,6 +82,16 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
       }
       this.courseGroupData = tempCourseGroupData;
       this.loadingGroups = false;
+    });
+  }
+
+  displayInstructors(instructors: Employee[]) {
+    return instructors.map((employee) => `${employee.firstName} ${employee.lastName}`).join(", ");
+  }
+
+  deleteGroup(groupID: string) {
+    this.courseGroupDAO.delete(groupID).subscribe(() => {
+      this.getCourseGroupData();
     });
   }
 
