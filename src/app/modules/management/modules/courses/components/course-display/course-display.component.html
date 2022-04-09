@@ -115,6 +115,20 @@
                   class="remove"
                   (click)="deleteGroup(item.id)"
                 ></button>
+                <!-- <button
+                  tuiIconButton
+                  appearance="flat"
+                  size="s"
+                  icon="tuiIconDraft"
+                  title="Edit"
+                  shape="rounded"
+                  (click)="toggleGroupEdit(true)"
+                  (tuiActiveZoneChange)="toggleGroupEdit($event)"
+                > -->
+                <!-- <div class="sidebar" *tuiSidebar="open; direction: 'right'">
+                    <app-add-group [courseID]="pageID" (openSidebar)="toggleGroupEdit($event, true)" [editMode]="item.id"></app-add-group>
+                  </div> -->
+                <!-- </button> -->
               </td>
             </tr>
           </tbody>

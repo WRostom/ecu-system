@@ -105,6 +105,12 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
       this.getCourseGroupData();
     }
   }
+  toggleGroupEdit(open: any, refresh?: boolean) {
+    this.open = open;
+    if (refresh) {
+      this.getCourseGroupData();
+    }
+  }
 
   toggleEdit(open: boolean, refresh?: boolean) {
     this.openEdit = open;
