@@ -37,7 +37,7 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
 
   refresh = new Subject<void>();
 
-  columns = ["groupName", "day", "startTime", "endTime", "instructor", "action"];
+  columns = ["groupName", "day", "startTime", "endTime", "instructor", "room", "action"];
 
   courseGroupData: DisplayCourseGroupData[] = [];
 
@@ -76,7 +76,7 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
     this.courseGroupDataRequest$.subscribe((val: CourseGroup[]) => {
       let tempCourseGroupData: DisplayCourseGroupData[] = val;
       for (let i = 0; i < tempCourseGroupData.length; i++) {
-        tempCourseGroupData[i].color = { primary: `hsl(${Math.random() * (359 - 0) + 0}, 83%, 40%)` };
+        tempCourseGroupData[i].color = { primary: `hsl(${Math.random() * (359 - 0) + 0}, 83%, ${Math.random() * (60 - 40) + 40}%)` };
       }
       this.courseGroupData = tempCourseGroupData;
       this.loadingGroups = false;
