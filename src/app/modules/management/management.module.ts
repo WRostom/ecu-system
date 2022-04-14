@@ -21,6 +21,9 @@ import { FacultyComponent } from "./modules/faculty/faculty.component";
 import { AddMajorComponent } from "./modules/major/components/add-major/add-major.component";
 import { ViewMajorComponent } from "./modules/major/components/view-major/view-major.component";
 import { MajorComponent } from "./modules/major/major.component";
+import { SemesterComponent } from './modules/semester/semester.component';
+import { ViewSemesterComponent } from './modules/semester/components/view-semester/view-semester.component';
+import { SemesterViewBlockComponent } from './modules/semester/components/semester-view-block/semester-view-block.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { MajorComponent } from "./modules/major/major.component";
     ViewFacultyComponent,
     ViewMajorComponent,
     ViewDepartmentComponent,
+    SemesterComponent,
+    ViewSemesterComponent,
+    SemesterViewBlockComponent,
   ],
   imports: [CommonModule, SharedModule, CalendarECLModule, ManagementRoutingModule],
   providers: [

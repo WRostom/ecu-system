@@ -10,6 +10,8 @@ import { ViewFacultyComponent } from "./modules/faculty/components/view-faculty/
 import { FacultyComponent } from "./modules/faculty/faculty.component";
 import { ViewMajorComponent } from "./modules/major/components/view-major/view-major.component";
 import { MajorComponent } from "./modules/major/major.component";
+import { ViewSemesterComponent } from "./modules/semester/components/view-semester/view-semester.component";
+import { SemesterComponent } from "./modules/semester/semester.component";
 
 const routes: Routes = [
   // { path: "", redirectTo: "faculty", pathMatch: "full" },
@@ -26,30 +28,39 @@ const routes: Routes = [
         component: FacultyComponent,
       },
       {
-        path: "faculty/:id",
-        component: ViewFacultyComponent,
-      },
-      {
         path: "major",
         component: MajorComponent,
       },
-      {
-        path: "major/:id",
-        component: ViewMajorComponent,
-      },
+
       {
         path: "department",
         component: DepartmentComponent,
       },
       {
-        path: "department/:id",
-        component: ViewDepartmentComponent,
+        path: "semester",
+        component: SemesterComponent,
       },
     ],
   },
   {
     path: "courses/:id",
     component: CourseDisplayComponent,
+  },
+  {
+    path: "department/:id",
+    component: ViewDepartmentComponent,
+  },
+  {
+    path: "major/:id",
+    component: ViewMajorComponent,
+  },
+  {
+    path: "faculty/:id",
+    component: ViewFacultyComponent,
+  },
+  {
+    path: "semester/:id",
+    component: ViewSemesterComponent,
   },
 ];
 

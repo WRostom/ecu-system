@@ -1,0 +1,30 @@
+<div class="tui-container tui-container_adaptive">
+  <div class="tui-row tui-row-adaptive">
+    <tui-loader [overlay]="true" [showLoader]="false">
+      <section class="heading-part">
+        <div class="left-side">
+          <tui-breadcrumbs>
+            <a *tuiBreadcrumb tuiLink> Semester </a>
+          </tui-breadcrumbs>
+          <h5 class="tui-text_h5">[2022] Semester 1</h5>
+        </div>
+        <div class="right-side"></div>
+      </section>
+      <p class="section-title">Faculties</p>
+      <tui-accordion class="container">
+        <tui-accordion-item>
+          Informatics and Computer Science
+          <ng-template tuiAccordionItemContent>
+            Development kit consisting of the low level tools and abstractions used to develop Taiga UI Angular entities
+          </ng-template>
+        </tui-accordion-item>
+        <tui-accordion-item>
+          Business and Management
+          <ng-template tuiAccordionItemContent>
+            Development kit consisting of the low level tools and abstractions used to develop Taiga UI Angular entities
+          </ng-template>
+        </tui-accordion-item>
+      </tui-accordion>
+    </tui-loader>
+  </div>
+</div>

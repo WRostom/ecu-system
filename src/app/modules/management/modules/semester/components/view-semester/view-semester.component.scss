@@ -1,0 +1,28 @@
+@use "../../../../../../../page-heading.scss";
+
+tui-loader {
+  width: 100%;
+}
+
+.section-title {
+  margin-top: 3rem;
+  font-size: 1rem;
+}
+
+.content-part {
+  width: 100%;
+  padding: 25px;
+  background-color: white;
+  border-radius: var(--tui-radius-m);
+  p {
+    margin: 0;
+  }
+
+  .title-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+}

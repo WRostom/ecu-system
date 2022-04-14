@@ -1,0 +1,45 @@
+.semester-content {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  width: 100%;
+  padding: 20px 0px;
+  margin-bottom: 20px;
+  height: 8rem;
+
+  @media (max-width: 768px) {
+    padding: 0px;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .semester-header {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0.5;
+    padding: 15px 0px;
+    p {
+      margin: 0;
+    }
+  }
+
+  tui-island {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.25s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--md-sys-color-secondary-container);
+    }
+
+    p {
+      pointer-events: none;
+    }
+  }
+}

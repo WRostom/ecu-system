@@ -7,6 +7,7 @@ import { TuiTableModule } from "@taiga-ui/addon-table";
 import { TuiActiveZoneModule, TuiLetModule } from "@taiga-ui/cdk";
 import { TuiButtonModule, TuiDataListModule, TuiLabelModule, TuiLoaderModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
 import {
+  TuiAccordionModule,
   TuiBreadcrumbsModule,
   TuiDataListWrapperModule,
   TuiInputCountModule,
@@ -14,6 +15,7 @@ import {
   TuiInputModule,
   TuiInputPhoneInternationalModule,
   TuiInputTimeModule,
+  TuiIslandModule,
   TuiMultiSelectModule,
   TuiSelectModule,
   TuiTabsModule,
@@ -44,6 +46,8 @@ import {
     TuiLetModule,
     TuiLoaderModule,
     TuiMultiSelectModule,
+    TuiIslandModule,
+    TuiAccordionModule,
   ],
   exports: [
     TuiBreadcrumbsModule,
@@ -67,6 +71,8 @@ import {
     TuiLetModule,
     TuiLoaderModule,
     TuiMultiSelectModule,
+    TuiIslandModule,
+    TuiAccordionModule,
   ],
 })
 export class SharedModule {}
