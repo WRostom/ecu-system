@@ -1,45 +1,69 @@
-.semester-content {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
+fieldset {
+  flex: 1;
+  border-radius: var(--tui-radius-l);
+  border: 0px;
+  background: var(--md-sys-color-background-dimmer);
+  padding: 20px;
   width: 100%;
-  padding: 20px 0px;
-  margin-bottom: 20px;
-  height: 8rem;
+  box-sizing: border-box;
+  position: relative;
 
-  @media (max-width: 768px) {
-    padding: 0px;
-    flex-direction: column;
-    height: auto;
+  legend {
+    // text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    background: var(--md-sys-color-background);
+    border-radius: var(--tui-radius-l);
   }
-
-  .semester-header {
-    height: 100%;
+  .semester-content {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0.5;
-    padding: 15px 0px;
-    p {
-      margin: 0;
-    }
-  }
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+    height: 8rem;
 
-  tui-island {
-    height: 100%;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.25s ease-in-out;
-    cursor: pointer;
-
-    &:hover {
-      background-color: var(--md-sys-color-secondary-container);
+    @media (max-width: 768px) {
+      padding: 0px;
+      flex-direction: column;
+      height: auto;
     }
 
+    .tui-island_size_m {
+      padding: 0px;
+    }
+
+    tui-island {
+      height: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.25s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--md-sys-color-secondary-container);
+      }
+
+      p {
+        pointer-events: none;
+      }
+    }
+  }
+  .flags {
+    border-bottom-right-radius: var(--tui-radius-l);
+    border-bottom-left-radius: var(--tui-radius-l);
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    left: 0;
+    background: white;
+    padding: 5px 0px;
+
     p {
-      pointer-events: none;
+      font-size: 16px;
+      text-align: center;
+      margin: 0px;
     }
   }
 }

@@ -24,6 +24,7 @@ import { MajorComponent } from "./modules/major/major.component";
 import { SemesterComponent } from './modules/semester/semester.component';
 import { ViewSemesterComponent } from './modules/semester/components/view-semester/view-semester.component';
 import { SemesterViewBlockComponent } from './modules/semester/components/semester-view-block/semester-view-block.component';
+import { AddSemesterComponent } from './modules/semester/components/add-semester/add-semester.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { SemesterViewBlockComponent } from './modules/semester/components/semest
     SemesterComponent,
     ViewSemesterComponent,
     SemesterViewBlockComponent,
+    AddSemesterComponent,
   ],
   imports: [CommonModule, SharedModule, CalendarECLModule, ManagementRoutingModule],
   providers: [

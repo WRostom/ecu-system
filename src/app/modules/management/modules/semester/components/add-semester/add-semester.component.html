@@ -1,0 +1,19 @@
+<h5 class="tui-text_h5">{{ isEditMode ? "Edit" : "Create" }} Semester</h5>
+<form [formGroup]="createNew" (ngSubmit)="onSubmit()">
+  <label tuiLabel label="Start Year">
+    <tui-select tuiTextfieldSize="m" formControlName="semesterStartYear" [tuiTextfieldLabelOutside]="true">
+      Select Starting Year
+      <input tuiTextfield />
+      <tui-data-list-wrapper *tuiDataList [items]="years"></tui-data-list-wrapper>
+    </tui-select>
+  </label>
+  <label tuiLabel label="Semester No.">
+    <tui-select tuiTextfieldSize="m" formControlName="semesterNumber" [tuiTextfieldLabelOutside]="true">
+      Select Semester No.
+      <input tuiTextfield />
+      <tui-data-list-wrapper *tuiDataList [items]="semesters"></tui-data-list-wrapper>
+    </tui-select>
+  </label>
+  <div class="divider"></div>
+  <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
+</form>

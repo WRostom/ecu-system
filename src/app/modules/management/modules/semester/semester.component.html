@@ -5,10 +5,48 @@
     </tui-breadcrumbs>
     <h5 class="tui-text_h5">Semester</h5>
   </div>
-  <div class="right-side"></div>
+  <div class="right-side">
+    <button
+      tuiButton
+      type="button"
+      icon="tuiIconPlus"
+      size="m"
+      class="tui-space_right-3 tui-space_bottom-3"
+      (click)="toggle(true)"
+      (tuiActiveZoneChange)="toggle($event)"
+    >
+      Add
+      <div class="sidebar" *tuiSidebar="open; direction: 'right'">
+        <app-add-semester (openSidebar)="toggle($event, true)"></app-add-semester>
+      </div>
+    </button>
+  </div>
 </section>
 
 <section class="content-part">
-  <app-semester-view-block></app-semester-view-block>
-  <app-semester-view-block></app-semester-view-block>
+  <app-semester-view-block flag="current"></app-semester-view-block>
+
+  <app-semester-view-block flag="future"></app-semester-view-block>
+  <button
+    *ngIf="!showPrevHistory"
+    size="l"
+    tuiButton
+    type="button"
+    appearance="outline"
+    icon="tuiIconUndo"
+    class="tui-space_right-3 tui-space_bottom-3"
+    (click)="showPrevHistory = !showPrevHistory"
+  >
+    Show Previous Semesters
+  </button>
+
+  <div class="prev-history-container" *ngIf="showPrevHistory">
+    <p>Previous Semesters</p>
+    <div class="prev-list-wrapper">
+      <app-semester-view-block></app-semester-view-block>
+      <app-semester-view-block></app-semester-view-block>
+      <app-semester-view-block></app-semester-view-block>
+      <app-semester-view-block></app-semester-view-block>
+    </div>
+  </div>
 </section>
