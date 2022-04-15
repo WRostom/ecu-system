@@ -8,10 +8,21 @@
     </tui-select>
   </label>
   <label tuiLabel label="Semester No.">
-    <tui-select tuiTextfieldSize="m" formControlName="semesterNumber" [tuiTextfieldLabelOutside]="true">
+    <tui-select
+      tuiTextfieldSize="m"
+      formControlName="semesterNumber"
+      [tuiTextfieldLabelOutside]="true"
+      [valueContent]="stringify(semesters)"
+    >
       Select Semester No.
       <input tuiTextfield />
-      <tui-data-list-wrapper *tuiDataList [items]="semesters"></tui-data-list-wrapper>
+      <ng-template tuiDataList>
+        <tui-data-list *ngIf="semesters">
+          <button *ngFor="let item of semesters" tuiOption [value]="item.id">
+            {{ item.name }}
+          </button>
+        </tui-data-list>
+      </ng-template>
     </tui-select>
   </label>
   <div class="divider"></div>
