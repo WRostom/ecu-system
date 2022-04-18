@@ -6,6 +6,7 @@ import { map } from "rxjs/operators";
 import { timeout } from "rxjs/operators";
 
 import { environment } from "../../../environments/environment";
+import { ServerTimeService } from "../services/server-time.service";
 
 @Injectable({
   providedIn: "root",
@@ -16,11 +17,12 @@ export class ApiService {
       "Content-Type": "application/json",
     }),
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private serverTimeService: ServerTimeService) {}
 
   postRequest<T>(path: string, data: any): Observable<T> {
     return this.http.post<any>(`${environment.backendUrl}/${path}`, data, this.httpOption).pipe(
       map((res: responseObj) => {
+        this.serverTimeService.setServerTime(res.currentTime);
         // if (res["type"] === "F") {
         //   throw new HttpErrorResponse({
         //     error: res["msg1"],

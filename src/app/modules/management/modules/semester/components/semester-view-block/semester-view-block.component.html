@@ -1,9 +1,13 @@
 <fieldset [ngStyle]="{ 'padding-bottom': flag ? '50px' : '20px' }">
-  <legend>2021 - 2022</legend>
+  <legend>{{ fullYear?.year }}</legend>
   <div class="semester-content">
     <!-- <div class="semester-header"><p class="tui-text_body-xl">2021 - 2022</p></div> -->
-    <tui-island class="semester-1-card"> <p class="tui-text_body-xl">Semester 1</p> </tui-island>
-    <tui-island class="semester-2-card"> <p class="tui-text_body-xl">Semester 2</p> </tui-island>
+    <tui-island class="semester-1-card" *ngIf="fullYear?.semesterOne && fullYear?.semesterOne?.length > 0">
+      <p class="tui-text_body-xl">Semester 1</p>
+    </tui-island>
+    <tui-island class="semester-2-card" *ngIf="fullYear?.semesterTwo && fullYear?.semesterTwo?.length > 0">
+      <p class="tui-text_body-xl">Semester 2</p>
+    </tui-island>
   </div>
   <div
     class="flags"

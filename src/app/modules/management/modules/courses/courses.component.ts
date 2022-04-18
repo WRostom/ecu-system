@@ -1,14 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { TuiContextWithImplicit, tuiPure } from "@taiga-ui/cdk";
 import { map } from "rxjs";
 import { CoursesDaoService } from "src/app/core/api/courses-dao.service";
-import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
-import { Course } from "src/app/shared/models/course.model";
-import { Faculty } from "src/app/shared/models/faculty.model";
-import { Major } from "src/app/shared/models/major.model";
 
 @Component({
   selector: "app-courses",

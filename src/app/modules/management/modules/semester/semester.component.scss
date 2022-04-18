@@ -1,41 +1,46 @@
 @use "../../../../../page-heading.scss";
 
+app-semester-view-block {
+  display: block;
+}
+
 .content-part {
   display: grid;
   gap: 15px;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
+  padding-bottom: 40px;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(1, auto);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   > button {
     grid-column: 1 / 3;
   }
 
-  app-semester-view-block {
-    display: block;
-  }
-}
-
-.prev-history-container {
-  margin-top: 20px;
-  grid-column: 1 / 3;
-  p {
-    font-size: 16px;
-  }
-  .prev-list-wrapper {
-    display: grid;
-    gap: 7px;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: auto;
-
-    @media (max-width: 1278px) {
-      grid-template-columns: repeat(2, auto);
+  .prev-history-container {
+    margin-top: 20px;
+    grid-column: 1 / 3;
+    p {
+      font-size: 16px;
     }
-    @media (max-width: 768px) {
-      grid-template-columns: repeat(1, auto);
+    .prev-list-wrapper {
+      display: grid;
+      gap: 7px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+
+      @media (max-width: 1278px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      app-semester-view-block {
+        max-width: 350px;
+      }
     }
   }
 }
