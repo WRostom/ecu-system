@@ -13,4 +13,8 @@ export class SemesterViewBlockComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  formatYearToDashes(year: string): string {
+    return year.split("/").join(".");
+  }
 }
