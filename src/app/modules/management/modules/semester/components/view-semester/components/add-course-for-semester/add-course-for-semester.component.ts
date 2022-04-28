@@ -53,21 +53,7 @@ export class AddCourseForSemesterComponent implements OnInit {
           );
 
           this.updateOfferedCourse();
-
-          this.offeredCourses$
-            .pipe(
-              map((value) => ["All", "No Major", ...new Set(value.map((course) => course.major.majorName))]),
-              map((va) =>
-                va.map((v) => {
-                  if (v == "All") {
-                    return { name: v, selected: true };
-                  } else {
-                    return { name: v, selected: false };
-                  }
-                })
-              )
-            )
-            .subscribe(this.majorFilters$);
+          this.updateFilters();
 
           this.loading$ = this.offeredCourses$.pipe(map((value) => !value));
         } else {
@@ -88,6 +74,24 @@ export class AddCourseForSemesterComponent implements OnInit {
       ),
       share()
     );
+  }
+
+  updateFilters() {
+    this.offeredCourses$
+      .pipe(
+        map((value) => ["All", "No Major", ...new Set(value.map((course) => course.major.majorName))]),
+        map((va) =>
+          va.map((v) => {
+            if (v == "All") {
+              return { name: v, selected: true };
+            } else {
+              return { name: v, selected: false };
+            }
+          })
+        ),
+        map((alreadySelected) => alreadySelected.map((val) => (this.filterValues.includes(val.name) ? val : { ...val, selected: false })))
+      )
+      .subscribe(this.majorFilters$);
   }
 
   toggleCourseAdd(open: any, refresh?: boolean) {
@@ -131,7 +135,7 @@ export class AddCourseForSemesterComponent implements OnInit {
       this.filterValues = tempArray;
     }
 
-    this.majorFilters$.next(array);
     this.updateOfferedCourse();
+    this.updateFilters();
   }
 }
