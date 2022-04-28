@@ -137,6 +137,5 @@ export class AddCourseForSemesterComponent implements OnInit {
     }
 
     this.updateOfferedCourse();
-    this.updateFilters();
   }
 }
