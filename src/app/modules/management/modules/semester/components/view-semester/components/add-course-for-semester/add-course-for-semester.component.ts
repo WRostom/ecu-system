@@ -21,7 +21,7 @@ export class AddCourseForSemesterComponent implements OnInit {
   pageID: { semesterYear: string; semesterNumber: number };
   offeredCourses$: Observable<Course[]>;
   open: boolean = false;
-  majorFilters$: BehaviorSubject<{ name: string; selected: boolean }[]> = new BehaviorSubject(null);
+  majorFilters$: BehaviorSubject<{ name: string; selected: boolean }[]> = new BehaviorSubject([{ name: "All", selected: true as boolean }]);
   filterValues: string[] = [];
 
   constructor(
@@ -74,7 +74,9 @@ export class AddCourseForSemesterComponent implements OnInit {
       map((semester) => (semester && semester.length > 0 ? (semester[0].offeredCourses ? semester[0].offeredCourses : []) : [])),
       switchMap((courses) => this.courseNameFromIDPipe.transform(courses).pipe(share())),
       map((offeredCourses) =>
-        this.filterValues.length > 0 ? offeredCourses.filter((val) => this.filterValues.includes(val.major.majorName)) : offeredCourses
+        this.filterValues.length > 0 && !this.filterValues.includes("All")
+          ? offeredCourses.filter((val) => this.filterValues.includes(val.major.majorName))
+          : offeredCourses
       ),
       share()
     );
@@ -89,14 +91,38 @@ export class AddCourseForSemesterComponent implements OnInit {
 
   selectFilter(index: number, array: { name: string; selected: boolean }[]) {
     array[index].selected = !array[index].selected;
-    let tempArray: string[] = [];
-    array.forEach((val) => {
-      if (val.selected) {
-        tempArray.push(val.name);
-      }
-    });
+    if (array[index].name == "All" && array[index].selected) {
+      this.filterValues = ["All"];
+      array = array.map((val) => {
+        if (val.name != "All") {
+          val.selected = false;
+        }
+        return val;
+      });
+    }
+    if (array[index].name == "No Major" && array[index].selected) {
+      this.filterValues = ["No Major"];
+      array = array.map((val) => {
+        if (val.name != "No Major") {
+          val.selected = false;
+        }
+        return val;
+      });
+    }
 
-    this.filterValues = tempArray;
+    if (array[index].name != "All" && array[index].name != "No Major") {
+      let tempArray: string[] = [];
+      array.forEach((val, index) => {
+        if (val.selected && val.name != "All" && val.name != "No Major") {
+          tempArray.push(val.name);
+        }
+        if (val.name == "All" || val.name == "No Major") {
+          array[index].selected = false;
+        }
+      });
+      this.filterValues = tempArray;
+    }
+
     this.majorFilters$.next(array);
     this.updateOfferedCourse();
   }
