@@ -17,6 +17,16 @@ export class SemesterDAOService extends GlobalDAOService<Semester> {
   createSemesterToAllFaculties(data: createSemesterToAllFacultiesRequest) {
     return this.api.postRequest<Semester>(`${this.pageName}/createSemesterToAllFaculties`, data);
   }
+
+  getSemestersByFacultyId(facultyId: string) {
+    let faculty: Partial<Faculty> = { id: facultyId };
+    return this.api.postRequest<Semester[]>(`${this.pageName}/getSemestersByFacultyId`, { faculty });
+  }
+
+  getSemestersByFacultyIdAndYear(id: { semesterYear: string; semesterNumber: number }, facultyId: string) {
+    let faculty: Partial<Faculty> = { id: facultyId };
+    return this.api.postRequest<Semester[]>(`${this.pageName}/getSemestersByFacultyIdAndYear`, { id, faculty });
+  }
 }
 
 export interface createSemesterToAllFacultiesRequest {

@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { TUI_BUTTON_OPTIONS } from "@taiga-ui/core";
 import { CalendarECLModule } from "src/app/shared/calendar/calendar.module";
+import { CourseNameFromIDPipe } from "src/app/shared/pipes/course-name-from-id.pipe";
 import { SharedModule } from "src/app/shared/shared.module";
 
 import { ComponentSectionDirective } from "./directive/component-section.directive";
@@ -21,10 +22,12 @@ import { FacultyComponent } from "./modules/faculty/faculty.component";
 import { AddMajorComponent } from "./modules/major/components/add-major/add-major.component";
 import { ViewMajorComponent } from "./modules/major/components/view-major/view-major.component";
 import { MajorComponent } from "./modules/major/major.component";
-import { SemesterComponent } from './modules/semester/semester.component';
-import { ViewSemesterComponent } from './modules/semester/components/view-semester/view-semester.component';
-import { SemesterViewBlockComponent } from './modules/semester/components/semester-view-block/semester-view-block.component';
-import { AddSemesterComponent } from './modules/semester/components/add-semester/add-semester.component';
+import { AddSemesterComponent } from "./modules/semester/components/add-semester/add-semester.component";
+import { SemesterViewBlockComponent } from "./modules/semester/components/semester-view-block/semester-view-block.component";
+import { AddCourseForSemesterComponent } from "./modules/semester/components/view-semester/components/add-course-for-semester/add-course-for-semester.component";
+import { ViewSemesterComponent } from "./modules/semester/components/view-semester/view-semester.component";
+import { SemesterComponent } from "./modules/semester/semester.component";
+import { AddCourseToSemesterComponent } from './modules/semester/components/view-semester/components/add-course-to-semester/add-course-to-semester.component';
 
 @NgModule({
   declarations: [
@@ -47,9 +50,12 @@ import { AddSemesterComponent } from './modules/semester/components/add-semester
     ViewSemesterComponent,
     SemesterViewBlockComponent,
     AddSemesterComponent,
+    AddCourseForSemesterComponent,
+    AddCourseToSemesterComponent,
   ],
   imports: [CommonModule, SharedModule, CalendarECLModule, ManagementRoutingModule],
   providers: [
+    CourseNameFromIDPipe,
     {
       provide: TUI_BUTTON_OPTIONS,
       useValue: {

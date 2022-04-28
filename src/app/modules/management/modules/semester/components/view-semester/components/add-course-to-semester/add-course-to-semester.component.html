@@ -1,0 +1,24 @@
+<h5 class="tui-text_h5">Add/Remove Courses from Semester</h5>
+<form [formGroup]="createNew" (ngSubmit)="onSubmit()">
+  <label tuiLabel label="Courses">
+    <tui-multi-select
+      *tuiLet="courseItems$ | async as courseItems"
+      class="tui-space_top-2"
+      [editable]="false"
+      tuiTextfieldSize="m"
+      [tuiTextfieldLabelOutside]="true"
+      formControlName="offeredCourses"
+      [tuiTextfieldCleaner]="true"
+      [stringify]="courseStringify$ | async"
+    >
+      Select Courses
+      <tui-data-list-wrapper *tuiDataList tuiMultiSelectGroup [items]="courseItems" [itemContent]="courseStringify$ | async">
+      </tui-data-list-wrapper>
+      <ng-template #loading>
+        <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+      </ng-template>
+    </tui-multi-select>
+  </label>
+  <div class="divider"></div>
+  <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
+</form>

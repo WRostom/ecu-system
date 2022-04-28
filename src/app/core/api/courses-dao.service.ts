@@ -18,4 +18,8 @@ export class CoursesDaoService extends GlobalDAOService<Course> {
   constructor(api: ApiService) {
     super("course", api);
   }
+
+  getCoursesByFaculty(facultyId: string) {
+    return this.api.postRequest<Course[]>(`${this.pageName}/getCoursesByFaculty`, { id: facultyId });
+  }
 }

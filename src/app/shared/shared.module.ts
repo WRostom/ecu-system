@@ -19,10 +19,13 @@ import {
   TuiMultiSelectModule,
   TuiSelectModule,
   TuiTabsModule,
+  TuiTagModule,
 } from "@taiga-ui/kit";
 
+import { CourseNameFromIDPipe } from "./pipes/course-name-from-id.pipe";
+
 @NgModule({
-  declarations: [],
+  declarations: [CourseNameFromIDPipe],
   imports: [
     CommonModule,
     TuiBreadcrumbsModule,
@@ -48,8 +51,11 @@ import {
     TuiMultiSelectModule,
     TuiIslandModule,
     TuiAccordionModule,
+    TuiTagModule,
   ],
   exports: [
+    CourseNameFromIDPipe,
+
     TuiBreadcrumbsModule,
     TuiTabsModule,
     TuiTableModule,
@@ -73,6 +79,7 @@ import {
     TuiMultiSelectModule,
     TuiIslandModule,
     TuiAccordionModule,
+    TuiTagModule,
   ],
 })
 export class SharedModule {}

@@ -10,6 +10,7 @@ import { ViewFacultyComponent } from "./modules/faculty/components/view-faculty/
 import { FacultyComponent } from "./modules/faculty/faculty.component";
 import { ViewMajorComponent } from "./modules/major/components/view-major/view-major.component";
 import { MajorComponent } from "./modules/major/major.component";
+import { AddCourseForSemesterComponent } from "./modules/semester/components/view-semester/components/add-course-for-semester/add-course-for-semester.component";
 import { ViewSemesterComponent } from "./modules/semester/components/view-semester/view-semester.component";
 import { SemesterComponent } from "./modules/semester/semester.component";
 
@@ -61,6 +62,12 @@ const routes: Routes = [
   {
     path: "semester/:id",
     component: ViewSemesterComponent,
+    children: [
+      {
+        path: ":faculty",
+        component: AddCourseForSemesterComponent,
+      },
+    ],
   },
 ];
 

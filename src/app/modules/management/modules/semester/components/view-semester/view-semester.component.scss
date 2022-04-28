@@ -26,3 +26,23 @@ tui-loader {
     margin-bottom: 1rem;
   }
 }
+
+.tui-row {
+  margin: 0;
+}
+
+aside {
+  padding: 0;
+
+  a {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    padding: 15px 15px 15px 15px;
+    margin-inline-end: 2rem;
+
+    &:hover {
+      color: var(--tui-primary);
+    }
+  }
+}

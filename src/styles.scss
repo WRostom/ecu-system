@@ -263,7 +263,7 @@ h6 {
   --md-sys-color-on-secondary-light: #ffffff;
   --md-sys-color-secondary-container-light: #ffdad5;
   --md-sys-color-on-secondary-container-light: #2c1513;
-  --md-sys-color-tertiary-light: #715b2e;
+  --md-sys-color-tertiary-light: hsl(39, 98%, 50%);
   --md-sys-color-on-tertiary-light: #ffffff;
   --md-sys-color-tertiary-container-light: #fedfa6;
   --md-sys-color-on-tertiary-container-light: #261900;
@@ -455,6 +455,14 @@ h6 {
 
   .router-link-active {
     color: var(--tui-primary) !important;
+  }
+
+  .management-active {
+    background-color: var(--md-sys-color-secondary-container);
+    color: black;
+    border-top-right-radius: var(--tui-radius-m);
+    border-bottom-right-radius: var(--tui-radius-m);
+    color: var(--md-sys-color-on-secondary-container) !important;
   }
 
   .sidebar {
