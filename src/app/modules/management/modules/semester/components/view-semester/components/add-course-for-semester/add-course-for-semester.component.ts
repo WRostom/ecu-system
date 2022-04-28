@@ -43,10 +43,7 @@ export class AddCourseForSemesterComponent implements OnInit {
           this.selectedFaculty = val["faculty"];
           this.loading$ = of(true);
           this.offeredCourses$ = null;
-          this.majorFilters$ = new BehaviorSubject([
-            { name: "All", selected: true as boolean },
-            { name: "No Major", selected: false as boolean },
-          ]);
+
           this.semesterDataRequest$ = this.semesterDAO.getSemestersByFacultyIdAndYear(this.pageID, val["faculty"]).pipe(
             map((value) => value.filter((semester) => semester.id.semesterNumber === this.pageID.semesterNumber)),
             share()
@@ -64,7 +61,7 @@ export class AddCourseForSemesterComponent implements OnInit {
   }
 
   updateOfferedCourse() {
-    this.offeredCourses$ = this.semesterDataRequest$.pipe(
+    return (this.offeredCourses$ = this.semesterDataRequest$.pipe(
       map((semester) => (semester && semester.length > 0 ? (semester[0].offeredCourses ? semester[0].offeredCourses : []) : [])),
       switchMap((courses) => this.courseNameFromIDPipe.transform(courses).pipe(share())),
       map((offeredCourses) =>
@@ -73,11 +70,15 @@ export class AddCourseForSemesterComponent implements OnInit {
           : offeredCourses
       ),
       share()
-    );
+    ));
   }
 
   updateFilters() {
-    this.offeredCourses$
+    this.majorFilters$ = new BehaviorSubject([
+      { name: "All", selected: true as boolean },
+      { name: "No Major", selected: false as boolean },
+    ]);
+    return this.offeredCourses$
       .pipe(
         map((value) => ["All", "No Major", ...new Set(value.map((course) => course.major.majorName))]),
         map((va) =>
