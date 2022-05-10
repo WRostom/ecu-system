@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { daysOfWeek } from "@config/dateItems";
 import { TUI_DEFAULT_MATCHER, TuiContextWithImplicit, TuiDay, TuiIdentityMatcher, tuiPure, TuiStringHandler, TuiTime } from "@taiga-ui/cdk";
 import { tuiCreateTimePeriods, tuiItemsHandlersProvider } from "@taiga-ui/kit";
+import { zonedTimeToUtc } from "date-fns-tz";
 import { map, share, startWith, switchMap } from "rxjs";
 import { CourseGroupDaoService } from "src/app/core/api/course-group-dao.service";
 import { EmployeeDAOService } from "src/app/core/api/employee-dao.service";
@@ -37,27 +38,18 @@ export class AddGroupComponent implements OnInit, AfterViewInit {
   todaysDate: TuiDay = new TuiDay(new Date().getFullYear(), new Date().getMonth(), new Date().getDay());
   createNew = new FormGroup({
     day: new FormControl(null, Validators.required),
-    startTime: new FormControl(new TuiTime(2, 44), Validators.required),
-    endTime: new FormControl(new TuiTime(3, 44), Validators.required),
+    startTime: new FormControl(null, Validators.required),
+    endTime: new FormControl(null, Validators.required),
     instructorIDs: new FormControl([], Validators.required),
     maxNoStudents: new FormControl(0, Validators.required),
     room: new FormControl(null, Validators.required),
   });
   createLoading: boolean = false;
 
-  instructor: any[] = [
-    {
-      id: 1,
-      name: "Waleed Rostom",
-    },
-    {
-      id: 2,
-      name: "Abdelrahman Amr",
-    },
-  ];
+  timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   public daysOfTheWeek = daysOfWeek;
-  timeItems = tuiCreateTimePeriods();
+  timeItems = tuiCreateTimePeriods(8, 18);
   employeeDataRequest$ = this.employeeDAO.getAll().pipe(share());
   employeeStringify$ = this.employeeDataRequest$.pipe(
     map((items) => new Map(items.map<[string, string]>(({ id, firstName, lastName }) => [id, `${firstName} ${lastName}`]))),
@@ -89,8 +81,8 @@ export class AddGroupComponent implements OnInit, AfterViewInit {
     const serverData = Object.assign(this.createNew.value, {});
     const startTime: TuiTime = serverData.startTime;
     const endTime: TuiTime = serverData.endTime;
-    serverData.startTime = new Date(0, 0, 0, startTime.hours, startTime.minutes).toISOString();
-    serverData.endTime = new Date(0, 0, 0, endTime.hours, endTime.hours).toISOString();
+    serverData.startTime = zonedTimeToUtc(new Date(new Date().setHours(startTime.hours, startTime.minutes)), this.timezone).toISOString();
+    serverData.endTime = zonedTimeToUtc(new Date(new Date().setHours(endTime.hours, endTime.minutes)), this.timezone).toISOString();
     serverData.course = { id: this.courseID };
     console.log(serverData.instructorIDs);
     let instructors: Employee[] = [];

@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { TuiDay, TuiTime } from "@taiga-ui/cdk";
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from "angular-calendar";
 import { addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 import { map, Observable, of, Subject } from "rxjs";
 import { CourseGroupDaoService } from "src/app/core/api/course-group-dao.service";
 import { CoursesDaoService } from "src/app/core/api/courses-dao.service";
@@ -48,6 +49,7 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
   loadingGroups: boolean = true;
   openEdit: boolean;
   pageID: string;
+  timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   constructor(
     private location: Location,
@@ -61,7 +63,17 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
       if (val && val["id"]) {
         this.pageID = val["id"];
         this.courseDataRequest$ = this.courseDAO.getOne({ id: val["id"] });
-        this.courseGroupDataRequest$ = this.courseGroupDAO.getAllGroupsByCourseID(val["id"]);
+        this.courseGroupDataRequest$ = this.courseGroupDAO.getAllGroupsByCourseID(val["id"]).pipe(
+          map((val: CourseGroup[]) => {
+            return val.map((res) => {
+              console.log();
+
+              res.startTime = utcToZonedTime(new Date(res.startTime + "Z"), this.timezone);
+              res.endTime = utcToZonedTime(new Date(res.endTime + "Z"), this.timezone);
+              return res;
+            });
+          })
+        );
         this.loading$ = this.courseDataRequest$.pipe(map((value) => !value));
       } else {
         this.goBack();
