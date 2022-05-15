@@ -24,7 +24,7 @@ export class CalendarComponent implements OnInit {
   @Input("groupData") set groupData(data: DisplayCourseGroupData[]) {
     console.log(data);
     let calendarNewEvents: CalendarEvent[] = [];
-    data.forEach((res) => {
+    data.forEach((res, index) => {
       const schedule = new Schedule({
         rrules: [
           {
@@ -41,7 +41,7 @@ export class CalendarComponent implements OnInit {
 
       dates.forEach((date) => {
         calendarNewEvents.push({
-          title: `Group ${res.id}`,
+          title: `Group ${index + 1}`,
           start: new Date(date),
           color: res.color,
           draggable: false,

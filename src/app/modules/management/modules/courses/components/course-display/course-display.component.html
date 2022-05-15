@@ -84,7 +84,7 @@
         <table tuiTable [columns]="columns">
           <thead>
             <tr tuiThGroup>
-              <th *tuiHead="'groupName'" tuiTh>Group No.</th>
+              <th *tuiHead="'groupName'" tuiTh>Group</th>
               <th *tuiHead="'day'" tuiTh>Day</th>
               <th *tuiHead="'startTime'" tuiTh>Start Time</th>
               <th *tuiHead="'endTime'" tuiTh>End Time</th>
@@ -94,10 +94,10 @@
             </tr>
           </thead>
           <tbody tuiTbody [data]="courseGroupData">
-            <tr *tuiRow="let item of courseGroupData" tuiTr>
+            <tr *tuiRow="let item of courseGroupData; let i = index" tuiTr>
               <td *tuiCell="'groupName'" tuiTd>
                 <span class="group-color" [style]="{ color: item.color.primary }">⬤</span>
-                Group {{ item.id }}
+                {{ i + 1 }}
               </td>
               <td *tuiCell="'day'" tuiTd>{{ item.day }}</td>
               <td *tuiCell="'startTime'" tuiTd>{{ item.startTime | date: "shortTime" }}</td>
