@@ -42,7 +42,7 @@ export class CalendarComponent implements OnInit {
 
       dates.forEach((date) => {
         calendarNewEvents.push({
-          title: `Group ${index + 1}`,
+          title: `Slot ${index + 1}`,
           start: new Date(date),
           color: res.color,
           draggable: false,
