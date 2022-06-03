@@ -42,8 +42,6 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
 
   columns = ["groupName", "maxNoStudents", "currentNoStudents", "instructor", "action"];
 
-  courseGroupData: DisplayCourseGroupData[] = [];
-
   courseDataRequest$: Observable<Course>;
   courseGroupDataRequest$: Observable<CourseGroup[]>;
   loading$: any = of(true);
@@ -81,15 +79,7 @@ export class CourseDisplayComponent implements OnInit, AfterContentInit {
   }
 
   getCourseGroupData() {
-    this.courseGroupData = [];
-    this.courseGroupDataRequest$.subscribe((val: CourseGroup[]) => {
-      let tempCourseGroupData: DisplayCourseGroupData[] = val;
-      for (let i = 0; i < tempCourseGroupData.length; i++) {
-        tempCourseGroupData[i].color = { primary: `hsl(${Math.random() * (359 - 0) + 0}, 83%, ${Math.random() * (60 - 40) + 40}%)` };
-      }
-      this.courseGroupData = tempCourseGroupData;
-      this.loadingGroups = false;
-    });
+    this.courseGroupDataRequest$ = this.courseGroupDAO.getAllCourseGroupByCourseId(this.pageID).pipe(share());
   }
 
   deleteGroup(groupID: string) {

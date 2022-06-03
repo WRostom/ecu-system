@@ -59,66 +59,61 @@
           </div>
         </div>
       </section>
-    </tui-loader>
 
-    <tui-loader [overlay]="true" [showLoader]="loadingGroups" *tuiLet="courseDataRequest$ | async as courseData">
-      <div class="title-button-wrapper">
-        <p class="section-title">Groups</p>
-        <button
-          tuiButton
-          type="button"
-          icon="tuiIconPlus"
-          size="s"
-          class="tui-space_right-3 tui-space_bottom-3"
-          (click)="toggleGroupAdd(true)"
-          (tuiActiveZoneChange)="toggleGroupAdd($event)"
-        >
-          Add
-          <div class="sidebar" *tuiSidebar="open; direction: 'right'">
-            <app-add-group
-              [courseID]="pageID"
-              [facultyId]="courseData.faculty.id"
-              (openSidebar)="toggleGroupAdd($event, true)"
-            ></app-add-group>
-          </div>
-        </button>
-      </div>
-      <section class="content-part group-section">
-        <table tuiTable [columns]="columns">
-          <thead>
-            <tr tuiThGroup>
-              <th *tuiHead="'groupName'" tuiTh>Group</th>
-              <th *tuiHead="'maxNoStudents'" tuiTh>Max No. of Students</th>
-              <th *tuiHead="'currentNoStudents'" tuiTh>Current No. of Students</th>
-              <th *tuiHead="'instructor'" tuiTh>Instructor</th>
-              <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
-            </tr>
-          </thead>
-          <tbody tuiTbody [data]="courseGroupData">
-            <tr *tuiRow="let item of courseGroupData; let i = index" tuiTr [routerLink]="[item.id]">
-              <td *tuiCell="'groupName'" tuiTd>
-                <span class="group-color" [style]="{ color: item.color.primary }">⬤</span>
-                {{ item.name }}
-              </td>
-              <td *tuiCell="'maxNoStudents'" tuiTd>{{ item?.maxNoStudents }}</td>
-              <td *tuiCell="'currentNoStudents'" tuiTd>{{ item?.currentNumberStudents }}</td>
-              <td *tuiCell="'instructor'" tuiTd>{{ displayInstructors(item?.instructors) }}</td>
-              <td *tuiCell="'action'" tuiTd>
-                <button
-                  tuiIconButton
-                  appearance="flat"
-                  size="s"
-                  icon="tuiIconTrash"
-                  title="Remove"
-                  shape="rounded"
-                  class="remove"
-                  (click)="deleteGroup(item.id)"
-                ></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      <tui-loader [overlay]="true" [showLoader]="!courseGroupData" *tuiLet="courseGroupDataRequest$ | async as courseGroupData">
+        <div class="title-button-wrapper">
+          <p class="section-title">Groups</p>
+          <button
+            tuiButton
+            type="button"
+            icon="tuiIconPlus"
+            size="s"
+            class="tui-space_right-3 tui-space_bottom-3"
+            (click)="toggleGroupAdd(true)"
+            (tuiActiveZoneChange)="toggleGroupAdd($event)"
+          >
+            Add
+            <div class="sidebar" *tuiSidebar="open; direction: 'right'">
+              <app-add-group [courseID]="pageID" [facultyId]="data.faculty.id" (openSidebar)="toggleGroupAdd($event, true)"></app-add-group>
+            </div>
+          </button>
+        </div>
+        <section class="content-part group-section">
+          <table tuiTable [columns]="columns">
+            <thead>
+              <tr tuiThGroup>
+                <th *tuiHead="'groupName'" tuiTh>Group</th>
+                <th *tuiHead="'maxNoStudents'" tuiTh>Max No. of Students</th>
+                <th *tuiHead="'currentNoStudents'" tuiTh>Current No. of Students</th>
+                <th *tuiHead="'instructor'" tuiTh>Instructor</th>
+                <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
+              </tr>
+            </thead>
+            <tbody tuiTbody [data]="courseGroupData">
+              <tr *tuiRow="let item of courseGroupData; let i = index" tuiTr [routerLink]="[item.id]">
+                <td *tuiCell="'groupName'" tuiTd>
+                  {{ item.name }}
+                </td>
+                <td *tuiCell="'maxNoStudents'" tuiTd>{{ item?.maxNoStudents }}</td>
+                <td *tuiCell="'currentNoStudents'" tuiTd>{{ item?.currentNumberStudents }}</td>
+                <td *tuiCell="'instructor'" tuiTd>{{ displayInstructors(item?.instructors) }}</td>
+                <td *tuiCell="'action'" tuiTd>
+                  <button
+                    tuiIconButton
+                    appearance="flat"
+                    size="s"
+                    icon="tuiIconTrash"
+                    title="Remove"
+                    shape="rounded"
+                    class="remove"
+                    (click)="deleteGroup(item.id)"
+                  ></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </tui-loader>
     </tui-loader>
   </div>
 </div>
