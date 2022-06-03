@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { ManagementComponent } from "./management.component";
+import { ViewGroupComponent } from "./modules/courses/components/course-display/components/view-group/view-group.component";
 import { CourseDisplayComponent } from "./modules/courses/components/course-display/course-display.component";
 import { CoursesComponent } from "./modules/courses/courses.component";
 import { ViewDepartmentComponent } from "./modules/department/components/view-department/view-department.component";
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: "courses/:id",
     component: CourseDisplayComponent,
+  },
+  {
+    path: "courses/:id/:groupid",
+    component: ViewGroupComponent,
   },
   {
     path: "department/:id",

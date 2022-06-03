@@ -29,6 +29,28 @@
       </ng-template>
     </tui-select>
   </label>
+  <label tuiLabel label="Faculty" *ngIf="createNew.value['type'] == personT.DOCTOR || createNew.value['type'] == personT.TEACHER_ASSISTANT">
+    <tui-select
+      *tuiLet="facultyDataRequest$ | async as facultyItems"
+      tuiTextfieldSize="m"
+      [tuiTextfieldLabelOutside]="true"
+      formControlName="facultyId"
+      [valueContent]="facultyItems ? stringifyFaculty(facultyItems) : loading"
+    >
+      Choose A Faculty
+
+      <ng-template tuiDataList>
+        <tui-data-list *ngIf="facultyItems; else loading">
+          <button *ngFor="let item of facultyItems" tuiOption [value]="item.id">
+            {{ item.facultyName }}
+          </button>
+        </tui-data-list>
+      </ng-template>
+      <ng-template #loading>
+        <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+      </ng-template>
+    </tui-select>
+  </label>
   <label tuiLabel label="Department">
     <tui-select
       *tuiLet="departmentDataRequest$ | async as departmentItems"

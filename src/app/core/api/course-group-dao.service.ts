@@ -14,7 +14,7 @@ export class CourseGroupDaoService extends GlobalDAOService<CourseGroup> {
     super("course-group", api);
   }
 
-  getAllGroupsByCourseID(courseID: string): Observable<CourseGroup[]> {
-    return this.api.postRequest<CourseGroup[]>(`${this.pageName}/getAllGroupsByCourseID`, { id: courseID });
+  getAllCourseGroupByCourseId(courseID: string): Observable<CourseGroup[]> {
+    return this.api.postRequest<CourseGroup[]>(`${this.pageName}/getAllCourseGroupByCourseId`, { id: courseID });
   }
 }

@@ -1,0 +1,28 @@
+<h5 class="tui-text_h5">Add New Group</h5>
+<form [formGroup]="createNew" (ngSubmit)="onSubmit()">
+  <label tuiLabel label="Day">
+    <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="day">
+      Choose Day Of The Week
+      <input tuiTextfield placeholder="" />
+      <tui-data-list-wrapper *tuiDataList [items]="daysOfTheWeek"></tui-data-list-wrapper>
+    </tui-select>
+  </label>
+  <label tuiLabel label="Start Time">
+    <tui-input-time tuiTextfieldSize="m" formControlName="startTime" [tuiTextfieldLabelOutside]="true" [items]="timeItems">
+      Choose Start Time
+    </tui-input-time>
+  </label>
+  <label tuiLabel label="End Time">
+    <tui-input-time tuiTextfieldSize="m" formControlName="endTime" [tuiTextfieldLabelOutside]="true" [items]="timeItems">
+      Choose End Time
+    </tui-input-time>
+  </label>
+  <label tuiLabel label="Course Room">
+    <tui-input tuiTextfieldSize="m" formControlName="room" [tuiTextfieldLabelOutside]="true">
+      Enter Room ID
+      <input tuiTextfield type="text" />
+    </tui-input>
+  </label>
+  <div class="divider"></div>
+  <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>
+</form>

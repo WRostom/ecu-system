@@ -3,31 +3,18 @@ import { Employee } from "./employee.model";
 
 export class CourseGroup {
   id: string;
+  name: string;
   course: Course;
-  startTime: Date;
-  endTime: Date;
-  room: string;
-  day: string;
   instructors: Employee[];
   maxNoStudents: number;
+  currentNumberStudents: number;
 
-  constructor(
-    id: string,
-    startTime: Date,
-    endTime: Date,
-    room: string,
-    day: string,
-    course: Course,
-    instructors: Employee[],
-    maxNoStudents: number
-  ) {
+  constructor(id: string, name: string, course: Course, instructors: Employee[], maxNoStudents: number, currentNumberStudents: number) {
     this.id = id;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.room = room;
-    this.day = day;
+    this.name = name;
     this.maxNoStudents = maxNoStudents;
     this.course = course;
     this.instructors = instructors;
+    this.currentNumberStudents = currentNumberStudents;
   }
 }

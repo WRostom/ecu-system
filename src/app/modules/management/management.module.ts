@@ -11,6 +11,8 @@ import { ManagementRoutingModule } from "./management-routing.module";
 import { ManagementComponent } from "./management.component";
 import { AddCourseComponent } from "./modules/courses/components/add-course/add-course.component";
 import { AddGroupComponent } from "./modules/courses/components/course-display/components/add-group/add-group.component";
+import { AddGroupSlotsComponent } from "./modules/courses/components/course-display/components/view-group/components/add-group-slots/add-group-slots.component";
+import { ViewGroupComponent } from "./modules/courses/components/course-display/components/view-group/view-group.component";
 import { CourseDisplayComponent } from "./modules/courses/components/course-display/course-display.component";
 import { CoursesComponent } from "./modules/courses/courses.component";
 import { AddDepartmentComponent } from "./modules/department/components/add-department/add-department.component";
@@ -25,9 +27,9 @@ import { MajorComponent } from "./modules/major/major.component";
 import { AddSemesterComponent } from "./modules/semester/components/add-semester/add-semester.component";
 import { SemesterViewBlockComponent } from "./modules/semester/components/semester-view-block/semester-view-block.component";
 import { AddCourseForSemesterComponent } from "./modules/semester/components/view-semester/components/add-course-for-semester/add-course-for-semester.component";
+import { AddCourseToSemesterComponent } from "./modules/semester/components/view-semester/components/add-course-to-semester/add-course-to-semester.component";
 import { ViewSemesterComponent } from "./modules/semester/components/view-semester/view-semester.component";
 import { SemesterComponent } from "./modules/semester/semester.component";
-import { AddCourseToSemesterComponent } from './modules/semester/components/view-semester/components/add-course-to-semester/add-course-to-semester.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { AddCourseToSemesterComponent } from './modules/semester/components/view
     AddSemesterComponent,
     AddCourseForSemesterComponent,
     AddCourseToSemesterComponent,
+    ViewGroupComponent,
+    AddGroupSlotsComponent,
   ],
   imports: [CommonModule, SharedModule, CalendarECLModule, ManagementRoutingModule],
   providers: [

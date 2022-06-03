@@ -1,4 +1,4 @@
-@use "../../../../../../../page-heading.scss";
+@use "../../../../../../../../../page-heading.scss";
 
 tui-loader {
   width: 100%;
@@ -27,19 +27,6 @@ tr {
   font-size: 1rem;
 }
 
-.title-button-wrapper {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 1rem;
-
-  p {
-    margin: 0;
-  }
-}
-
 .content-part {
   width: 100%;
   box-sizing: border-box;
@@ -48,6 +35,14 @@ tr {
   border-radius: var(--tui-radius-m);
   p {
     margin: 0;
+  }
+
+  .title-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1rem;
   }
 
   .info-box-wrapper {
@@ -72,6 +67,7 @@ tr {
 }
 
 .group-section {
+  margin-bottom: 2rem;
   table {
     width: 100%;
 

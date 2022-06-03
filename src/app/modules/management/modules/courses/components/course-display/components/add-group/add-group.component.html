@@ -1,52 +1,60 @@
 <h5 class="tui-text_h5">Add New Group</h5>
 <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
-  <label tuiLabel label="Day">
-    <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="day">
-      Choose Day Of The Week
-      <input tuiTextfield placeholder="" />
-      <tui-data-list-wrapper *tuiDataList [items]="daysOfTheWeek"></tui-data-list-wrapper>
-    </tui-select>
+  <label tuiLabel label="Group Name">
+    <tui-input tuiTextfieldSize="m" formControlName="name" [tuiTextfieldLabelOutside]="true">
+      Enter Group Name
+      <input tuiTextfield type="text" />
+    </tui-input>
   </label>
-  <label tuiLabel label="Start Time">
-    <tui-input-time tuiTextfieldSize="m" formControlName="startTime" [tuiTextfieldLabelOutside]="true" [items]="timeItems">
-      Choose Start Time
-    </tui-input-time>
-  </label>
-  <label tuiLabel label="End Time">
-    <tui-input-time tuiTextfieldSize="m" formControlName="endTime" [tuiTextfieldLabelOutside]="true" [items]="timeItems">
-      Choose End Time
-    </tui-input-time>
-  </label>
-  <label tuiLabel label="Instructor">
+  <label tuiLabel label="Doctors">
     <tui-multi-select
-      *tuiLet="employeeItems$ | async as employeeItems"
+      *tuiLet="doctorItems$ | async as doctorItems"
       class="tui-space_top-2"
       [editable]="false"
       tuiTextfieldSize="m"
       [tuiTextfieldLabelOutside]="true"
-      formControlName="instructorIDs"
+      formControlName="doctors"
       [tuiTextfieldCleaner]="true"
-      [stringify]="employeeStringify$ | async"
+      [stringify]="doctorStringify$ | async"
     >
-      Employees
+      Doctors
       <tui-data-list-wrapper
         *tuiDataList
         tuiMultiSelectGroup
-        [items]="employeeItems"
-        [itemContent]="employeeStringify$ | async"
+        [items]="doctorItems"
+        [itemContent]="doctorStringify$ | async"
       ></tui-data-list-wrapper>
     </tui-multi-select>
   </label>
-  <label tuiLabel label="Max No. Students">
+  <label tuiLabel label="Teaching Assistants">
+    <tui-multi-select
+      *tuiLet="teachingAssitantItems$ | async as teachingAssitantItems"
+      class="tui-space_top-2"
+      [editable]="false"
+      tuiTextfieldSize="m"
+      [tuiTextfieldLabelOutside]="true"
+      formControlName="teachingAssistants"
+      [tuiTextfieldCleaner]="true"
+      [stringify]="teachingAssistantStringify$ | async"
+    >
+      Teaching Assitants
+      <tui-data-list-wrapper
+        *tuiDataList
+        tuiMultiSelectGroup
+        [items]="teachingAssitantItems"
+        [itemContent]="teachingAssistantStringify$ | async"
+      ></tui-data-list-wrapper>
+    </tui-multi-select>
+  </label>
+  <label tuiLabel label="Max No. of Students">
     <tui-input-count tuiTextfieldSize="m" formControlName="maxNoStudents" [tuiTextfieldLabelOutside]="true">
-      <input tuiTextfield type="maxnostudents" />
+      <input tuiTextfield />
     </tui-input-count>
   </label>
-  <label tuiLabel label="Course Room">
-    <tui-input tuiTextfieldSize="m" formControlName="room" [tuiTextfieldLabelOutside]="true">
-      Enter Room ID
-      <input tuiTextfield type="text" />
-    </tui-input>
+  <label tuiLabel label="Current No. of Students">
+    <tui-input-count tuiTextfieldSize="m" formControlName="currentNumberStudents" [tuiTextfieldLabelOutside]="true">
+      <input tuiTextfield />
+    </tui-input-count>
   </label>
   <div class="divider"></div>
   <button tuiButton type="submit" icon="tuiIconFile" size="m" [showLoader]="createLoading">Save</button>

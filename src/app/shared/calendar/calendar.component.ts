@@ -5,6 +5,7 @@ import { Schedule } from "@config/rschedule";
 import { CalendarEvent, CalendarEventTimesChangedEvent, CalendarEventTitleFormatter, CalendarView } from "angular-calendar";
 import { addDays, endOfDay, getDay, isSameDay, isSameMonth, startOfDay } from "date-fns";
 import { Subject } from "rxjs";
+import { DisplayCourseGroupSlotsData } from "src/app/modules/management/modules/courses/components/course-display/components/view-group/view-group.component";
 import { DisplayCourseGroupData } from "src/app/modules/management/modules/courses/components/course-display/course-display.component";
 
 import { CustomEventTitleFormatter } from "./provider/custom-title-formatter";
@@ -21,7 +22,7 @@ import { CustomEventTitleFormatter } from "./provider/custom-title-formatter";
   ],
 })
 export class CalendarComponent implements OnInit {
-  @Input("groupData") set groupData(data: DisplayCourseGroupData[]) {
+  @Input("groupData") set groupData(data: DisplayCourseGroupSlotsData[]) {
     console.log(data);
     let calendarNewEvents: CalendarEvent[] = [];
     data.forEach((res, index) => {

@@ -1,12 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
+import { personTypeArray } from "@config/personType";
 import { TuiContextWithImplicit, tuiPure } from "@taiga-ui/cdk";
 import { TuiCountryIsoCode } from "@taiga-ui/i18n";
 import { share } from "rxjs";
 import { DepartmentDAOService } from "src/app/core/api/department-dao.service";
 import { EmployeeDAOService } from "src/app/core/api/employee-dao.service";
+import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
 import { Department } from "src/app/shared/models/department.model";
+import { Faculty } from "src/app/shared/models/faculty.model";
 import { personType } from "src/app/shared/models/person.model";
 
 @Component({
@@ -25,6 +28,7 @@ export class AddEmployeeComponent implements OnInit {
         lastName: res.lastName,
         type: personType[res.type],
         email: res.email,
+        facultyId: res.facultyId,
         mobileNumber: res.mobileNumber,
         departmentID: res.department.id,
       });
@@ -38,6 +42,7 @@ export class AddEmployeeComponent implements OnInit {
     type: new FormControl(personType.DOCTOR, Validators.required),
     email: new FormControl("", [Validators.required, Validators.email]),
     // countryCode: new FormControl('', Validators.required),
+    facultyId: new FormControl(null),
     mobileNumber: new FormControl("", Validators.required),
     departmentID: new FormControl(null, Validators.required),
   });
@@ -46,25 +51,29 @@ export class AddEmployeeComponent implements OnInit {
   countryIsoCode = TuiCountryIsoCode.EG;
 
   createLoading: boolean = false;
-  types = [
-    {
-      id: personType.DOCTOR,
-      name: "Doctor",
-    },
-    {
-      id: personType.EMPLOYEE,
-      name: "Employee",
-    },
-  ];
+  types = personTypeArray;
 
   departmentDataRequest$ = this.departmentDAO.getAll().pipe(share());
   departmentData: Department[];
 
-  constructor(private employeeDAO: EmployeeDAOService, private departmentDAO: DepartmentDAOService) {}
+  facultyDataRequest$ = this.facultyDAO.getAll().pipe(share());
+  facultyData: Faculty[];
+
+  public personT = personType;
+
+  constructor(
+    private employeeDAO: EmployeeDAOService,
+    private departmentDAO: DepartmentDAOService,
+    private facultyDAO: FacultyDAOService
+  ) {}
 
   ngOnInit(): void {
     this.departmentDataRequest$.subscribe((faculty: Department[]) => {
       this.departmentData = faculty;
+    });
+
+    this.facultyDataRequest$.subscribe((faculty: Faculty[]) => {
+      this.facultyData = faculty;
     });
   }
 
@@ -72,6 +81,8 @@ export class AddEmployeeComponent implements OnInit {
     this.createLoading = true;
     const serverData = Object.assign(this.createNew.value, {});
     serverData.department = this.departmentData.find((department) => department.id === this.createNew.value.departmentID);
+    serverData.faculty = this.facultyData.find((faculty) => faculty.id === this.createNew.value.facultyID);
+    delete serverData.facultyID;
     delete serverData.departmentID;
 
     if (this.isEditMode) {
@@ -96,6 +107,13 @@ export class AddEmployeeComponent implements OnInit {
   @tuiPure
   stringifyDept(department: any[]): any {
     const map = new Map(department.map(({ id, departName }) => [id, departName] as [string, string]));
+
+    return ({ $implicit }: TuiContextWithImplicit<string>) => map.get($implicit) || "";
+  }
+
+  @tuiPure
+  stringifyFaculty(faculty: { id: string; facultyName: string }[]): any {
+    const map = new Map(faculty.map(({ id, facultyName }) => [id, facultyName] as [string, string]));
 
     return ({ $implicit }: TuiContextWithImplicit<string>) => map.get($implicit) || "";
   }
