@@ -2,7 +2,7 @@ import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { TuiContextWithImplicit, tuiPure } from "@taiga-ui/cdk";
-import { share } from "rxjs";
+import { map, share, startWith } from "rxjs";
 import { CoursesDaoService } from "src/app/core/api/courses-dao.service";
 import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
 import { MajorDaoService } from "src/app/core/api/major-dao.service";
@@ -23,7 +23,7 @@ export class AddCourseComponent implements OnInit, AfterViewInit {
         id: res.id,
         courseName: res.courseName,
         credits: res.credits,
-        prerequisiteList: res.prerequisteList,
+        prerequisteList: res.prerequisteList,
         majorID: res.major.id,
         facultyID: res.faculty.id,
         maxNoStudents: res.maxNoStudents,
@@ -37,7 +37,7 @@ export class AddCourseComponent implements OnInit, AfterViewInit {
     id: new FormControl("", Validators.required),
     courseName: new FormControl("", Validators.required),
     credits: new FormControl("", Validators.required),
-    prerequisiteList: new FormControl(["MATH_1"], Validators.required),
+    prerequisteList: new FormControl([]),
     majorID: new FormControl(null, Validators.required),
     facultyID: new FormControl(null, Validators.required),
     maxNoStudents: new FormControl(0),
@@ -49,6 +49,20 @@ export class AddCourseComponent implements OnInit, AfterViewInit {
   facultyData: Faculty[];
   majorDataRequest$ = this.majorDAO.getAll().pipe(share());
   majorData: Major[];
+
+  courseDataRequest$ = this.courseDAO.getAll().pipe(share());
+  courseStringify$ = this.courseDataRequest$.pipe(
+    map((items) => new Map(items.map<[string, string]>(({ id, courseName }) => [id, courseName]))),
+    startWith(new Map()),
+    map(
+      (map) => (id: string | TuiContextWithImplicit<string>) =>
+        (typeof id == "string" ? map.get(id) : map.get(id.$implicit)) || "Loading..."
+    )
+  );
+  courseItems$ = this.courseDataRequest$.pipe(
+    map((items) => items.map(({ id }) => id)),
+    startWith(null)
+  );
 
   constructor(private facultyDAO: FacultyDAOService, private courseDAO: CoursesDaoService, private majorDAO: MajorDaoService) {}
 
@@ -70,6 +84,8 @@ export class AddCourseComponent implements OnInit, AfterViewInit {
     serverData.major = this.majorData.find((major) => major.id === this.createNew.value.majorID);
     delete serverData.facultyID;
     delete serverData.majorID;
+    console.log(serverData, "courseData");
+
     if (this.isEditMode) {
       this.courseDAO.update(serverData).subscribe(
         (res) => {

@@ -54,6 +54,26 @@
       </ng-template>
     </tui-select>
   </label>
+  <label tuiLabel label="Prerequisite Courses">
+    <tui-multi-select
+      *tuiLet="courseItems$ | async as courseItems"
+      class="tui-space_top-2"
+      [editable]="false"
+      tuiTextfieldSize="m"
+      [tuiTextfieldLabelOutside]="true"
+      formControlName="prerequisteList"
+      [tuiTextfieldCleaner]="true"
+      [stringify]="courseStringify$ | async"
+    >
+      Select Courses
+      <tui-data-list-wrapper
+        *tuiDataList
+        tuiMultiSelectGroup
+        [items]="courseItems"
+        [itemContent]="courseStringify$ | async"
+      ></tui-data-list-wrapper>
+    </tui-multi-select>
+  </label>
   <label tuiLabel label="Credits">
     <tui-input tuiTextfieldSize="m" formControlName="credits" [tuiTextfieldLabelOutside]="true">
       Enter Credits
