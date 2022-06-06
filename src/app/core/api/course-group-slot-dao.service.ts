@@ -15,6 +15,6 @@ export class CourseGroupSlotDAOService extends GlobalDAOService<CourseGroupSlot>
   }
 
   getAllGroupsSlotsByCourseGroupID(courseID: string): Observable<CourseGroupSlot[]> {
-    return this.api.postRequest<CourseGroupSlot[]>(`${this.pageName}/getAllGroupsSlotsByCourseGroupID`, { id: courseID });
+    return this.api.postRequest<CourseGroupSlot[]>(`${this.pageName}/getAllGroupsSlotsByCourseGroupID`, [{ id: courseID }]);
   }
 }
