@@ -1,24 +1,24 @@
 <h5 class="tui-text_h5">{{ isEditMode ? "Edit" : "Add" }} Employee</h5>
 <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
-  <label tuiLabel label="Identifier">
+  <label tuiLabel label="Identifier*">
     <tui-input tuiTextfieldSize="m" formControlName="id" [tuiTextfieldLabelOutside]="true">
       Enter ID
       <input tuiTextfield type="id" />
     </tui-input>
   </label>
-  <label tuiLabel label="First Name">
+  <label tuiLabel label="First Name*">
     <tui-input tuiTextfieldSize="m" formControlName="firstName" [tuiTextfieldLabelOutside]="true">
       Enter First Name
       <input tuiTextfield />
     </tui-input>
   </label>
-  <label tuiLabel label="Last Name">
+  <label tuiLabel label="Last Name*">
     <tui-input tuiTextfieldSize="m" formControlName="lastName" [tuiTextfieldLabelOutside]="true">
       Enter Last Name
       <input tuiTextfield />
     </tui-input>
   </label>
-  <label tuiLabel label="Type">
+  <label tuiLabel label="Type*">
     <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="type" [valueContent]="stringify(types)">
       <ng-template tuiDataList>
         <tui-data-list *ngIf="types">
@@ -29,7 +29,11 @@
       </ng-template>
     </tui-select>
   </label>
-  <label tuiLabel label="Faculty" *ngIf="createNew.value['type'] == personT.DOCTOR || createNew.value['type'] == personT.TEACHER_ASSISTANT">
+  <label
+    tuiLabel
+    label="Faculty*"
+    *ngIf="createNew.value['type'] == personT.DOCTOR || createNew.value['type'] == personT.TEACHER_ASSISTANT"
+  >
     <tui-select
       *tuiLet="facultyDataRequest$ | async as facultyItems"
       tuiTextfieldSize="m"
@@ -78,7 +82,7 @@
       <input tuiTextfield />
     </tui-input>
   </label>
-  <label tuiLabel label="Mobile Number">
+  <label tuiLabel label="Mobile Number*">
     <tui-input-phone-international
       tuiTextfieldSize="m"
       formControlName="mobileNumber"

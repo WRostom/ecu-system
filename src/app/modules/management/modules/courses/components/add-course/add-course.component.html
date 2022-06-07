@@ -1,18 +1,18 @@
 <h5 class="tui-text_h5">{{ isEditMode ? "Edit" : "Create" }} Course</h5>
 <form [formGroup]="createNew" (ngSubmit)="onSubmit()">
-  <label tuiLabel label="Identifier">
+  <label tuiLabel label="Identifier*">
     <tui-input tuiTextfieldSize="m" formControlName="id" [tuiTextfieldLabelOutside]="true">
       Enter ID
       <input tuiTextfield type="id" />
     </tui-input>
   </label>
-  <label tuiLabel label="Title">
+  <label tuiLabel label="Title*">
     <tui-input tuiTextfieldSize="m" formControlName="courseName" [tuiTextfieldLabelOutside]="true">
       Enter Title
       <input tuiTextfield type="title" />
     </tui-input>
   </label>
-  <label tuiLabel label="Faculty">
+  <label tuiLabel label="Faculty*">
     <tui-select
       *tuiLet="facultyDataRequest$ | async as facultyItems"
       tuiTextfieldSize="m"
@@ -33,7 +33,7 @@
       </ng-template>
     </tui-select>
   </label>
-  <label tuiLabel label="Major">
+  <label tuiLabel label="Major*">
     <tui-select
       *tuiLet="majorDataRequest$ | async as majorItems"
       tuiTextfieldSize="m"

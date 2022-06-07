@@ -48,7 +48,7 @@ export class AddCourseToSemesterComponent implements OnInit {
     const dataCopy = Object.assign(this.createNew.value, {});
 
     this.semesterDAO
-      .update({
+      .create({
         id: {
           ...this.semesterID,
           semesterFacultyId: this.facultyID,
