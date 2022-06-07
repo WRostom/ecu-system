@@ -4,9 +4,11 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { EMPTY_ARRAY, TuiContextWithImplicit, tuiPure, TuiStringHandler } from "@taiga-ui/cdk";
 import { TuiValueContentContext } from "@taiga-ui/core";
 import { map, share, startWith } from "rxjs";
+import { AcademicYearReferenceDaoService } from "src/app/core/api/academic-year-reference-dao.service";
 import { FacultyDAOService } from "src/app/core/api/faculty-dao.service";
 import { createSemesterToAllFacultiesRequest, SemesterDAOService } from "src/app/core/api/semester-dao.service";
 import { ServerTimeService } from "src/app/core/services/server-time.service";
+import { AcademicYearReference } from "src/app/shared/models/academicYearReference.model";
 import { Faculty } from "src/app/shared/models/faculty.model";
 
 @Component({
@@ -20,7 +22,7 @@ export class AddSemesterComponent implements OnInit {
   createNew = new FormGroup({
     semesterStartYear: new FormControl(null, Validators.required),
     semesterNumber: new FormControl(null, Validators.required),
-    facultiesArray: new FormControl(null, Validators.required),
+    faculties: new FormControl(null, Validators.required),
   });
 
   years = [2021];
@@ -44,7 +46,8 @@ export class AddSemesterComponent implements OnInit {
   constructor(
     private semesterDAO: SemesterDAOService,
     private facultyDAO: FacultyDAOService,
-    private serverTimeService: ServerTimeService
+    private serverTimeService: ServerTimeService,
+    private academicYearReferenceDAO: AcademicYearReferenceDaoService
   ) {
     this.serverTimeService
       .getServerTime()
@@ -66,15 +69,14 @@ export class AddSemesterComponent implements OnInit {
   onSubmit() {
     this.createLoading = true;
     const dataCopy = Object.assign(this.createNew.value, {});
-    const serverData: createSemesterToAllFacultiesRequest = {
+    const serverData: any = {
       semesterYear: `${dataCopy.semesterStartYear}/${+dataCopy.semesterStartYear + 1}`,
       semesterNumber: dataCopy.semesterNumber,
-      facultiesArray: dataCopy.facultiesArray.map((facultyID: string) => {
+      faculties: dataCopy.faculties.map((facultyID: string) => {
         return { id: facultyID };
       }),
     };
-    console.log(serverData, "data");
-    this.semesterDAO.createSemesterToAllFaculties(serverData).subscribe((res) => {
+    this.academicYearReferenceDAO.create(serverData).subscribe((res) => {
       this.openSidebar.emit(false);
       this.createLoading = false;
     });

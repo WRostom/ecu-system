@@ -34,8 +34,8 @@ export class AddCourseForSemesterComponent implements OnInit {
     this.activatedRoute.parent.params.subscribe((parentVal) => {
       if (parentVal && parentVal["id"]) {
         this.pageID = {
-          semesterYear: parentVal["id"]?.split("-")[0].split(".").join("/"),
-          semesterNumber: +parentVal["id"]?.split("-")[1],
+          semesterYear: parentVal["id"]?.split("-")[1].split(".").join("/"),
+          semesterNumber: +parentVal["id"]?.split("-")[2],
         };
       }
       this.activatedRoute.params.subscribe((val) => {
