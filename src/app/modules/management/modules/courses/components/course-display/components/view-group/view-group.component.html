@@ -91,6 +91,7 @@
               <th *tuiHead="'day'" tuiTh>Day</th>
               <th *tuiHead="'startTime'" tuiTh>Start Time</th>
               <th *tuiHead="'endTime'" tuiTh>End Time</th>
+              <th *tuiHead="'type'" tuiTh>Type</th>
               <th *tuiHead="'room'" tuiTh>Room</th>
               <th *tuiHead="'action'" tuiTh [sorter]="null"></th>
             </tr>
@@ -104,6 +105,7 @@
               <td *tuiCell="'day'" tuiTd>{{ item.day }}</td>
               <td *tuiCell="'startTime'" tuiTd>{{ item.startTime | date: "shortTime" }}</td>
               <td *tuiCell="'endTime'" tuiTd>{{ item.endTime | date: "shortTime" }}</td>
+              <td *tuiCell="'type'" tuiTd>{{ item.slotType }}</td>
               <td *tuiCell="'room'" tuiTd>{{ item.room }}</td>
               <td *tuiCell="'action'" tuiTd>
                 <button

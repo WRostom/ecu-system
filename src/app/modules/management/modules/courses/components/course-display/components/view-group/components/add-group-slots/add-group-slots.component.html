@@ -17,6 +17,13 @@
       Choose End Time
     </tui-input-time>
   </label>
+  <label tuiLabel label="Type">
+    <tui-select tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="slotType">
+      Choose Type
+      <input tuiTextfield placeholder="" />
+      <tui-data-list-wrapper *tuiDataList [items]="slotTypeList"></tui-data-list-wrapper>
+    </tui-select>
+  </label>
   <label tuiLabel label="Course Room">
     <tui-input tuiTextfieldSize="m" formControlName="room" [tuiTextfieldLabelOutside]="true">
       Enter Room ID

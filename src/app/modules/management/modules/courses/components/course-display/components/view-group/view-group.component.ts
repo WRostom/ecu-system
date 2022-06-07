@@ -30,7 +30,7 @@ export class ViewGroupComponent implements OnInit {
   courseGroupDataSlotRequest$: Observable<CourseGroupSlot[]>;
   courseGroupDataSlots: any[];
   loadingGroupSlots: boolean = true;
-  columns = ["slotNo", "day", "startTime", "endTime", "room", "action"];
+  columns = ["slotNo", "day", "startTime", "endTime", "type", "room", "action"];
   public personTypes = personTypeString;
 
   constructor(

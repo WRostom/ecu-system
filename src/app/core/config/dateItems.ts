@@ -1,3 +1,5 @@
+import { slotTypes } from "src/app/shared/models/courseGroupSlots";
+
 export enum dayOfTheWeek {
   SUNDAY = "SU",
   MONDAY = "MO",
@@ -19,3 +21,5 @@ export enum dayOfTheWeekNumberEquivalent {
 }
 
 export const daysOfWeek = Object.keys(dayOfTheWeek);
+
+export const slotTypeList = Object.keys(slotTypes);

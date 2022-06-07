@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-import { daysOfWeek } from "@config/dateItems";
+import { daysOfWeek, slotTypeList } from "@config/dateItems";
 import { TUI_DEFAULT_MATCHER, TuiContextWithImplicit, TuiDay, TuiIdentityMatcher, tuiPure, TuiStringHandler, TuiTime } from "@taiga-ui/cdk";
 import { tuiCreateTimePeriods, tuiItemsHandlersProvider } from "@taiga-ui/kit";
 import { zonedTimeToUtc } from "date-fns-tz";
@@ -9,6 +9,7 @@ import { map, share, startWith, switchMap } from "rxjs";
 import { CourseGroupDaoService } from "src/app/core/api/course-group-dao.service";
 import { CourseGroupSlotDAOService } from "src/app/core/api/course-group-slot-dao.service";
 import { EmployeeDAOService } from "src/app/core/api/employee-dao.service";
+import { slotTypes } from "src/app/shared/models/courseGroupSlots";
 import { Employee } from "src/app/shared/models/employee.model";
 
 @Component({
@@ -25,6 +26,7 @@ export class AddGroupSlotsComponent implements OnInit, AfterViewInit {
         day: res.day,
         startTime: new TuiTime(new Date(res.startTime).getHours(), new Date(res.startTime).getMinutes()),
         endTime: new TuiTime(new Date(res.endTime).getHours(), new Date(res.endTime).getMinutes()),
+        slotType: res.slotType,
         room: res.room,
       });
     });
@@ -39,6 +41,7 @@ export class AddGroupSlotsComponent implements OnInit, AfterViewInit {
     day: new FormControl(null, Validators.required),
     startTime: new FormControl(null, Validators.required),
     endTime: new FormControl(null, Validators.required),
+    slotType: new FormControl(null, Validators.required),
     room: new FormControl(null, Validators.required),
   });
   createLoading: boolean = false;
@@ -46,6 +49,7 @@ export class AddGroupSlotsComponent implements OnInit, AfterViewInit {
   timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   public daysOfTheWeek = daysOfWeek;
+  public slotTypeList = slotTypeList;
   timeItems = tuiCreateTimePeriods(8, 18);
 
   employeeData: Employee[];
