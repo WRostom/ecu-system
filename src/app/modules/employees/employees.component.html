@@ -39,7 +39,7 @@
               <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
               <td *tuiCell="'fullName'" tuiTd>{{ item.firstName }} {{ item.lastName }}</td>
               <td *tuiCell="'type'" tuiTd>{{ item.type }}</td>
-              <td *tuiCell="'department'" tuiTd>{{ item?.department?.departName }}</td>
+              <td *tuiCell="'department'" tuiTd>{{ item?.department?.departName ? item?.department?.departName : "-" }}</td>
               <td *tuiCell="'email'" tuiTd>{{ item.email }}</td>
             </tr>
           </tbody>
