@@ -30,7 +30,7 @@ export class AddEmployeeComponent implements OnInit {
         email: res.email,
         facultyId: res.facultyId,
         mobileNumber: res.mobileNumber,
-        departmentID: res.department.id,
+        departmentID: res?.department?.id,
       });
     });
   }
