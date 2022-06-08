@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { map, share } from "rxjs";
 import { AcademicYearReferenceDaoService } from "src/app/core/api/academic-year-reference-dao.service";
 import { SemesterDAOService } from "src/app/core/api/semester-dao.service";
+import { ConfigDataService } from "src/app/core/services/global-config.service";
 import { ServerTimeService } from "src/app/core/services/server-time.service";
 import { AcademicYearReference } from "src/app/shared/models/academicYearReference.model";
 import { Semester } from "src/app/shared/models/semester.model";
@@ -26,7 +27,8 @@ export class SemesterComponent implements OnInit {
   constructor(
     private semesterDAO: SemesterDAOService,
     private serverTimeService: ServerTimeService,
-    private academicYearReferenceDAO: AcademicYearReferenceDaoService
+    private academicYearReferenceDAO: AcademicYearReferenceDaoService,
+    private configData: ConfigDataService
   ) {
     this.serverTimeService.getServerTime().subscribe((time) => {
       this.currentYear = new Date(time).getFullYear();
@@ -35,33 +37,25 @@ export class SemesterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.semesterDataRequest$.subscribe((res) => {
-      res.forEach((semester) => {
-        if (+semester.semesterYear.includes(`${this.currentYear}`)) {
-          if (+semester.semesterYear.split("/")[1] === this.currentYear && this.currentMonth < 7) {
-            this.addToCurrentYear(semester);
-          }
-
-          if (+semester.semesterYear.split("/")[1] === this.currentYear && this.currentMonth > 7) {
-            this.addToPreviousYear(semester);
-          }
-
-          if (+semester.semesterYear.split("/")[0] === this.currentYear && this.currentMonth > 7) {
-            this.addToCurrentYear(semester);
-          }
-
-          if (+semester.semesterYear.split("/")[0] === this.currentYear && this.currentMonth < 7) {
-            this.addToNextYear(semester);
-          }
-        } else {
-          if (+semester.semesterYear.split("/")[0] < this.currentYear) {
-            this.addToPreviousYear(semester);
-          }
-          if (+semester.semesterYear.split("/")[0] > this.currentYear) {
-            this.addToNextYear(semester);
-          }
-        }
-      });
+    this.configData.getAcademicYear().subscribe((academicYear) => {
+      if (academicYear.length > 0) {
+        this.semesterDataRequest$.subscribe((res) => {
+          res.forEach((semester) => {
+            if (semester.semesterYear == academicYear) {
+              this.addToCurrentYear(semester);
+            } else {
+              if (+semester.semesterYear.split("/")[0] < +academicYear.split("/")[0]) {
+                this.addToPreviousYear(semester);
+              }
+              console.log(+semester.semesterYear.split("/")[0], "semesterData");
+              console.log(+academicYear.split("/")[0], "configSemester");
+              if (+semester.semesterYear.split("/")[0] > +academicYear.split("/")[0]) {
+                this.addToNextYear(semester);
+              }
+            }
+          });
+        });
+      }
     });
   }
 
