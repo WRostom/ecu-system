@@ -50,7 +50,7 @@ export class AddGroupSlotsComponent implements OnInit, AfterViewInit {
 
   public daysOfTheWeek = daysOfWeek;
   public slotTypeList = slotTypeList;
-  timeItems = tuiCreateTimePeriods(8, 18);
+  timeItems = tuiCreateTimePeriods(8, 18, [0, 15, 30, 45]);
 
   employeeData: Employee[];
 
