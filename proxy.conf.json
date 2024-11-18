@@ -1,6 +1,6 @@
 {
   "/local/*": {
-    "target": "http://41.128.185.62:8060",
+    "target": "http://41.128.185.62:8060", // DEAD URL
     "secure": false,
     "changeOrigin": true,
     "logLevel": "info",
